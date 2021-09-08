@@ -1,0 +1,8 @@
+p.has-background {
+    padding: var(--wp--custom--spacer--v) var(--wp--custom--spacer--h)
+}
+
+.wp-block-image img {
+    max-width: 100%;
+    height: auto;
+}
