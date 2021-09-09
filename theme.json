@@ -74,27 +74,27 @@
                 },
                 {
                     "slug": "h1",
-                    "size": "var(--wp--preset--font-size--base)",
+                    "size": "calc(var(--wp--preset--font-size--base) * 2.5)",
                     "name": "Used in H1 titles"
                 },
                 {
                     "slug": "h2",
-                    "size": "var(--wp--preset--font-size--base)",
+                    "size": "calc(var(--wp--preset--font-size--base) * 2)",
                     "name": "Used in H2 titles"
                 },
                 {
                     "slug": "h3",
-                    "size": "var(--wp--preset--font-size--base)",
+                    "size": "calc(var(--wp--preset--font-size--base) * 1.75)",
                     "name": "Used in H3 titles"
                 },
                 {
                     "slug": "h4",
-                    "size": "var(--wp--preset--font-size--base)",
+                    "size": "calc(var(--wp--preset--font-size--base) * 1.5)",
                     "name": "Used in H4 titles"
                 },
                 {
                     "slug": "h5",
-                    "size": "var(--wp--preset--font-size--base)",
+                    "size": "calc(var(--wp--preset--font-size--base) * 1.25)",
                     "name": "Used in H5 titles"
                 },
                 {

@@ -108,7 +108,11 @@ class Preset implements Collection {
 			);
 
 			if ( \array_key_exists( 1, $matches ) ) {
-				$this->collection[ $key ][ $this->key ] = $this->varFor( (string) $matches[1] );
+				$this->collection[ $key ][ $this->key ] = \str_replace(
+					$matches[0],
+					$this->varFor( (string) $matches[1] ),
+					$this->collection[ $key ][ $this->key ]
+				);
 			}
 		}
 

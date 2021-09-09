@@ -112,26 +112,27 @@ class ColorPaletteCollectionTest extends Unit {
 	/**
 	 * @test
 	 */
-	public function itShouldThrownExceptionIfPropDoesNotExisthgg() {
+	public function itShouldReplaceStringPlaceholder() {
 
 		$this->collection = [
 			[
-				'slug'	=> 'primary',
-				'color'	=> '#ffffff',
+				'slug'	=> 'base',
+				'size'	=> '20px',
 			],
 			[
-				'slug'	=> 'secondary',
-				'color'	=> '{{primary}}',
+				'slug'	=> 'h1',
+				'size'	=> 'calc({{base}}*2)',
 			],
 		];
 
-		$this->category = 'color';
+		$this->category = 'fontSize';
+		$this->key = 'size';
 
 		$sut = $this->getInstance();
 
 		$this->assertStringContainsString(
-			'var(--wp--preset--color--primary)',
-			$sut->value('secondary' ),
+			'calc(var(--wp--preset--font-size--base)*2)',
+			$sut->value('h1' ),
 			''
 		);
 	}
