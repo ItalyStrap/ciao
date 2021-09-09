@@ -50,7 +50,22 @@ class ColorPaletteCollectionTest extends Unit {
 	/**
 	 * @test
 	 */
-	public function itShouldReturnValue() {
+	public function itShouldHaveCategory() {
+		$expected = 'expected';
+		$this->category = $expected;
+		$sut = $this->getInstance();
+
+		$this->assertStringContainsString(
+			$expected,
+			$sut->category(),
+			''
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function itShouldReturnValidValue() {
 
 		$sut = $this->getInstance();
 

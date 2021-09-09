@@ -43,9 +43,9 @@ class Preset implements Collection {
 	}
 
 	/**
-	 * @return string
+	 * @inerhitDoc
 	 */
-	private function category(): string {
+	public function category(): string {
 		return $this->category;
 	}
 

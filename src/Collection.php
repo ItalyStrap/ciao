@@ -6,6 +6,11 @@ namespace ItalyStrap\ExperimentalTheme;
 interface Collection
 {
 	/**
+	 * @return string
+	 */
+	public function category(): string;
+
+	/**
 	 * @param string $slug
 	 * @return string
 	 */
