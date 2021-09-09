@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace ItalyStrap\Tests;
 
 use Codeception\Test\Unit;
-use ItalyStrap\ExperimentalTheme\JsonData;
+use ItalyStrap\ExperimentalTheme\Preset;
 
 class ColorPaletteCollectionTest extends Unit {
 
@@ -12,7 +12,22 @@ class ColorPaletteCollectionTest extends Unit {
 	 * @var \UnitTester
 	 */
 	protected $tester;
-	
+
+	/**
+	 * @var \string[][]
+	 */
+	private $collection;
+
+	/**
+	 * @var string
+	 */
+	private $category;
+
+	/**
+	 * @var string
+	 */
+	private $key = '';
+
 	protected function _before() {
 		$this->collection = [
 			[
@@ -27,8 +42,8 @@ class ColorPaletteCollectionTest extends Unit {
 	}
 
 	protected function getInstance() {
-		$sut = new JsonData( $this->collection, $this->category );
-		$this->assertInstanceOf( JsonData::class, $sut, '' );
+		$sut = new Preset( $this->collection, $this->category, $this->key );
+		$this->assertInstanceOf( Preset::class, $sut, '' );
 		return $sut;
 	}
 
@@ -56,7 +71,7 @@ class ColorPaletteCollectionTest extends Unit {
 
 		$this->assertStringContainsString(
 			'--wp--preset--color--primary',
-			$sut->cssProp('primary' ),
+			$sut->propFor('primary' ),
 			''
 		);
 	}
@@ -69,7 +84,7 @@ class ColorPaletteCollectionTest extends Unit {
 
 		$this->assertStringContainsString(
 			'var(--wp--preset--color--primary)',
-			$sut->cssFuncVar('primary' ),
+			$sut->varFor('primary' ),
 			''
 		);
 	}
@@ -91,7 +106,34 @@ class ColorPaletteCollectionTest extends Unit {
 		$sut = $this->getInstance();
 		$this->expectException( \RuntimeException::class );
 		$this->expectExceptionMessage('secondary does not exists.');
-		$prop = $sut->cssProp('secondary' );
+		$prop = $sut->propFor('secondary' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function itShouldThrownExceptionIfPropDoesNotExisthgg() {
+
+		$this->collection = [
+			[
+				'slug'	=> 'primary',
+				'color'	=> '#ffffff',
+			],
+			[
+				'slug'	=> 'secondary',
+				'color'	=> '{{primary}}',
+			],
+		];
+
+		$this->category = 'color';
+
+		$sut = $this->getInstance();
+
+		$this->assertStringContainsString(
+			'var(--wp--preset--color--primary)',
+			$sut->value('secondary' ),
+			''
+		);
 	}
 
 	/**
@@ -99,7 +141,7 @@ class ColorPaletteCollectionTest extends Unit {
 	 */
 	public function itShouldReturnTheCollection() {
 		$sut = $this->getInstance();
-		$collection = $sut->collection();
+		$collection = $sut->toArray();
 
 		$this->assertEquals($this->collection, $collection, '');
 	}

@@ -7,73 +7,6 @@ use Spatie\Color\Factory;
 
 final class JsonData {
 
-	/**
-	 * @var array
-	 */
-	private $collection;
-
-	/**
-	 * @var string
-	 */
-	private $category;
-
-	public function __construct( array $collection, string $category ) {
-		$this->collection = $collection;
-		$this->category = $category;
-	}
-
-	/**
-	 * @link https://stackoverflow.com/a/40514305/7486194
-	 * @param $string
-	 * @param string $us
-	 * @return string
-	 */
-	private function camelToUnderscore( string $string, string $us = '-' ): string {
-		return strtolower(preg_replace(
-			'/(?<=\d)(?=[A-Za-z])|(?<=[A-Za-z])(?=\d)|(?<=[a-z])(?=[A-Z])/', $us, $string));
-	}
-
-	private function category(): string {
-		return $this->category;
-	}
-
-	public function cssProp( string $slug ): string {
-
-		foreach ( $this->collection as $item ) {
-			if ( \in_array( $slug, $item, true ) ) {
-				return \sprintf(
-					'--wp--preset--%s--%s',
-					$this->camelToUnderscore( $this->category() ),
-					$this->camelToUnderscore( $slug )
-				);
-			}
-		}
-
-		throw new \RuntimeException("{$slug} does not exists." );
-	}
-
-	public function cssFuncVar( string $slug ): string {
-		return \sprintf(
-			'var(%s)',
-			$this->cssProp( $slug )
-		);
-	}
-
-	public function value( string $slug ): string {
-
-		foreach ( $this->collection as $item ) {
-			if ( \in_array( $slug, $item, true ) ) {
-				return $item['color'];
-			}
-		}
-
-		throw new \RuntimeException("Value of {$slug} does not exists." );
-	}
-
-	public function collection(): array {
-		return $this->collection;
-	}
-
 	public static function getJsonData(): array {
 
 		$color_background = Factory::fromString('#ffffff');
@@ -81,7 +14,7 @@ final class JsonData {
 		$color_base = Factory::fromString('#3986E0');
 		$border_color = Factory::fromString('#cccccc');
 
-		$palette = new self(
+		$palette = new Preset(
 			[
 				[
 					"slug" => "text",
@@ -102,22 +35,22 @@ final class JsonData {
 			'color'
 		);
 
-		$gradient = new self(
+		$gradient = new Preset(
 			[
 				[
-					"slug" => "black-to-white",
-							"gradient" => \sprintf(
-								'linear-gradient(160deg,%s,%s)',
-								$palette->cssFuncVar('text'),
-								$palette->cssFuncVar('background')
-							),
-							"name" => "Black to white"
+					"slug"		=> "black-to-white",
+					"gradient"	=> \sprintf(
+						'linear-gradient(160deg,%s,%s)',
+						$palette->varFor('text'),
+						$palette->varFor('background')
+					),
+					"name"		=> "Black to white"
 				],
 			],
 			'gradient'
 		);
 
-		$font_sizes = new self(
+		$font_sizes = new Preset(
 			[
 				[
 					"slug" => "base",
@@ -126,39 +59,40 @@ final class JsonData {
 				],
 				[
 					"slug" => "h1",
-					"size" => "calc(var(--wp--preset--font-size--base) * 2.5)",
+					"size" => "calc({{base}} * 2.5)",
 					"name" => "Used in H1 titles"
 				],
 				[
 					"slug" => "h2",
-					"size" => "calc(var(--wp--preset--font-size--base) * 2)",
+					"size" => "calc({{base}} * 2)",
 					"name" => "Used in H2 titles"
 				],
 				[
 					"slug" => "h3",
-					"size" => "calc(var(--wp--preset--font-size--base) * 1.75)",
+					"size" => "calc({{base}} * 1.75)",
 					"name" => "Used in H3 titles"
 				],
 				[
 					"slug" => "h4",
-					"size" => "calc(var(--wp--preset--font-size--base) * 1.5)",
+					"size" => "calc({{base}} * 1.5)",
 					"name" => "Used in H4 titles"
 				],
 				[
 					"slug" => "h5",
-					"size" => "calc(var(--wp--preset--font-size--base) * 1.25)",
+					"size" => "calc({{base}} * 1.25)",
 					"name" => "Used in H5 titles"
 				],
 				[
 					"slug" => "h6",
-					"size" => "var(--wp--preset--font-size--base)",
+					"size" => "{{base}}",
 					"name" => "Used in H6 titles"
 				],
 			],
-			'font-size'
+			'fontSize',
+			'size'
 		);
 
-		$font_family = new self(
+		$font_family = new Preset(
 			[
 				[
 					'fontFamily' => 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
@@ -171,18 +105,18 @@ final class JsonData {
 					"name" => "Font family for code",
 				],
 			],
-			'font-family'
+			'fontFamily'
 		);
 
 		return [
 			'version' => 1,
 			'settings' => [
 				'color' => [
-					'custom' => true,
-					'link'	=> true,
-					'palette' => $palette->collection(),
-					'gradients' => $gradient->collection(),
-					'duotone' => [
+					'custom'	=> true,
+					'link'		=> true,
+					'palette'	=> $palette->toArray(),
+					'gradients'	=> $gradient->toArray(),
+					'duotone'	=> [
 						[
 							'colors' => [
 								(string) $color_text->toHex(),
@@ -220,8 +154,8 @@ final class JsonData {
 				'typography' => [
 					'customFontSize'	=> true,
 					'customLineHeight'	=> true,
-					'fontSizes'			=> $font_sizes->collection(),
-					'fontFamilies'		=> $font_family->collection(),
+					'fontSizes'			=> $font_sizes->toArray(),
+					'fontFamilies'		=> $font_family->toArray(),
 				],
 				'spacing' => [
 					'customMargin' => true,
@@ -281,12 +215,12 @@ final class JsonData {
 					'width' => '',
 				],
 				'color' => [
-					'background' => $palette->cssFuncVar( 'background' ),
-					'text' => $palette->cssFuncVar( 'text' ),
+					'background' => $palette->varFor( 'background' ),
+					'text' => $palette->varFor( 'text' ),
 				],
 				'typography' => [
-					'fontFamily'	=> $font_family->cssFuncVar('base'),
-					'fontSize'	=> $font_sizes->cssFuncVar( 'base' ),
+					'fontFamily'	=> $font_family->varFor('base'),
+					'fontSize'	=> $font_sizes->varFor( 'base' ),
 					'fontStyle'	=> '',
 					'fontWeight'	=> '',
 					'lineHeight' => 'var(--wp--custom--line-height--medium)',
@@ -313,39 +247,57 @@ final class JsonData {
 					'link' => [
 						'border' => [],
 						'color' => [
-							'text' => $palette->cssFuncVar( 'text' ),
+							'text' => $palette->varFor( 'text' ),
 						],
 						'spacing' => [],
 						'typography' => [],
 					],
 					'h1' => [
 						'typography' => [
-							'fontSize' => $font_sizes->cssFuncVar('h1'),
+							'fontSize' => $font_sizes->varFor('h1'),
+						],
+						'spacing'	=> [
+							'blockGap'	=> '4rem',
 						],
 					],
 					'h2' => [
 						'typography' => [
-							'fontSize' => $font_sizes->cssFuncVar('h2'),
+							'fontSize' => $font_sizes->varFor('h2'),
+						],
+						'spacing'	=> [
+							'blockGap'	=> '4rem',
 						],
 					],
 					'h3' => [
 						'typography' => [
-							'fontSize' => $font_sizes->cssFuncVar('h3'),
+							'fontSize' => $font_sizes->varFor('h3'),
+						],
+						'spacing'	=> [
+							'blockGap'	=> '4rem',
 						],
 					],
 					'h4' => [
 						'typography' => [
-							'fontSize' => $font_sizes->cssFuncVar('h4'),
+							'fontSize' => $font_sizes->varFor('h4'),
+						],
+						'spacing'	=> [
+							'blockGap'	=> '4rem',
 						],
 					],
 					'h5' => [
 						'typography' => [
-							'fontSize' => $font_sizes->cssFuncVar('h5'),
+							'fontSize' => $font_sizes->varFor('h5'),
+						],
+						'spacing'	=> [
+							'blockGap'	=> '4rem',
 						],
 					],
 					'h6' => [
 						'typography' => [
-							'fontSize' => $font_sizes->cssFuncVar('h6'),
+							'fontSize' => $font_sizes->varFor('h6'),
+						],
+						'spacing'	=> [
+							'blockGap'	=> '4rem',
 						],
 					],
 				],
@@ -363,32 +315,32 @@ final class JsonData {
 					],
 					'core/paragraph' => [
 						'color' => [
-							'text' => $palette->cssFuncVar( 'text' ),
+							'text' => $palette->varFor( 'text' ),
 						],
 					],
 					'core/button' => [
 						'border' => [
 							'radius' => \sprintf(
 								'calc(%s/4)',
-								$font_sizes->cssFuncVar('base')
+								$font_sizes->varFor('base')
 							),
 //							'color' => '',
 							'style' => 'solid',
 							'width' => '1px',
 						],
 						'color' => [
-							'background' => $palette->cssFuncVar('base'),
-							'text' => $palette->cssFuncVar('background'),
+							'background' => $palette->varFor('base'),
+							'text' => $palette->varFor('background'),
 						],
 						'typography' => [
-							'fontFamily'		=> $font_family->cssFuncVar('base'),
-							'fontSize'			=> $font_sizes->cssFuncVar('base'),
+							'fontFamily'		=> $font_family->varFor('base'),
+							'fontSize'			=> $font_sizes->varFor('base'),
 							'text-transform'	=> 'uppercase',
 						],
 					],
 					'core/code' => [
 						'typography' => [
-							'fontFamily'	=> $font_family->cssFuncVar('monospace'),
+							'fontFamily'	=> $font_family->varFor('monospace'),
 						],
 						'spacing' => [
 							'padding' => [
@@ -469,7 +421,7 @@ final class JsonData {
 //					],
 					'core/quote' => [
 						'border' => [
-							'color' => $palette->cssFuncVar('text'),
+							'color' => $palette->varFor('text'),
 							'style' => 'solid',
 							'width' => '0 0 0 1px',
 						],
@@ -479,7 +431,7 @@ final class JsonData {
 							],
 						],
 						'typography' => [
-							'fontSize' => $font_sizes->cssFuncVar('base'),
+							'fontSize' => $font_sizes->varFor('base'),
 							'fontStyle' => 'normal',
 						],
 					],

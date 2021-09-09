@@ -74,27 +74,27 @@
                 },
                 {
                     "slug": "h1",
-                    "size": "calc(var(--wp--preset--font-size--base) * 2.5)",
+                    "size": "var(--wp--preset--font-size--base)",
                     "name": "Used in H1 titles"
                 },
                 {
                     "slug": "h2",
-                    "size": "calc(var(--wp--preset--font-size--base) * 2)",
+                    "size": "var(--wp--preset--font-size--base)",
                     "name": "Used in H2 titles"
                 },
                 {
                     "slug": "h3",
-                    "size": "calc(var(--wp--preset--font-size--base) * 1.75)",
+                    "size": "var(--wp--preset--font-size--base)",
                     "name": "Used in H3 titles"
                 },
                 {
                     "slug": "h4",
-                    "size": "calc(var(--wp--preset--font-size--base) * 1.5)",
+                    "size": "var(--wp--preset--font-size--base)",
                     "name": "Used in H4 titles"
                 },
                 {
                     "slug": "h5",
-                    "size": "calc(var(--wp--preset--font-size--base) * 1.25)",
+                    "size": "var(--wp--preset--font-size--base)",
                     "name": "Used in H5 titles"
                 },
                 {
@@ -201,31 +201,49 @@
             "h1": {
                 "typography": {
                     "fontSize": "var(--wp--preset--font-size--h-1)"
+                },
+                "spacing": {
+                    "blockGap": "4rem"
                 }
             },
             "h2": {
                 "typography": {
                     "fontSize": "var(--wp--preset--font-size--h-2)"
+                },
+                "spacing": {
+                    "blockGap": "4rem"
                 }
             },
             "h3": {
                 "typography": {
                     "fontSize": "var(--wp--preset--font-size--h-3)"
+                },
+                "spacing": {
+                    "blockGap": "4rem"
                 }
             },
             "h4": {
                 "typography": {
                     "fontSize": "var(--wp--preset--font-size--h-4)"
+                },
+                "spacing": {
+                    "blockGap": "4rem"
                 }
             },
             "h5": {
                 "typography": {
                     "fontSize": "var(--wp--preset--font-size--h-5)"
+                },
+                "spacing": {
+                    "blockGap": "4rem"
                 }
             },
             "h6": {
                 "typography": {
                     "fontSize": "var(--wp--preset--font-size--h-6)"
+                },
+                "spacing": {
+                    "blockGap": "4rem"
                 }
             }
         },
