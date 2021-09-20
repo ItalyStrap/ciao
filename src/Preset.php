@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace ItalyStrap\ExperimentalTheme;
 
-class Preset implements Collection {
+class Preset implements CollectionInterface {
 
 	/**
 	 * @var array[]
@@ -21,6 +21,11 @@ class Preset implements Collection {
 	private $key;
 
 	/**
+	 * @var CollectionInterface[]
+	 */
+	private $collection_of_collections = [];
+
+	/**
 	 * @param array[] $collection
 	 * @param string $category
 	 * @param string $key
@@ -29,17 +34,6 @@ class Preset implements Collection {
 		$this->collection = $collection;
 		$this->category = $category;
 		$this->key = '' === $key ? $category : $key ;
-	}
-
-	/**
-	 * @link https://stackoverflow.com/a/40514305/7486194
-	 * @param string $string
-	 * @param string $us
-	 * @return string
-	 */
-	private function camelToUnderscore( string $string, string $us = '-' ): string {
-		return \strtolower( \preg_replace(
-			'/(?<=\d)(?=[A-Za-z])|(?<=[A-Za-z])(?=\d)|(?<=[a-z])(?=[A-Z])/', $us, $string ) );
 	}
 
 	/**
@@ -52,7 +46,7 @@ class Preset implements Collection {
 	/**
 	 * @inerhitDoc
 	 */
-	public function propFor( string $slug ): string {
+	public function propOf( string $slug ): string {
 
 		foreach ( $this->collection as $item ) {
 			if ( \in_array( $slug, $item, true ) ) {
@@ -70,10 +64,10 @@ class Preset implements Collection {
 	/**
 	 * @inerhitDoc
 	 */
-	public function varFor( string $slug ): string {
+	public function varOf( string $slug ): string {
 		return \sprintf(
 			'var(%s)',
-			$this->propFor( $slug )
+			$this->propOf( $slug )
 		);
 	}
 
@@ -101,21 +95,68 @@ class Preset implements Collection {
 
 		foreach ( $this->collection as $key => $item ) {
 
-			\preg_match(
-				'/{{(.*?)}}/i',
-				$item[$this->key],
+			\preg_match_all(
+				'/(?:{{.*?}})+/',
+				$item[ $this->key ],
 				$matches
 			);
 
-			if ( \array_key_exists( 1, $matches ) ) {
+			foreach ( $matches[0] as $match ) {
 				$this->collection[ $key ][ $this->key ] = \str_replace(
-					$matches[0],
-					$this->varFor( (string) $matches[1] ),
+					$match,
+					$this->findValue( \str_replace( ['{{', '}}' ], '', $match ) ),
 					$this->collection[ $key ][ $this->key ]
 				);
 			}
 		}
 
 		return $this->collection;
+	}
+
+	public function withCollection( CollectionInterface ...$collections ) {
+		$this->collection_of_collections = \array_merge_recursive(
+			$this->collection_of_collections,
+			$collections
+		);
+	}
+
+	/**
+	 * @param string $slug_or_default
+	 * @return mixed|string
+	 */
+	private function findValue( string $slug_or_default ) {
+
+		/** @var array $splitted_values */
+		$splitted_values = \explode( '|', $slug_or_default, 2 );
+
+		$value = $splitted_values[ 1 ] ?? '';
+
+		try {
+			$value = $this->varOf( $splitted_values[ 0 ] );
+		} catch (\RuntimeException $exception) {
+			// fail in silence
+		}
+
+		if ( false !== \strpos( $splitted_values[0], '.' ) ) {
+			$search_in_collection = \explode('.', $splitted_values[0] );
+			foreach ( $this->collection_of_collections as $collection ) {
+				if ( $collection->category() === $search_in_collection[ 0 ] ) {
+					$value = $collection->varOf( $search_in_collection[ 1 ] );
+				}
+			}
+		}
+
+		return $value;
+	}
+
+	/**
+	 * @link https://stackoverflow.com/a/40514305/7486194
+	 * @param string $string
+	 * @param string $us
+	 * @return string
+	 */
+	private function camelToUnderscore( string $string, string $us = '-' ): string {
+		return \strtolower( \preg_replace(
+			'/(?<=\d)(?=[A-Za-z])|(?<=[A-Za-z])(?=\d)|(?<=[a-z])(?=[A-Z])/', $us, $string ) );
 	}
 }

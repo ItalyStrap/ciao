@@ -41,14 +41,16 @@ final class JsonData {
 					"slug"		=> "black-to-white",
 					"gradient"	=> \sprintf(
 						'linear-gradient(160deg,%s,%s)',
-						$palette->varFor('text'),
-						$palette->varFor('background')
+						'{{color.text}}',
+						'{{color.background}}'
 					),
 					"name"		=> "Black to white"
 				],
 			],
 			'gradient'
 		);
+
+		$gradient->withCollection( $palette );
 
 		$font_sizes = new Preset(
 			[
@@ -215,12 +217,12 @@ final class JsonData {
 					'width' => '',
 				],
 				'color' => [
-					'background' => $palette->varFor( 'background' ),
-					'text' => $palette->varFor( 'text' ),
+					'background' => $palette->varOf( 'background' ),
+					'text' => $palette->varOf( 'text' ),
 				],
 				'typography' => [
-					'fontFamily'	=> $font_family->varFor('base'),
-					'fontSize'	=> $font_sizes->varFor( 'base' ),
+					'fontFamily'	=> $font_family->varOf('base'),
+					'fontSize'	=> $font_sizes->varOf( 'base' ),
 					'fontStyle'	=> '',
 					'fontWeight'	=> '',
 					'lineHeight' => 'var(--wp--custom--line-height--medium)',
@@ -247,14 +249,14 @@ final class JsonData {
 					'link' => [
 						'border' => [],
 						'color' => [
-							'text' => $palette->varFor( 'text' ),
+							'text' => $palette->varOf( 'text' ),
 						],
 						'spacing' => [],
 						'typography' => [],
 					],
 					'h1' => [
 						'typography' => [
-							'fontSize' => $font_sizes->varFor('h1'),
+							'fontSize' => $font_sizes->varOf('h1'),
 						],
 						'spacing'	=> [
 							'blockGap'	=> '4rem',
@@ -262,7 +264,7 @@ final class JsonData {
 					],
 					'h2' => [
 						'typography' => [
-							'fontSize' => $font_sizes->varFor('h2'),
+							'fontSize' => $font_sizes->varOf('h2'),
 						],
 						'spacing'	=> [
 							'blockGap'	=> '4rem',
@@ -270,7 +272,7 @@ final class JsonData {
 					],
 					'h3' => [
 						'typography' => [
-							'fontSize' => $font_sizes->varFor('h3'),
+							'fontSize' => $font_sizes->varOf('h3'),
 						],
 						'spacing'	=> [
 							'blockGap'	=> '4rem',
@@ -278,7 +280,7 @@ final class JsonData {
 					],
 					'h4' => [
 						'typography' => [
-							'fontSize' => $font_sizes->varFor('h4'),
+							'fontSize' => $font_sizes->varOf('h4'),
 						],
 						'spacing'	=> [
 							'blockGap'	=> '4rem',
@@ -286,7 +288,7 @@ final class JsonData {
 					],
 					'h5' => [
 						'typography' => [
-							'fontSize' => $font_sizes->varFor('h5'),
+							'fontSize' => $font_sizes->varOf('h5'),
 						],
 						'spacing'	=> [
 							'blockGap'	=> '4rem',
@@ -294,7 +296,7 @@ final class JsonData {
 					],
 					'h6' => [
 						'typography' => [
-							'fontSize' => $font_sizes->varFor('h6'),
+							'fontSize' => $font_sizes->varOf('h6'),
 						],
 						'spacing'	=> [
 							'blockGap'	=> '4rem',
@@ -315,32 +317,32 @@ final class JsonData {
 					],
 					'core/paragraph' => [
 						'color' => [
-							'text' => $palette->varFor( 'text' ),
+							'text' => $palette->varOf( 'text' ),
 						],
 					],
 					'core/button' => [
 						'border' => [
 							'radius' => \sprintf(
 								'calc(%s/4)',
-								$font_sizes->varFor('base')
+								$font_sizes->varOf('base')
 							),
 //							'color' => '',
 							'style' => 'solid',
 							'width' => '1px',
 						],
 						'color' => [
-							'background' => $palette->varFor('base'),
-							'text' => $palette->varFor('background'),
+							'background' => $palette->varOf('base'),
+							'text' => $palette->varOf('background'),
 						],
 						'typography' => [
-							'fontFamily'		=> $font_family->varFor('base'),
-							'fontSize'			=> $font_sizes->varFor('base'),
+							'fontFamily'		=> $font_family->varOf('base'),
+							'fontSize'			=> $font_sizes->varOf('base'),
 							'text-transform'	=> 'uppercase',
 						],
 					],
 					'core/code' => [
 						'typography' => [
-							'fontFamily'	=> $font_family->varFor('monospace'),
+							'fontFamily'	=> $font_family->varOf('monospace'),
 						],
 						'spacing' => [
 							'padding' => [
@@ -421,7 +423,7 @@ final class JsonData {
 //					],
 					'core/quote' => [
 						'border' => [
-							'color' => $palette->varFor('text'),
+							'color' => $palette->varOf('text'),
 							'style' => 'solid',
 							'width' => '0 0 0 1px',
 						],
@@ -431,7 +433,7 @@ final class JsonData {
 							],
 						],
 						'typography' => [
-							'fontSize' => $font_sizes->varFor('base'),
+							'fontSize' => $font_sizes->varOf('base'),
 							'fontStyle' => 'normal',
 						],
 					],

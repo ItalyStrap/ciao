@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace ItalyStrap\ExperimentalTheme;
 
-interface Collection
+interface CollectionInterface
 {
 	/**
 	 * @return string
@@ -14,13 +14,13 @@ interface Collection
 	 * @param string $slug
 	 * @return string
 	 */
-	public function propFor( string $slug ): string;
+	public function propOf( string $slug ): string;
 
 	/**
 	 * @param string $slug
 	 * @return string
 	 */
-	public function varFor( string $slug ): string;
+	public function varOf( string $slug ): string;
 
 	/**
 	 * @param string $slug
