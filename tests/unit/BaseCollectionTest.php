@@ -43,21 +43,6 @@ abstract class BaseCollectionTest extends Unit
 	/**
 	 * @test
 	 */
-	public function itShouldHaveCategory() {
-		$expected = 'expected';
-		$this->category = $expected;
-		$sut = $this->getInstance();
-
-		$this->assertStringMatchesFormat(
-			$expected,
-			$sut->category(),
-			''
-		);
-	}
-
-	/**
-	 * @test
-	 */
 	public function itShouldReturnTheCollection() {
 		$sut = $this->getInstance();
 		$collection = $sut->toArray();

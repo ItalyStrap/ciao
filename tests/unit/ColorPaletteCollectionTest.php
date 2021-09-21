@@ -34,6 +34,21 @@ final class ColorPaletteCollectionTest extends BaseCollectionTest {
 	}
 
 	/**
+	 * @test
+	 */
+	public function itShouldHaveCategory() {
+		$expected = 'expected';
+		$this->category = $expected;
+		$sut = $this->getInstance();
+
+		$this->assertStringMatchesFormat(
+			$expected,
+			$sut->category(),
+			''
+		);
+	}
+
+	/**
 	 * @see BaseCollectionTest
 	 * @return \Generator
 	 */
@@ -201,25 +216,61 @@ final class ColorPaletteCollectionTest extends BaseCollectionTest {
 		 * 	// expected
 		 *  // slug
 		 *  // value
+		 * $category,
+		string $key,
+		array $colection
 		 * ]
 		 */
 
 		yield 'Base with CSS property' => [
 			'calc(var(--wp--preset--font-size--base)*2)',
 			'h1',
-			'calc({{base}}*2)',
+			'fontSize',
+			'size',
+			[
+				[
+					'slug'	=> 'base',
+					'size'	=> '20px',
+				],
+				[
+					'slug'	=> 'h1',
+					'size'	=> 'calc({{base}}*2)',
+				],
+			],
 		];
 
 		yield 'With Default Value 20px' => [
 			'calc(20px*2)',
 			'h2',
-			'calc({{propInexistent|20px}}*2)',
+			'fontSize',
+			'size',
+			[
+				[
+					'slug'	=> 'base',
+					'size'	=> '20px',
+				],
+				[
+					'slug'	=> 'h2',
+					'size'	=> 'calc({{propInexistent|20px}}*2)',
+				],
+			],
 		];
 
 		yield 'Accept only the first two value separated from |' => [
 			'20px|15',
 			'h2',
-			'{{propInexistent|20px|15}}',
+			'fontSize',
+			'size',
+			[
+				[
+					'slug'	=> 'base',
+					'size'	=> '20px',
+				],
+				[
+					'slug'	=> 'h2',
+					'size'	=> '{{propInexistent|20px|15}}',
+				],
+			],
 		];
 	}
 
@@ -230,22 +281,15 @@ final class ColorPaletteCollectionTest extends BaseCollectionTest {
 	public function itShouldReplaceStringPlaceholder(
 		string $expected,
 		string $slug,
-		string $value
+		string $category,
+		string $key,
+		array $collection
 	) {
 
-		$this->collection = [
-			[
-				'slug'	=> 'base',
-				'size'	=> '20px',
-			],
-			[
-				'slug'	=> $slug,
-				'size'	=> $value,
-			],
-		];
+		$this->collection = $collection;
 
-		$this->category = 'fontSize';
-		$this->key = 'size';
+		$this->category = $category;
+		$this->key = $key;
 
 		$sut = $this->getInstance();
 

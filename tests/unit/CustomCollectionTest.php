@@ -37,19 +37,27 @@ class CustomCollectionTest extends BaseCollectionTest
 				],
 			],
 		];
-
-		$this->category = 'custom';
 	}
 
-    protected function _after()
-    {
-    }
-
 	protected function getInstance(): CollectionInterface {
-		$sut = new Custom( $this->collection, $this->category );
+		$sut = new Custom( $this->collection );
 		$this->assertInstanceOf( CollectionInterface::class, $sut, '' );
 		$this->assertInstanceOf( Custom::class, $sut, '' );
 		return $sut;
+	}
+
+	/**
+	 * @test
+	 */
+	public function itShouldHaveCategory() {
+		$expected = 'custom';
+		$sut = $this->getInstance();
+
+		$this->assertStringMatchesFormat(
+			$expected,
+			$sut->category(),
+			''
+		);
 	}
 
 	/**
@@ -143,6 +151,114 @@ class CustomCollectionTest extends BaseCollectionTest
 		$this->assertStringMatchesFormat(
 			$expected,
 			$sut->propOf( $slug ),
+			''
+		);
+	}
+
+	public function placeholderProvider() {
+
+		/**
+		 * [
+		 * 	// expected
+		 *  // slug
+		 *  // value
+		 * $category,
+		string $key,
+		array $colection
+		 * ]
+		 */
+
+		yield 'Only spacer' => [
+			'calc(var(--wp--custom--base)*4)',
+			'spacer',
+			'fontSize',
+			'size',
+			[
+				'base'	=> '1rem',
+				'spacer' => 'calc({{base}}*4)',
+			],
+		];
+
+		yield 'Spacer * Base' => [
+			'calc(var(--wp--custom--base)*var(--wp--custom--double))',
+			'spacer',
+			'fontSize',
+			'size',
+			[
+				'base'	=> '1rem',
+				'double'	=> '2rem',
+				'spacer' => 'calc({{base}}*{{double}})',
+			],
+		];
+
+		yield 'Spacer base' => [
+			'calc(var(--wp--custom--spacer--base)*4)',
+			'spacer.v',
+			'fontSize',
+			'size',
+			[
+				'spacer' => [
+					'base'	=> '1rem',
+					'v'		=> 'calc({{spacer.base}}*4)',
+				],
+			],
+		];
+
+		yield 'Sub Key Spacer base' => [
+			'calc(var(--wp--custom--spacer--base)*4)',
+			'spacer.sub.v',
+			'fontSize',
+			'size',
+			[
+				'spacer' => [
+					'base'	=> '1rem',
+					'sub'		=> [
+						'v'	=> 'calc({{spacer.base}}*4)',
+					],
+				],
+			],
+		];
+
+		yield 'Sub Value Spacer base' => [
+			'calc(var(--wp--custom--spacer--base--value)*4)',
+			'spacer.sub.v',
+			'fontSize',
+			'size',
+			[
+				'spacer' => [
+					'base'	=> [
+						'value'	=> '1rem'
+					],
+					'sub'		=> [
+						'v'	=> 'calc({{spacer.base.value}}*4)',
+					],
+				],
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider placeholderProvider
+	 * @test
+	 */
+	public function itShouldReplaceStringPlaceholder(
+		string $expected,
+		string $slug,
+		string $category,
+		string $key,
+		array $collection
+	) {
+
+		$this->collection = $collection;
+
+		$this->category = $category;
+		$this->key = $key;
+
+		$sut = $this->getInstance();
+
+		$this->assertStringMatchesFormat(
+			$expected,
+			$sut->value( $slug ),
 			''
 		);
 	}

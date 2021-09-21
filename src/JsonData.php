@@ -8,6 +8,11 @@ use Spatie\Color\Factory;
 final class JsonData {
 
 	public static function getJsonData(): array {
+		$result = self::buildJsonData();
+		return $result;
+	}
+
+	private static function buildJsonData(): array {
 //		return [];
 
 		$color_background = Factory::fromString('#ffffff');
@@ -111,6 +116,27 @@ final class JsonData {
 			'fontFamily'
 		);
 
+		$custom = new Custom(
+			[
+				'contentSize'	=> '60vw',
+				'wideSize'	=> '80vw',
+				'baseFontSize' => "1rem",
+				'spacer' => [
+					'base'	=> '1rem',
+					'v'		=> 'calc({{spacer.base}}*4)',
+					'h'		=> 'calc({{spacer.base}}*4)',
+					'test'		=> 'calc({{fontSize.base}}*4)',
+				],
+				'lineHeight' => [
+					'small' => 1.2,
+					'medium' => 1.4,
+					'large' => 1.8
+				],
+			]
+		);
+
+		$custom->withCollection( $font_sizes );
+
 		return [
 			'version' => 1,
 			'settings' => [
@@ -171,22 +197,8 @@ final class JsonData {
 					'customStyle'	=> true,
 					'customWidth'	=> true,
 				],
-				'custom' => [
-					'contentSize'	=> '60vw',
-					'wideSize'	=> '80vw',
-					'baseFontSize' => "1rem",
-					'spacer' => [
-						'base'	=> '1rem',
-						'v'		=> 'calc(var(--wp--custom--spacer--base)*4)',
-						'h'		=> 'calc(var(--wp--custom--spacer--base)*4)',
-					],
-					'lineHeight' => [
-						'small' => 1.2,
-						'medium' => 1.4,
-						'large' => 1.8
-					],
-				],
-				"blocks" => [
+				'custom' => $custom->toArray(),
+//				"blocks" => [
 //					"core/paragraph" => [
 //						"color" => [
 //							'custom' => true,
@@ -204,10 +216,10 @@ final class JsonData {
 //					],
 //					"core/group" => [
 //					],
-				],
+//				],
 				'layout' => [
-					'contentSize' => "var(--wp--custom--content-size)",
-					'wideSize' => "var(--wp--custom--wide-size)",
+					'contentSize' => $custom->varOf( 'contentSize' ),
+					'wideSize' => $custom->varOf( 'wideSize' ),
 				],
 			],
 			'styles'	=> [
@@ -311,8 +323,8 @@ final class JsonData {
 					'core/group' => [
 						'spacing'	=> [
 							'padding'	=> [
-								'top'		=> 'var(--wp--custom--spacer--v)',
-								'bottom'	=> 'var(--wp--custom--spacer--v)',
+								'top'		=> $custom->varOf( 'spacer.v' ),
+								'bottom'	=> $custom->varOf( 'spacer.v' ),
 							],
 						],
 					],
@@ -347,10 +359,10 @@ final class JsonData {
 						],
 						'spacing' => [
 							'padding' => [
-								'left' => 'var(--wp--custom--spacer--h)',
-								'right' => 'var(--wp--custom--spacer--h)',
-								'top' => 'var(--wp--custom--spacer--v)',
-								'bottom' => 'var(--wp--custom--spacer--v)',
+								'left' => $custom->varOf( 'spacer.h' ),
+								'right' => $custom->varOf( 'spacer.h' ),
+								'top' => $custom->varOf( 'spacer.v' ),
+								'bottom' => $custom->varOf( 'spacer.v' ),
 							],
 						],
 						'border' => [
@@ -430,7 +442,7 @@ final class JsonData {
 						],
 						'spacing' => [
 							'padding' => [
-								'left' => 'var(--wp--custom--spacer--h)',
+								'left' => $custom->varOf( 'spacer.h' ),
 							],
 						],
 						'typography' => [

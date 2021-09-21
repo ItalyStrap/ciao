@@ -5,6 +5,8 @@ namespace ItalyStrap\ExperimentalTheme;
 
 final class Preset implements CollectionInterface {
 
+	use Collectible, ConvertCase;
+
 	/**
 	 * @var array[]
 	 */
@@ -19,11 +21,6 @@ final class Preset implements CollectionInterface {
 	 * @var string
 	 */
 	private $key;
-
-	/**
-	 * @var CollectionInterface[]
-	 */
-	private $collection_of_collections = [];
 
 	/**
 	 * @param array[] $collection
@@ -113,13 +110,6 @@ final class Preset implements CollectionInterface {
 		return $this->collection;
 	}
 
-	public function withCollection( CollectionInterface ...$collections ): void {
-		$this->collection_of_collections = \array_merge_recursive(
-			$this->collection_of_collections,
-			$collections
-		);
-	}
-
 	/**
 	 * @param string $slug_or_default
 	 * @return mixed|string
@@ -147,16 +137,5 @@ final class Preset implements CollectionInterface {
 		}
 
 		return $value;
-	}
-
-	/**
-	 * @link https://stackoverflow.com/a/40514305/7486194
-	 * @param string $string
-	 * @param string $us
-	 * @return string
-	 */
-	private function camelToUnderscore( string $string, string $us = '-' ): string {
-		return \strtolower( \preg_replace(
-			'/(?<=\d)(?=[A-Za-z])|(?<=[A-Za-z])(?=\d)|(?<=[a-z])(?=[A-Z])/', $us, $string ) );
 	}
 }

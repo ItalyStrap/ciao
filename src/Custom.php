@@ -3,12 +3,13 @@ declare(strict_types=1);
 
 namespace ItalyStrap\ExperimentalTheme;
 
-
 use ItalyStrap\Config\Config;
 use ItalyStrap\Config\ConfigInterface;
 
 final class Custom implements CollectionInterface
 {
+	use Collectible, ConvertCase;
+
 	/**
 	 * @var array[]
 	 */
@@ -19,13 +20,17 @@ final class Custom implements CollectionInterface
 	 */
 	private $category;
 
+	/**
+	 * @var Config|ConfigInterface
+	 */
+	private $config;
+
 	public function __construct(
 		array $collection,
-		string $category,
 		ConfigInterface $config = null
 	) {
 		$this->collection = $collection;
-		$this->category = $category;
+		$this->category = 'custom';
 		$this->config = $config ?? new Config();
 	}
 
@@ -36,10 +41,14 @@ final class Custom implements CollectionInterface
 		return $this->category;
 	}
 
+	/**
+	 * @inerhitDoc
+	 */
 	public function propOf( string $slug ): string {
-		$this->toArray();
+		$config = clone $this->config;
+		$config->merge( $this->collection );
 
-		if ( ! $this->config->has( $slug ) ) {
+		if ( ! $config->has( $slug ) ) {
 			throw new \RuntimeException("{$slug} does not exists." );
 		}
 
@@ -67,6 +76,9 @@ final class Custom implements CollectionInterface
 		);
 	}
 
+	/**
+	 * @inerhitDoc
+	 */
 	public function value( string $slug ): string {
 		$this->toArray();
 
@@ -77,23 +89,84 @@ final class Custom implements CollectionInterface
 		throw new \RuntimeException("Value of {$slug} does not exists." );
 	}
 
+	/**
+	 * @inerhitDoc
+	 */
 	public function toArray(): array {
-		$this->config->merge($this->collection);
+
+		$this->config->merge( $this->collection );
+
+		foreach ( $this->config as $key => $item ) {
+
+			$item = (array) $item;
+
+			\array_walk_recursive($item, function ( &$input, $index ) {
+				if (  \strpos( (string) $input, '{{' ) !== false ) {
+					$input = $this->replacePlaceholder( $input );
+				}
+			});
+
+			if ( \count( $item ) === 1 && \array_key_exists( 0, $item ) ) {
+				$item = $item[0];
+			}
+
+			$this->config->add(
+				$key,
+				$item
+			);
+		}
+
 		return $this->config->toArray();
 	}
 
-	public function withCollection( CollectionInterface ...$collections ): void {
-		// TODO: Implement withCollection() method.
+	/**
+	 * @param string $item
+	 * @param $matches
+	 * @return array
+	 */
+	private function replacePlaceholder( string $item ): string {
+		\preg_match_all(
+			'/(?:{{.*?}})+/',
+			$item,
+			$matches
+		);
+
+		foreach ($matches[ 0 ] as $match) {
+			$item = \str_replace(
+				$match,
+				$this->findCssVariable( \str_replace( ['{{', '}}'], '', $match ) ),
+				$item
+			);
+		}
+		return $item;
 	}
 
 	/**
-	 * @link https://stackoverflow.com/a/40514305/7486194
-	 * @param string $string
-	 * @param string $us
-	 * @return string
+	 * @param string $slug_or_default
+	 * @return mixed|string
 	 */
-	private function camelToUnderscore( string $string, string $us = '-' ): string {
-		return \strtolower( \preg_replace(
-			'/(?<=\d)(?=[A-Za-z])|(?<=[A-Za-z])(?=\d)|(?<=[a-z])(?=[A-Z])/', $us, $string ) );
+	private function findCssVariable( string $slug_or_default ) {
+
+		/** @var array $splitted_values */
+		$splitted_values = \explode( '|', $slug_or_default, 2 );
+
+		$value = $splitted_values[ 1 ] ?? '';
+
+		try {
+			$value = $this->varOf( $splitted_values[ 0 ] );
+		} catch (\RuntimeException $exception) {
+			// fail in silence
+		}
+
+		if ( false !== \strpos( $splitted_values[0], '.' ) ) {
+			$search_in_collection = \explode('.', $splitted_values[0] );
+			foreach ( $this->collection_of_collections as $collection ) {
+				if ( $collection->category() === $search_in_collection[ 0 ] ) {
+					$value = $collection->varOf( $search_in_collection[ 1 ] );
+				}
+			}
+		}
+
+		return $value;
 	}
 }
