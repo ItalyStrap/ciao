@@ -8,6 +8,7 @@ use Spatie\Color\Factory;
 final class JsonData {
 
 	public static function getJsonData(): array {
+//		return [];
 
 		$color_background = Factory::fromString('#ffffff');
 		$color_text = Factory::fromString('#000000');

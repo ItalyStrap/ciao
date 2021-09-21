@@ -32,4 +32,10 @@ interface CollectionInterface
 	 * @return array[]
 	 */
 	public function toArray(): array;
+
+	/**
+	 * @param CollectionInterface ...$collections
+	 * @return void
+	 */
+	public function withCollection( CollectionInterface ...$collections ): void;
 }

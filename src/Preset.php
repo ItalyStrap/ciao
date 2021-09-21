@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace ItalyStrap\ExperimentalTheme;
 
-class Preset implements CollectionInterface {
+final class Preset implements CollectionInterface {
 
 	/**
 	 * @var array[]
@@ -104,7 +104,7 @@ class Preset implements CollectionInterface {
 			foreach ( $matches[0] as $match ) {
 				$this->collection[ $key ][ $this->key ] = \str_replace(
 					$match,
-					$this->findValue( \str_replace( ['{{', '}}' ], '', $match ) ),
+					$this->findCssVariable( \str_replace( ['{{', '}}' ], '', $match ) ),
 					$this->collection[ $key ][ $this->key ]
 				);
 			}
@@ -113,7 +113,7 @@ class Preset implements CollectionInterface {
 		return $this->collection;
 	}
 
-	public function withCollection( CollectionInterface ...$collections ) {
+	public function withCollection( CollectionInterface ...$collections ): void {
 		$this->collection_of_collections = \array_merge_recursive(
 			$this->collection_of_collections,
 			$collections
@@ -124,7 +124,7 @@ class Preset implements CollectionInterface {
 	 * @param string $slug_or_default
 	 * @return mixed|string
 	 */
-	private function findValue( string $slug_or_default ) {
+	private function findCssVariable( string $slug_or_default ) {
 
 		/** @var array $splitted_values */
 		$splitted_values = \explode( '|', $slug_or_default, 2 );

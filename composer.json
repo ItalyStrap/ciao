@@ -49,6 +49,11 @@
             "functions/autoload.php"
         ]
     },
+    "autoload-dev": {
+        "psr-4": {
+            "ItalyStrap\\ExperimentalTheme\\Tests\\": "tests/"
+        }
+    },
     "repositories": [{
         "type": "vcs",
         "url": "E:\\xampp\\htdocs\\moduli\\wp-content\\plugins\\theme-json-generator"

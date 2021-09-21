@@ -3,30 +3,15 @@ declare(strict_types=1);
 
 namespace ItalyStrap\Tests;
 
-use Codeception\Test\Unit;
+use ItalyStrap\ExperimentalTheme\CollectionInterface;
 use ItalyStrap\ExperimentalTheme\Preset;
 
-class ColorPaletteCollectionTest extends Unit {
+final class ColorPaletteCollectionTest extends BaseCollectionTest {
 
 	/**
 	 * @var \UnitTester
 	 */
 	protected $tester;
-
-	/**
-	 * @var \string[][]
-	 */
-	private $collection;
-
-	/**
-	 * @var string
-	 */
-	private $category;
-
-	/**
-	 * @var string
-	 */
-	private $key = '';
 
 	protected function _before() {
 		$this->collection = [
@@ -41,65 +26,58 @@ class ColorPaletteCollectionTest extends Unit {
 	protected function _after() {
 	}
 
-	protected function getInstance() {
+	protected function getInstance(): CollectionInterface {
 		$sut = new Preset( $this->collection, $this->category, $this->key );
+		$this->assertInstanceOf( CollectionInterface::class, $sut, '' );
 		$this->assertInstanceOf( Preset::class, $sut, '' );
 		return $sut;
 	}
 
 	/**
-	 * @test
+	 * @see BaseCollectionTest
+	 * @return \Generator
 	 */
-	public function itShouldHaveCategory() {
-		$expected = 'expected';
-		$this->category = $expected;
-		$sut = $this->getInstance();
-
-		$this->assertStringMatchesFormat(
-			$expected,
-			$sut->category(),
-			''
-		);
+	public function valueProvider() {
+		yield 'Primary color' => [
+			'#ffffff', // Expected
+			'primary', // Slug
+			'color', // Category
+			'color', // Key
+		];
 	}
 
 	/**
+	 * @dataProvider valueProvider
 	 * @test
 	 */
-	public function itShouldReturnTheCollection() {
-		$sut = $this->getInstance();
-		$collection = $sut->toArray();
-
-		$this->assertEquals($this->collection, $collection, '');
-	}
-
-	/**
-	 * @test
-	 */
-	public function itShouldReturnValidValue() {
-
-		$expected = '#ffffff';
+	public function itShouldReturnValidValue(
+		string $expected,
+		string $slug,
+		string $category,
+		string $key
+	) {
 
 		$this->collection = [
 			[
-				'slug'	=> 'primary',
-				'color'	=> $expected,
+				'slug'	=> $slug,
+				$key	=> $expected,
 			],
 		];
 
-		$this->category = 'color';
+		$this->category = $category;
 
 		$sut = $this->getInstance();
 
-		$this->assertIsString( $sut->value( 'primary' ) );
+		$this->assertIsString( $sut->value( $slug ) );
 
 		$this->assertStringMatchesFormat(
 			$expected,
-			$sut->value('primary' ),
+			$sut->value( $slug ),
 			''
 		);
 	}
 
-	public function variableProvider() {
+	public function propertiesProvider() {
 		yield 'Primary color' => [
 			'--wp--preset--color--primary',
 			'primary',
@@ -180,10 +158,10 @@ class ColorPaletteCollectionTest extends Unit {
 	}
 
 	/**
-	 * @dataProvider variableProvider
+	 * @dataProvider propertiesProvider
 	 * @test
 	 */
-	public function itShouldReturnVariableCssFor( string $expected, string $prop, string $value ) {
+	public function itShouldReturnCssPropertyFor( string $expected, string $prop, string $value ) {
 
 		$this->collection = [
 			[
@@ -214,26 +192,6 @@ class ColorPaletteCollectionTest extends Unit {
 			$sut->varOf('primary' ),
 			''
 		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function itShouldThrownExceptionIfValueDoesNotExist() {
-		$sut = $this->getInstance();
-		$this->expectException( \RuntimeException::class );
-		$this->expectExceptionMessage('Value of secondary does not exists.');
-		$val = $sut->value('secondary' );
-	}
-
-	/**
-	 * @test
-	 */
-	public function itShouldThrownExceptionIfPropDoesNotExist() {
-		$sut = $this->getInstance();
-		$this->expectException( \RuntimeException::class );
-		$this->expectExceptionMessage('secondary does not exists.');
-		$prop = $sut->propOf('secondary' );
 	}
 
 	public function placeholderProvider() {
