@@ -107,7 +107,7 @@ final class Custom implements CollectionInterface
 			});
 
 			if ( \count( $item ) === 1 && \array_key_exists( 0, $item ) ) {
-				$item = $item[0];
+				$item = (string) $item[0];
 			}
 
 			$this->config->add(
@@ -131,7 +131,7 @@ final class Custom implements CollectionInterface
 			$matches
 		);
 
-		foreach ($matches[ 0 ] as $match) {
+		foreach ( $matches[ 0 ] as $match ) {
 			$item = \str_replace(
 				$match,
 				$this->findCssVariable( \str_replace( ['{{', '}}'], '', $match ) ),
@@ -139,34 +139,5 @@ final class Custom implements CollectionInterface
 			);
 		}
 		return $item;
-	}
-
-	/**
-	 * @param string $slug_or_default
-	 * @return mixed|string
-	 */
-	private function findCssVariable( string $slug_or_default ) {
-
-		/** @var array $splitted_values */
-		$splitted_values = \explode( '|', $slug_or_default, 2 );
-
-		$value = $splitted_values[ 1 ] ?? '';
-
-		try {
-			$value = $this->varOf( $splitted_values[ 0 ] );
-		} catch (\RuntimeException $exception) {
-			// fail in silence
-		}
-
-		if ( false !== \strpos( $splitted_values[0], '.' ) ) {
-			$search_in_collection = \explode('.', $splitted_values[0] );
-			foreach ( $this->collection_of_collections as $collection ) {
-				if ( $collection->category() === $search_in_collection[ 0 ] ) {
-					$value = $collection->varOf( $search_in_collection[ 1 ] );
-				}
-			}
-		}
-
-		return $value;
 	}
 }

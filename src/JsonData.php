@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace ItalyStrap\ExperimentalTheme;
 
 use Spatie\Color\Factory;
+use ItalyStrap\ThemeJsonGenerator\Collection\Preset;
+use ItalyStrap\ThemeJsonGenerator\Collection\Custom;
 
 final class JsonData {
 
@@ -127,6 +129,11 @@ final class JsonData {
 					'h'		=> 'calc({{spacer.base}}*4)',
 					'test'		=> 'calc({{fontSize.base}}*4)',
 				],
+				'blockGap'	=> [
+					'base'	=> '{{spacer.base}}',
+					'm'	=> 'calc({{spacer.base}}*2)',
+					'l'	=> 'calc({{spacer.base}}*4)',
+				],
 				'lineHeight' => [
 					'small' => 1.2,
 					'medium' => 1.4,
@@ -135,7 +142,12 @@ final class JsonData {
 			]
 		);
 
-		$custom->withCollection( $font_sizes );
+		$custom->withCollection(
+			$palette,
+			$gradient,
+			$font_sizes,
+			$font_family
+		);
 
 		return [
 			'version' => 1,
@@ -238,12 +250,12 @@ final class JsonData {
 					'fontSize'	=> $font_sizes->varOf( 'base' ),
 					'fontStyle'	=> '',
 					'fontWeight'	=> '',
-					'lineHeight' => 'var(--wp--custom--line-height--medium)',
+					'lineHeight' => $custom->varOf( 'lineHeight.medium' ),
 					'textDecoration' => '',
 					'textTransform' => '',
 				],
 				'spacing'	=> [
-					'blockGap'	=> '2rem',
+					'blockGap'	=> $custom->varOf( 'blockGap.m' ),
 					'margin'	=> [
 						'top'		=> '0px',
 						'right'		=> '0px',
@@ -272,7 +284,7 @@ final class JsonData {
 							'fontSize' => $font_sizes->varOf('h1'),
 						],
 						'spacing'	=> [
-							'blockGap'	=> '4rem',
+							'blockGap'	=> $custom->varOf( 'blockGap.l' ),
 						],
 					],
 					'h2' => [
@@ -280,7 +292,7 @@ final class JsonData {
 							'fontSize' => $font_sizes->varOf('h2'),
 						],
 						'spacing'	=> [
-							'blockGap'	=> '4rem',
+							'blockGap'	=> $custom->varOf( 'blockGap.l' ),
 						],
 					],
 					'h3' => [
@@ -288,7 +300,7 @@ final class JsonData {
 							'fontSize' => $font_sizes->varOf('h3'),
 						],
 						'spacing'	=> [
-							'blockGap'	=> '4rem',
+							'blockGap'	=> $custom->varOf( 'blockGap.l' ),
 						],
 					],
 					'h4' => [
@@ -296,7 +308,7 @@ final class JsonData {
 							'fontSize' => $font_sizes->varOf('h4'),
 						],
 						'spacing'	=> [
-							'blockGap'	=> '4rem',
+							'blockGap'	=> $custom->varOf( 'blockGap.l' ),
 						],
 					],
 					'h5' => [
@@ -304,7 +316,7 @@ final class JsonData {
 							'fontSize' => $font_sizes->varOf('h5'),
 						],
 						'spacing'	=> [
-							'blockGap'	=> '4rem',
+							'blockGap'	=> $custom->varOf( 'blockGap.l' ),
 						],
 					],
 					'h6' => [
@@ -312,7 +324,7 @@ final class JsonData {
 							'fontSize' => $font_sizes->varOf('h6'),
 						],
 						'spacing'	=> [
-							'blockGap'	=> '4rem',
+							'blockGap'	=> $custom->varOf( 'blockGap.l' ),
 						],
 					],
 				],

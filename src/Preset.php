@@ -109,33 +109,4 @@ final class Preset implements CollectionInterface {
 
 		return $this->collection;
 	}
-
-	/**
-	 * @param string $slug_or_default
-	 * @return mixed|string
-	 */
-	private function findCssVariable( string $slug_or_default ) {
-
-		/** @var array $splitted_values */
-		$splitted_values = \explode( '|', $slug_or_default, 2 );
-
-		$value = $splitted_values[ 1 ] ?? '';
-
-		try {
-			$value = $this->varOf( $splitted_values[ 0 ] );
-		} catch (\RuntimeException $exception) {
-			// fail in silence
-		}
-
-		if ( false !== \strpos( $splitted_values[0], '.' ) ) {
-			$search_in_collection = \explode('.', $splitted_values[0] );
-			foreach ( $this->collection_of_collections as $collection ) {
-				if ( $collection->category() === $search_in_collection[ 0 ] ) {
-					$value = $collection->varOf( $search_in_collection[ 1 ] );
-				}
-			}
-		}
-
-		return $value;
-	}
 }
