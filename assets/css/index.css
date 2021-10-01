@@ -6,3 +6,31 @@ p.has-background {
     max-width: 100%;
     height: auto;
 }
+
+.has-base-background-color > * {
+    --wp--preset--color--base: white;
+    /*color: var( --wp--preset--color--base );*/
+}
+
+.has-base-background-color .has-link-color {
+    --wp--preset--color--base: white;
+}
+
+.is-style-outline {
+    --wp--custom--button--text: black;
+    --wp--custom--button--bg: transparent;
+}
+
+.is-style-outline .wp-block-button__link:hover {
+    --wp--custom--button--text: white;
+    --wp--custom--button--bg: black;
+}
+
+.wp-block-button__link:hover,
+button:hover,
+[type='button']:hover,
+[type='reset']:hover,
+[type='submit']:hover {
+    --wp--custom--button--text: black;
+    --wp--custom--button--bg: white;
+}

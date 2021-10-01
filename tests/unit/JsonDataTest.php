@@ -19,7 +19,9 @@ class JsonDataTest extends Unit {
 	protected function _after() {
 	}
 
-	// tests
+	/**
+	 * @test
+	 */
 	public function itShouldReturnAnArray() {
 		$data = JsonData::getJsonData();
 		$this->assertIsArray($data, '');

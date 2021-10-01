@@ -3,19 +3,37 @@ declare(strict_types=1);
 
 namespace ItalyStrap\ExperimentalTheme;
 
+use ItalyStrap\ThemeJsonGenerator\SectionNames;
 use Spatie\Color\Factory;
 use ItalyStrap\ThemeJsonGenerator\Collection\Preset;
 use ItalyStrap\ThemeJsonGenerator\Collection\Custom;
+use ItalyStrap\ExperimentalTheme\Factory\Color as FClr;
+use ItalyStrap\ExperimentalTheme\Factory\Spacing as FSpace;
+use ItalyStrap\ExperimentalTheme\Factory\Typography as FTypo;
 
 final class JsonData {
 
+	/**
+	 * @throws \Spatie\Color\Exceptions\InvalidColorValue
+	 */
 	public static function getJsonData(): array {
-		$result = self::buildJsonData();
+		$data = new self();
+
+		$result = $data->buildJsonData();
+
+		$result = $data->parseDataAndCleanFromEmptyValue( $result );
+
+		if ( \count( $result ) === 0 ) {
+			throw new \RuntimeException('The theme.json is empty');
+		}
+
 		return $result;
 	}
 
-	private static function buildJsonData(): array {
-//		return [];
+	/**
+	 * @throws \Spatie\Color\Exceptions\InvalidColorValue
+	 */
+	public function buildJsonData(): array {
 
 		$color_background = Factory::fromString('#ffffff');
 		$color_text = Factory::fromString('#000000');
@@ -31,7 +49,7 @@ final class JsonData {
 				],
 				[
 					"slug" => "background",
-					"color" => (string) $color_background->toRgba(), // --wp--preset--color--background
+					"color" => (string) $color_background->toRgba(),
 					"name" => "White for body background"
 				],
 				[
@@ -125,19 +143,23 @@ final class JsonData {
 				'baseFontSize' => "1rem",
 				'spacer' => [
 					'base'	=> '1rem',
-					'v'		=> 'calc({{spacer.base}}*4)',
-					'h'		=> 'calc({{spacer.base}}*4)',
-					'test'		=> 'calc({{fontSize.base}}*4)',
+					'v'		=> 'calc( {{spacer.base}} * 4 )',
+					'h'		=> 'calc( {{spacer.base}} * 4 )',
+					'test'		=> 'calc( {{fontSize.base}} * 4 )',
 				],
 				'blockGap'	=> [
 					'base'	=> '{{spacer.base}}',
-					'm'	=> 'calc({{spacer.base}}*2)',
-					'l'	=> 'calc({{spacer.base}}*4)',
+					'm'	=> 'calc( {{spacer.base}} * 2 )',
+					'l'	=> 'calc( {{spacer.base}} * 4 )',
 				],
 				'lineHeight' => [
-					'small' => 1.2,
-					'medium' => 1.4,
-					'large' => 1.8
+					'small' => 1.3,
+					'medium' => 1.5,
+					'large' => 1.7
+				],
+				'button'	=> [
+					'bg'	=> '{{color.base}}',
+					'text'	=> '{{color.background}}',
 				],
 			]
 		);
@@ -150,7 +172,21 @@ final class JsonData {
 		);
 
 		return [
-			'version' => 1,
+			SectionNames::VERSION => 1,
+			SectionNames::TEMPLATE_PARTS => [
+				Helper::templateParts( 'header', 'header' ),
+				Helper::templateParts( 'footer', 'footer' ),
+			],
+			SectionNames::CUSTOM_TEMPLATES	=> [
+				[
+					'name'	=> 'blank',
+					'title'	=> 'Blank',
+					'postTypes'	=> [
+						'page',
+						'post',
+					],
+				],
+			],
 			'settings' => [
 				'color' => [
 					'custom'	=> true,
@@ -241,10 +277,11 @@ final class JsonData {
 					'style' => '',
 					'width' => '',
 				],
-				'color' => [
-					'background' => $palette->varOf( 'background' ),
-					'text' => $palette->varOf( 'text' ),
-				],
+				'color' => Helper::color(
+					$palette->varOf( 'background' ),
+					'',
+					$palette->varOf( 'text' )
+				),
 				'typography' => [
 					'fontFamily'	=> $font_family->varOf('base'),
 					'fontSize'	=> $font_sizes->varOf( 'base' ),
@@ -256,91 +293,79 @@ final class JsonData {
 				],
 				'spacing'	=> [
 					'blockGap'	=> $custom->varOf( 'blockGap.m' ),
-					'margin'	=> [
-						'top'		=> '0px',
-						'right'		=> '0px',
-						'bottom'	=> '0px',
-						'left'		=> '0px',
-					],
-					'padding'	=> [
-						'top'		=> '0px',
-						'right'		=> '0px',
-						'bottom'	=> '0px',
-						'left'		=> '0px',
-					],
+					'margin'	=> FSpace::shorthand(['0px'])->toArray(),
+					'padding'	=> FSpace::shorthand(['0px'])->toArray(),
 				],
 
 				'elements' => [
 					'link' => [
-						'border' => [],
-						'color' => [
-							'text' => $palette->varOf( 'text' ),
-						],
-						'spacing' => [],
-						'typography' => [],
+						'color'	=> FClr::text( $palette->varOf( 'base' ) )->toArray(),
 					],
 					'h1' => [
-						'typography' => [
-							'fontSize' => $font_sizes->varOf('h1'),
-						],
+						'typography' => FTypo::make()->fontSize( $font_sizes->varOf('h1') )->toArray(),
 						'spacing'	=> [
-							'blockGap'	=> $custom->varOf( 'blockGap.l' ),
+							'margin'	=> FSpace::top( $custom->varOf( 'blockGap.l' ) )->toArray(),
 						],
 					],
 					'h2' => [
-						'typography' => [
-							'fontSize' => $font_sizes->varOf('h2'),
-						],
+						'typography' =>  FTypo::make()->fontSize( $font_sizes->varOf('h2') )->toArray(),
 						'spacing'	=> [
-							'blockGap'	=> $custom->varOf( 'blockGap.l' ),
+							'margin'	=> FSpace::top( $custom->varOf( 'blockGap.l' ) )->toArray(),
 						],
 					],
 					'h3' => [
-						'typography' => [
-							'fontSize' => $font_sizes->varOf('h3'),
-						],
+						'typography' => FTypo::make()->fontSize( $font_sizes->varOf('h3') )->toArray(),
 						'spacing'	=> [
-							'blockGap'	=> $custom->varOf( 'blockGap.l' ),
+							'margin'	=> FSpace::top( $custom->varOf( 'blockGap.l' ) )->toArray(),
 						],
 					],
 					'h4' => [
-						'typography' => [
-							'fontSize' => $font_sizes->varOf('h4'),
-						],
+						'typography' => FTypo::make()->fontSize( $font_sizes->varOf('h4') )->toArray(),
 						'spacing'	=> [
-							'blockGap'	=> $custom->varOf( 'blockGap.l' ),
+							'margin'	=> FSpace::top( $custom->varOf( 'blockGap.l' ) )->toArray(),
 						],
 					],
 					'h5' => [
-						'typography' => [
-							'fontSize' => $font_sizes->varOf('h5'),
-						],
+						'typography' => FTypo::make()->fontSize( $font_sizes->varOf('h5') )->toArray(),
 						'spacing'	=> [
-							'blockGap'	=> $custom->varOf( 'blockGap.l' ),
+							'margin'	=> FSpace::top( $custom->varOf( 'blockGap.l' ) )->toArray(),
 						],
 					],
 					'h6' => [
-						'typography' => [
-							'fontSize' => $font_sizes->varOf('h6'),
-						],
+						'typography' => FTypo::make()->fontSize( $font_sizes->varOf('h6') )->toArray(),
 						'spacing'	=> [
-							'blockGap'	=> $custom->varOf( 'blockGap.l' ),
+							'margin'	=> FSpace::top( $custom->varOf( 'blockGap.l' ) )->toArray(),
 						],
 					],
 				],
 
 				'blocks' => [
+
+					/**
+					 * ============================================
+					 * Blocks container
+					 * ============================================
+					 */
 					'overblocks/container' => [
+						'spacing'	=> [
+							'padding'	=> Helper::spacingVertical( $custom->varOf( 'spacer.v' ) ),
+						],
 					],
 					'core/group' => [
 						'spacing'	=> [
-							'padding'	=> [
-								'top'		=> $custom->varOf( 'spacer.v' ),
-								'bottom'	=> $custom->varOf( 'spacer.v' ),
-							],
+							'padding'	=> Helper::spacingVertical( $custom->varOf( 'spacer.v' ) ),
 						],
 					],
+
+					/**
+					 * ============================================
+					 * Blocks elements in content
+					 * ============================================
+					 */
 					'core/paragraph' => [
+						'spacing'	=> [
+							'margin'	=> Helper::spacingTop( $custom->varOf( 'blockGap.l' ) ),
+						],
 						'color' => [
 							'text' => $palette->varOf( 'text' ),
 						],
@@ -356,13 +381,13 @@ final class JsonData {
 							'width' => '1px',
 						],
 						'color' => [
-							'background' => $palette->varOf('base'),
-							'text' => $palette->varOf('background'),
+							'background' => $custom->varOf('button.bg'),
+							'text' => $custom->varOf('button.text'),
 						],
 						'typography' => [
 							'fontFamily'		=> $font_family->varOf('base'),
 							'fontSize'			=> $font_sizes->varOf('base'),
-							'text-transform'	=> 'uppercase',
+							'textTransform'		=> 'uppercase',
 						],
 					],
 					'core/code' => [
@@ -370,12 +395,13 @@ final class JsonData {
 							'fontFamily'	=> $font_family->varOf('monospace'),
 						],
 						'spacing' => [
-							'padding' => [
-								'left' => $custom->varOf( 'spacer.h' ),
-								'right' => $custom->varOf( 'spacer.h' ),
-								'top' => $custom->varOf( 'spacer.v' ),
-								'bottom' => $custom->varOf( 'spacer.v' ),
-							],
+							'margin'	=> Helper::spacingTop( $custom->varOf( 'blockGap.l' ) ),
+							'padding' => FSpace::shorthand(
+								[
+									$custom->varOf( 'spacer.v' ),
+									$custom->varOf( 'spacer.h' ),
+								]
+							)->toArray(),
 						],
 						'border' => [
 							'color' => (string) $border_color->toRgba(),
@@ -384,68 +410,7 @@ final class JsonData {
 							'width' => '1px',
 						],
 					],
-//					'core/heading' => [
-//						'typography' => [
-//							'fontFamily' => 'var(--wp--custom--heading--typography--font-family)',
-//							'fontWeight' => 'var(--wp--custom--heading--typography--font-weight)',
-//							'lineHeight' => 'var(--wp--custom--heading--typography--line-height)',
-//						],
-//					],
-//					'core/navigation' => [
-//						'typography' => [
-//							'fontSize' => 'var(--wp--preset--font-size--normal)',
-//						],
-//					],
-//					'core/post-title' => [
-//						'typography' => [
-//							'fontFamily' => 'var(--wp--custom--heading--typography--font-family)',
-//							'fontSize' => 'var(--wp--preset--font-size--huge)',
-//							'lineHeight' => 'var(--wp--custom--heading--typography--line-height)',
-//						],
-//					],
-//					'core/post-date' => [
-//						'color' => [
-//							'link' => 'var(--wp--custom--color--foreground)',
-//							'text' => 'var(--wp--custom--color--foreground)',
-//						],
-//						'typography' => [
-//							'fontSize' => 'var(--wp--preset--font-size--small)',
-//						],
-//					],
-//					'core/pullquote' => [
-//						'border' => [
-//							'style' => 'solid',
-//							'width' => '1px 0',
-//						],
-//						'typography' => [
-//							'fontStyle' => 'italic',
-//							'fontSize' => 'var(--wp--preset--font-size--huge)',
-//						],
-//						'spacing' => [
-//							'padding' => [
-//								'left' => 'var(--wp--custom--margin--horizontal)',
-//								'right' => 'var(--wp--custom--margin--horizontal)',
-//								'top' => 'var(--wp--custom--margin--horizontal)',
-//								'bottom' => 'var(--wp--custom--margin--horizontal)',
-//							],
-//						],
-//					],
-//					'core/separator' => [
-//						'color' => [
-//							'text' => 'var(--wp--custom--color--foreground)',
-//						],
-//						'border' => [
-//							'color' => 'currentColor',
-//							'style' => 'solid',
-//							'width' => '0 0 1px 0',
-//						],
-//					],
-//					'core/site-title' => [
-//						'typography' => [
-//							'fontSize' => 'var(--wp--preset--font-size--normal)',
-//							'fontWeight' => 700,
-//						],
-//					],
+
 					'core/quote' => [
 						'border' => [
 							'color' => $palette->varOf('text'),
@@ -453,17 +418,104 @@ final class JsonData {
 							'width' => '0 0 0 1px',
 						],
 						'spacing' => [
-							'padding' => [
-								'left' => $custom->varOf( 'spacer.h' ),
-							],
+							'margin'	=> Helper::spacingTop( $custom->varOf( 'blockGap.l' ) ),
+							'padding'	=> Helper::spacingLeft( $custom->varOf( 'spacer.h' ) ),
 						],
 						'typography' => [
 							'fontSize' => $font_sizes->varOf('base'),
 							'fontStyle' => 'normal',
 						],
 					],
+
+					/**
+					 * ============================================
+					 * Blocks for templating
+					 * ============================================
+					 */
+					'core/post-title' => [
+						'typography' => [
+							'fontSize' => \sprintf(
+								'calc(%s * 1.5)',
+								$font_sizes->varOf('h1')
+							),
+						],
+					],
+					'core/post-date' => [
+						'color' => FClr::make()
+							->text( $palette->varOf('text') )
+							->toArray(),
+						'typography' => FTypo::make()
+							->fontSize( $font_sizes->varOf('h6') )
+							->toArray(),
+					],
+					'core/separator' => [
+						'color' => FClr::make()
+							->text( $palette->varOf('text') )
+							->toArray(),
+						'border' => [
+							'color' => 'currentColor',
+							'style' => 'solid',
+							'width' => '0 0 1px 0',
+						],
+					],
+
+					/**
+					 * ============================================
+					 * Blocks at site level
+					 * ============================================
+					 */
+					'core/site-title' => [
+						'color' => FClr::make()
+							->text( $palette->varOf('text') )
+							->toArray(),
+						'typography' => FTypo::make()
+							->fontSize( $font_sizes->varOf('h1') )
+							->fontWeight( '800' )
+							->toArray(),
+					],
+					'core/site-tagline' => [
+						'color' => FClr::make()
+							->text( $palette->varOf('text') )
+							->toArray(),
+						'typography' => FTypo::make()
+							->fontSize( $font_sizes->varOf('h3') )
+							->fontWeight( '800' )
+							->toArray(),
+					],
 				],
 			],
 		];
+	}
+
+	/**
+	 * @param array $result
+	 */
+	private function parseDataAndCleanFromEmptyValue( array $result ): array {
+
+		// https://stackoverflow.com/questions/9895130/recursively-remove-empty-elements-and-subarrays-from-a-multi-dimensional-array
+
+//		$result = array_map( function ( $arr ) {
+//
+//			if ( ! \is_array( $arr ) ) {
+//				return $arr;
+//			}
+//
+//			return \array_filter( $arr );
+//
+//		}, $result );
+//
+//		$result = array_filter( $result );
+
+//		foreach ( $result as $key => $value ) {
+//			if ( $value === '' || $value === [] ) {
+//				unset( $result[ $key ] );
+//			}
+//
+//			if ( \is_array( $value ) ) {
+//				$result[ $key ] = $this->parseDataAndCleanFromEmptyValue( $value );
+//			}
+//		}
+
+		return $result;
 	}
 }

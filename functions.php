@@ -11,13 +11,33 @@ use function ItalyStrap\Factory\injector;
 
 require_once get_template_directory() . '/src/bootstrap.php';
 
+function dm_remove_wp_block_library_css(){
+	\wp_dequeue_style( 'wp-block-library' );
+}
+
 try {
 	$injector = injector();
 
 	/** @var EventDispatcher $event_dispatcher */
 	$event_dispatcher = $injector->make( EventDispatcher::class );
 
+//	$event_dispatcher->addListener(
+//		'wp_enqueue_scripts',
+//		__NAMESPACE__ . '\dm_remove_wp_block_library_css'
+//	);
+
 	$event_dispatcher->addListener( 'after_setup_theme', function () {
+
+		\remove_theme_support('wp-block-styles' );
+		\remove_theme_support('editor-styles' );
+
+		register_block_style(
+			'core/button',
+			[
+				'name'  => 'fill-shadow',
+				'label' => __( 'Fill shadow', 'bdtr' ),
+			]
+		);
 
 //		d( get_theme_support('align-wide') );
 
