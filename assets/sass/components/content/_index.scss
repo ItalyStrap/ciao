@@ -1,0 +1,152 @@
+.sticky {
+  display: block;
+}
+
+.updated:not(.published) {
+  display: none;
+}
+
+$content-width: 90vw;
+
+/**
+ * Support for Gutenberg alignfull and alignwide
+ */
+.alignnormal {
+  max-width: $content-width;
+  @extend .mx-auto;
+}
+
+.alignwide {
+  max-width: $content-width + 10vw;
+  @extend .mx-auto;
+}
+
+.alignfull {
+  max-width: 100%;
+}
+
+/**
+ * This override the width: calc(100% - 70px); from gutenberg style
+ */
+.wp-block-cover-image .wp-block-cover__inner-container,
+.wp-block-cover .wp-block-cover__inner-container {
+  width: 100%;
+}
+
+.entry-content {
+  > * {
+    @extend .alignnormal;
+
+    //&:not(.alignwide):not(.alignfull) {
+    //  @extend .alignnormal;
+    //}
+  }
+  //[class*="__inner-container"] > * {
+  //  @extend .alignnormal;
+  //}
+
+  .alignfull {
+    @extend .alignfull;
+  }
+
+// Test
+//<!-- wp:group {"align":"full","className":"py-5","gradient":"light-green-to-medium-turquoise"} -->
+//<div class="wp-block-group alignfull py-5 has-light-green-to-medium-turquoise-gradient-background has-background"><div class="wp-block-group__inner-container"><!-- wp:group -->
+//<div class="wp-block-group"><div class="wp-block-group__inner-container"><!-- wp:heading {"align":"center","textColor":"accent"} -->
+//<h2 class="has-text-align-center has-accent-color has-text-color">Iscriviti alla Banda del Tempo</h2>
+//<!-- /wp:heading -->
+//
+//<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":24}}} -->
+//<p class="has-text-align-center" style="font-size:24px">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nislet, habitasse tincidunt quis phasellus odio id nunc vel amet tristique.</p>
+//<!-- /wp:paragraph --></div></div>
+//<!-- /wp:group --></div></div>
+//<!-- /wp:group -->
+  .wp-block-columns:not(.alignwide):not(.alignfull),
+  .wp-block-group:not(.alignwide):not(.alignfull),
+  .wp-block-cover:not(.alignwide):not(.alignfull),
+  .wp-block-overblocks-container:not(.alignwide):not(.alignfull),
+  .wp-block-overblocks-container > *:not(.alignwide):not(.alignfull)
+  {
+    @extend .alignnormal;
+  }
+}
+
+//@each $breakpoint, $container-max-width in $container-max-widths {
+//  @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+@include media-breakpoint-up(sm, $grid-breakpoints) {
+  .alignnormal {
+    max-width: $content-width - 15vw;
+  }
+
+  .alignwide {
+    max-width: $content-width - 10vw;
+  }
+}
+//}
+
+//@each $breakpoint, $container-max-width in $container-max-widths {
+//  @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+@include media-breakpoint-up(md, $grid-breakpoints) {
+  .alignnormal {
+    max-width: $content-width - 30vw;
+  }
+
+  .alignwide {
+    max-width: $content-width - 20vw;
+  }
+}
+//}
+
+.featured-image {
+  @extend .d-flex;
+  &.aligncenter {
+    @extend .justify-content-center;
+  }
+}
+
+.entry-header,
+.entry-footer,
+.author-info,
+.single article nav,
+.single .entry-content > *,
+{
+  @extend .alignwide;
+}
+
+.single {
+  article {
+    &.post {
+      //background-color: #f1f1f1;
+      //@extend .container;
+      //@extend .d-flex;
+      //@extend .flex-column;
+      //@extend .align-items-start;
+      //align-items: start;
+
+      //nav {
+      //  order: -2;
+      //}
+      //
+      //.entry-header {
+      //  order: -1;
+      //}
+    }
+  }
+}
+
+
+
+//.page-content,
+//.entry-content,
+//.entry-summary {
+//  margin: 1.5em 0 0;
+//}
+//
+//.page-links {
+//  clear: both;
+//  margin: 0 0 1.5em;
+//}
+//
+//.author-nick{
+//  margin-top: 0;
+//}

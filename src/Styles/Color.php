@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace ItalyStrap\ExperimentalTheme;
+namespace ItalyStrap\ExperimentalTheme\Styles;
 
-final class Color {
+final class Color implements ArrayableInterface  {
 
-	use ImmutableCollectionTrait, ToArray;
+	use ImmutableCollectionTrait, CollectionToArray;
 
 	const BACKGROUND = 'background';
 	const GRADIENT = 'gradient';

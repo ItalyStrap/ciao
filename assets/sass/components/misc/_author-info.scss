@@ -1,0 +1,7 @@
+.author-info {
+    margin-top: $author-info-margin-top;
+}
+
+.avatar {
+    @include avatar( 4px, $light-green );
+}

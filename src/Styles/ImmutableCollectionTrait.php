@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace ItalyStrap\ExperimentalTheme;
+namespace ItalyStrap\ExperimentalTheme\Styles;
 
 trait ImmutableCollectionTrait
 {
@@ -18,10 +18,25 @@ trait ImmutableCollectionTrait
 
 	final private function assertIsImmutable( string $key ): void {
 		if ( \array_key_exists( $key, $this->collection ) ) {
+
+			$bt = \debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS );
+
+			$bt[1] ??= [];
+
+			if ( empty( $bt[1] ) ) {
+				$bt[1] = ['file' => '', 'line' => ''];
+			}
+
 			throw new \RuntimeException( \sprintf(
-				'The key "%s" is already provided',
-				$key
+				'The key "%s" is already provided | File:  %s | Line: %s',
+				$key,
+				$bt[1]['file'],
+				$bt[1]['line']
 			) );
 		}
+	}
+
+	final public function __clone() {
+		$this->collection = [];
 	}
 }

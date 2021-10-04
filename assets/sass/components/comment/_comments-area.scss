@@ -1,0 +1,31 @@
+.comments-area {
+    @extend .alignwide;
+
+    margin-top: $comments-area-margin-top;
+
+    #comments-title,
+    .comments-title
+    {
+        color: $dark-blue;
+    }
+
+    ul,
+    ol {
+       list-style:  none outside none;
+   }
+
+    .parent,
+    .children,
+    .comment{
+        margin-top: $spacer * 2;
+    }
+
+    .comment-metadata {
+        font-size: $comment-metadata-font-size;
+    }
+ }
+
+//
+//.comment-edit-link, .comment-reply-link, .btn-primary a{
+//  color: #FFFFFF !important;
+//}

@@ -1,0 +1,74 @@
+//.bg-gradient {
+//    @include background-image( linear-gradient( $brand-secondary, $brand-primary ) );
+//    &::before{
+//        @include bg-overlay();
+//        @include background-image( linear-gradient( $brand-secondary, $brand-primary ) );
+//        opacity: 0.8;
+//    }
+//}
+//
+//.bg-gradient-inverse {
+//    @include background-image( linear-gradient( $brand-primary, $brand-secondary ) );
+//    &::before{
+//        @include bg-overlay();
+//        @include background-image( linear-gradient( $brand-primary, $brand-secondary ) );
+//        opacity: 0.8;
+//    }
+//}
+
+//.is-style-with-bg-clessidra-inclinata {
+//    position: relative;
+//    &::after {
+//        @include bg-overlay();
+//        //@include background-image( linear-gradient( $brand-secondary, $brand-primary ) );
+//        background-image: url(../img/clessidra-inclinata.svg);
+//        background-position: -200px 10%;
+//        background-repeat: no-repeat;
+//    }
+//}
+//
+//.is-style-with-bg-cta-end {
+//    position: relative;
+//    &::after {
+//        @include bg-overlay();
+//        //@include background-image( linear-gradient( $brand-secondary, $brand-primary ) );
+//        background-image: url(../img/bg-cta-end.svg);
+//        background-position: -200px 10%;
+//        background-repeat: no-repeat;
+//    }
+//}
+
+.jarallax {
+    position: relative;
+    z-index: 0;
+
+    > [id*="jarallax-container"] {
+        max-width: 100% !important;
+
+        .wp-block-image {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+    }
+
+    > .jarallax-img {
+        //position: absolute;
+        //object-fit: cover;
+        //background-size: contain;
+        //top: 0;
+        //left: 0;
+        //width: 100%;
+        //height: 100%;
+        //z-index: -1;
+        //
+        //display: flex;
+        //flex-direction: column;
+        //
+        //
+        //img {
+        //    align-self: center;
+        //}
+    }
+}

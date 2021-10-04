@@ -35,12 +35,14 @@
         "vimeo/psalm": "^4.8",
         "phpbench/phpbench": "@dev",
         "phpmetrics/phpmetrics": "^2.5",
+        "infection/infection": "^0.25",
         "italystrap/debug": "^2.0",
         "phpspec/prophecy-phpunit": "^1.1",
         "italystrap/config": "^2.4",
         "italystrap/theme-json-generator": "dev-master",
         "spatie/color": "^1.1",
-        "italystrap/html": "^1.2"
+        "italystrap/html": "^1.2",
+        "infection/codeception-adapter": "^0.4.0"
     },
     "autoload": {
         "psr-4": {
@@ -51,8 +53,11 @@
         ]
     },
     "autoload-dev": {
+        "classmap": [
+            "tests/"
+        ],
         "psr-4": {
-            "ItalyStrap\\ExperimentalTheme\\Tests\\": "tests/"
+            "ItalyStrap\\Tests\\": "tests/"
         },
         "files": [
             "functions/autoload.php"

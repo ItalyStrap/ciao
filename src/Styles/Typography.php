@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace ItalyStrap\ExperimentalTheme;
+namespace ItalyStrap\ExperimentalTheme\Styles;
 
-final class Typography
+final class Typography implements ArrayableInterface
 {
-	use ImmutableCollectionTrait, ToArray;
+	use ImmutableCollectionTrait, CollectionToArray;
 
 	const FONT_FAMILY		= 'fontFamily';
 	const FONT_SIZE			= 'fontSize';
@@ -46,7 +46,7 @@ final class Typography
 	}
 
 	public function textTransform( string $value ): self  {
-		$this->setCollection( self::FONT_SIZE, $value );
+		$this->setCollection( self::TEXT_TRANSFORM, $value );
 		return $this;
 	}
 }

@@ -1,0 +1,173 @@
+/// Register devices widths
+$devices: (
+    mobile-landscape: $screen-xs, // 480px
+    tablet: $screen-sm, // 768px
+    tablet-landscape: $screen-md, // 992px
+    laptop: $screen-lg, // 1200px
+    desktop: 1440px
+) !default;
+
+/// Verify that the breakpoint width is listed
+///
+/// @param {string} $breakpoint - breakpoint name
+/// @group mediaqueries
+@function get-breakpoint-width($breakpoint) {
+    @if map-has-key($devices, $breakpoint) {
+        @return map-get($devices, $breakpoint);
+    } @else {
+        @warn "Breakpoint #{$breakpoint} wasn't found in $devices.";
+    }
+}
+
+/// Min-width media query
+///
+/// @param {string} $breakpoint - breakpoint name
+/// @group mediaqueries
+@mixin at-least($breakpoint) {
+    $device-width: get-breakpoint-width($breakpoint);
+    @media screen and (min-width: $device-width) {
+        @content;
+    }
+}
+
+
+// =============================================================================
+// String Replace
+// @url https://gist.github.com/jonathantneal/d0460e5c2d5d7f9bc5e6
+// =============================================================================
+
+@function str-replace($string, $search, $replace: "") {
+    $index: str-index($string, $search);
+
+    @if $index {
+        @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    }
+
+    @return $string;
+}
+
+
+// =============================================================================
+// Font Face
+// =============================================================================
+
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
+    $src: null;
+
+    $extmods: (
+            eot: "?",
+            svg: "#" + str-replace($name, " ", "_")
+    );
+
+    $formats: (
+            otf: "opentype",
+            ttf: "truetype"
+    );
+
+    @each $ext in $exts {
+        $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+        $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+        $src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
+    }
+
+    /**
+     * local()
+     * https://web.dev/reduce-webfont-size/#defining-a-font-family-with-@font-face
+     */
+    @font-face {
+        font-family: quote($name);
+        font-style: $style;
+        font-weight: $weight;
+        src: local($name), $src;
+        font-display: swap;
+    }
+}
+
+/**
+ * ::before
+ * Si usa per inserire l'overlay sullo sfondo e sull'immagine di sfondo
+ *
+ * ::after
+ * Si usa per inserire l'overalay sopra un blocco o una immagine blocco
+ */
+// https://codepen.io/StephenScaff/pen/zxzxWN
+@mixin bg-overlay() {
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+@mixin bg-image( $image ) {
+    background-image: img-url($image);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    &::before {
+        content: unset;
+    }
+}
+
+@mixin bg-icon( $icon ) {
+    background-image: img-url($icon);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: 150px 20%;
+    position: relative;
+}
+
+// From bourbon
+//************************************************************************//
+// Background-image property for adding multiple background images with
+// gradients, or for stringing multiple gradients together.
+//************************************************************************//
+
+@mixin background-image($images...) {
+    @include _bourbon-deprecate-for-prefixing("background-image");
+
+    $webkit-images: ();
+    $spec-images: ();
+
+    @each $image in $images {
+        $webkit-image: ();
+        $spec-image: ();
+
+        @if (type-of($image) == string) {
+            $url-str:       str-slice($image, 1, 3);
+            $gradient-type: str-slice($image, 1, 6);
+
+            @if $url-str == "url" {
+                $webkit-image: $image;
+                $spec-image:   $image;
+            }
+
+            @else if $gradient-type == "linear" {
+                $gradients: _linear-gradient-parser($image);
+                $webkit-image:  map-get($gradients, webkit-image);
+                $spec-image:    map-get($gradients, spec-image);
+            }
+
+            @else if $gradient-type == "radial" {
+                $gradients: _radial-gradient-parser($image);
+                $webkit-image: map-get($gradients, webkit-image);
+                $spec-image:   map-get($gradients, spec-image);
+            }
+        }
+
+        $webkit-images: append($webkit-images, $webkit-image, comma);
+        $spec-images:   append($spec-images,   $spec-image,   comma);
+    }
+
+    background-image: $webkit-images;
+    background-image: $spec-images;
+}
+
+@mixin avatar( $border-width, $border-color ) {
+    border-radius: 50%;
+    border: $border-width solid $border-color;
+    box-sizing: border-box;
+    //filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.25));
+}

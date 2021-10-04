@@ -1,0 +1,30 @@
+ .site-footer{
+     padding: ($site-footer-padding-y / 3) $spacer;
+
+     background-color: $dark-green;
+     color: $body-bg;
+
+     li.widget {
+         @extend .list-unstyled;
+     }
+
+     a {
+         color: $body-bg;
+     }
+
+ 	.colophon{
+
+ 	}
+ }
+
+ //@include media-breakpoint-up(sm, $grid-breakpoints) {
+ //    .site-footer{
+ //        padding: ($site-footer-padding-y / 2) $spacer;
+ //    }
+ //}
+
+ @include media-breakpoint-up(md, $grid-breakpoints) {
+     .site-footer{
+         padding: $site-footer-padding-y $site-footer-padding-x;
+     }
+ }

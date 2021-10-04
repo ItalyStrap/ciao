@@ -1,0 +1,41 @@
+
+$theme-colors: (
+// "key": $value,
+) !default;
+
+@each $color, $value in $theme-colors {
+  .has-#{$color}-color {
+    --has-color-value: #{$value};
+    //--has-hover-color-value: #{$value};
+    //color: var(#{$prefix}-#{$color}) !important;
+    color: var(--has-color-value) !important;
+  }
+
+  .has-#{$color}-background-color {
+    --has-border-color-value: #{$value};
+    --has-background-color-value: #{$value};
+    //background-color: var(#{$prefix}-#{$color}) !important;
+    background-color: var(--has-background-color-value) !important;
+
+    //$tmp-color: color-contrast($value) !default;
+    //$bg-color-temp: if($tmp-color == $color-contrast-light, shade-color($value, 30%), tint-color($value, 30%));
+    //--has-hover-color-value: #{$tmp-color};
+  }
+}
+
+//has-{extra-small}-font-size
+
+.bg-gradient-primary {
+  background: linear-gradient(95.63deg, #145566 22.03%, $primary 78.4%);
+}
+
+.has-light-green-to-medium-turquoise-gradient-background {
+  background: $light-green-to-medium-turquoise-linear-gradient;
+}
+
+.has-light-green-to-light-green-gradient-background {
+  background: $light-green-to-medium-turquoise-linear-gradient;
+}
+.has-light-blue-to-transparent-gradient-background {
+  background: $light-blue-to-transparent-linear-gradient;
+}

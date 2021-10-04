@@ -1,0 +1,103 @@
+
+//.fonts-loaded {
+//body {
+//font-family: var(--bs-font-sans-serif);
+//}
+//h1,h2,h3,h4,h5,h6{
+//	font-weight: 300;
+//}
+//h1 strong,h2 strong,h3 strong,h4 strong,h5 strong,h6 strong, .woocommerce div.product .product_title, .woocommerce .entry-content h1 a, .woocommerce-tabs h1, .related h3 {
+//	font-family: "Anton", "Helvetica Neue", Helvetica, Arial, sans-serif;
+//}
+//}
+$fonts-path: "../fonts/" !default;
+
+
+@include font-face( "Open Sans", "#{$fonts-path}OpenSans-Light", $font-weight-light, normal, woff2 woff );
+@include font-face( "Open Sans", "#{$fonts-path}OpenSans-Regular", $font-weight-normal, normal, woff2 woff );
+@include font-face( "Work Sans", "#{$fonts-path}WorkSans-Bold", $font-weight-bold, normal, woff2 woff );
+@include font-face( "Work Sans", "#{$fonts-path}WorkSans-Black", $font-weight-bolder, normal, woff2 woff );
+
+// Fix Title overflow content area
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, a, p, li {
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
+}
+
+h1,
+.h1,
+h2,
+.h2,
+{
+  font-weight: $font-weight-bolder;
+
+  b,
+  strong {
+    font-weight: $font-weight-bolder;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
+@each $type, $value in $font-sizes {
+  .has-#{$type}-font-size {
+    //@extend #{$value};
+    //font-size: $value;
+    @include font-size($value);
+  };
+}
+
+$font-weights: (
+   "lighter": $font-weight-lighter,
+   "light": $font-weight-light,
+   "normal": $font-weight-normal,
+   "bold": $font-weight-bold,
+   "bolder": $font-weight-bolder,
+) !default;
+
+@each $type, $value in $font-weights {
+  .has-#{$type}-font-weight {
+    font-weight: $value !important;
+    b, strong {
+      font-weight: $font-weight-bolder;
+    }
+  };
+}
+
+.h1, h1,
+.h2, h2,
+.h3, h3,
+.h4, h4,
+.h5, h5,
+.h6, h6 {
+  margin-top: $spacer;
+}
+
+p {
+  margin-top: $spacer;
+  a {
+    color: $light-green;
+  }
+}
+
+b,
+strong {
+  font-weight: $font-weight-bold;
+}
+
+.archive {
+  .entry-title {
+  }
+}
+
+.entry-title {
+  font-weight: $font-weight-bolder;
+  margin-top: $spacer * 2;
+  color: $primary;
+}
+
+.tadv-background-color {
+  padding: 0.004rem 0.2rem;
+}

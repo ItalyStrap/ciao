@@ -39,6 +39,19 @@ try {
 			]
 		);
 
+		register_block_style(
+			'core/column',
+			array(
+				'name'         => 'column-border',
+				'label'        => __( 'Inner borders', 'armando' ),
+				'inline_style' =>
+'.is-style-column-border {
+	border: 1px solid currentColor;
+	padding: 1.25em 2.375em;
+}',
+			)
+		);
+
 //		d( get_theme_support('align-wide') );
 
 //	\add_theme_support( 'align-wide' );

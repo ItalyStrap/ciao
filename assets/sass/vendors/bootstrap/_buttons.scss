@@ -1,0 +1,143 @@
+//
+// Base styles
+//
+
+.btn {
+    display: inline-block;
+    font-family: $btn-font-family;
+    font-weight: $btn-font-weight;
+    line-height: $btn-line-height;
+    color: $body-color;
+    text-align: center;
+    text-decoration: if($link-decoration == none, null, none);
+    white-space: $btn-white-space;
+    vertical-align: middle;
+    cursor: if($enable-button-pointers, pointer, null);
+    user-select: none;
+    background-color: transparent;
+    border: $btn-border-width solid transparent;
+    @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-border-radius);
+    @include transition($btn-transition);
+
+    &:hover {
+        color: $body-color;
+        text-decoration: if($link-hover-decoration == underline, none, null);
+    }
+
+    .btn-check:focus + &,
+    &:focus {
+        outline: 0;
+        box-shadow: $btn-focus-box-shadow;
+    }
+
+    .btn-check:checked + &,
+    .btn-check:active + &,
+    &:active,
+    &.active {
+        @include box-shadow($btn-active-box-shadow);
+
+        &:focus {
+            @include box-shadow($btn-focus-box-shadow, $btn-active-box-shadow);
+        }
+    }
+
+    &:disabled,
+    &.disabled,
+    fieldset:disabled & {
+        pointer-events: none;
+        opacity: $btn-disabled-opacity;
+        @include box-shadow(none);
+    }
+}
+
+//$theme-colors: (
+//    // "key": $value,
+//) !default;
+
+//
+// Alternate buttons
+//
+$buttons-to: (
+    "primary": $primary,
+    "accent": $accent,
+) !default;
+@each $color, $value in $buttons-to {
+    .btn-#{$color} {
+        @include button-variant($value, $value);
+    }
+}
+
+@each $color, $value in $buttons-to {
+    .btn-outline-#{$color} {
+        @include button-outline-variant($value);
+    }
+}
+
+
+//
+// Link buttons
+//
+
+// Make a button look and behave like a link
+//.btn-link {
+//    font-weight: $font-weight-normal;
+//    color: $btn-link-color;
+//    text-decoration: $link-decoration;
+//
+//    &:hover {
+//        color: $btn-link-hover-color;
+//        text-decoration: $link-hover-decoration;
+//    }
+//
+//    &:focus {
+//        text-decoration: $link-hover-decoration;
+//    }
+//
+//    &:disabled,
+//    &.disabled {
+//        color: $btn-link-disabled-color;
+//    }
+//
+//    // No need for an active state here
+//}
+
+
+//
+// Button Sizes
+//
+
+.btn-lg {
+    @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-border-radius-lg);
+}
+
+.btn-sm {
+    @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm, $btn-border-radius-sm);
+}
+
+.btn-signup {
+    @extend .btn;
+    @extend .btn-accent;
+    border-width: 0;
+}
+
+@include media-breakpoint-up(lg, $grid-breakpoints) {
+    .btn-login {
+        border: 2px solid #DFDFDF;
+        border-radius: 5px;
+        a{
+            &::before {
+                content: "";
+                background-image: url("data:image/svg+xml,%3Csvg width='14' height='19' viewBox='0 0 14 19' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.00001 9.002C9.0465 9.002 10.7057 6.98685 10.7057 4.50103C10.7057 2.01515 10.1609 0 7.00001 0C3.83908 0 3.29425 2.01515 3.29425 4.50103C3.29425 6.98685 4.95341 9.002 7.00001 9.002Z' fill='%23A0A0A0'/%3E%3Cpath d='M0.000728849 15.8745C9.76473e-05 15.723 -0.000533555 15.8318 0.000728849 15.8745V15.8745Z' fill='%23A0A0A0'/%3E%3Cpath d='M13.999 15.9929C14.001 15.9514 13.9996 15.705 13.999 15.9929V15.9929Z' fill='%23A0A0A0'/%3E%3Cpath d='M13.991 15.6926C13.9224 11.3623 13.3569 10.1284 9.02907 9.34729C9.02907 9.34729 8.41987 10.1236 6.99993 10.1236C5.58 10.1236 4.97069 9.34729 4.97069 9.34729C0.690127 10.1198 0.0901796 11.3355 0.0112946 15.552C0.00482598 15.8963 0.00182837 15.9144 0.000671387 15.8744C0.000934337 15.9493 0.00124976 16.0878 0.00124976 16.3294C0.00124976 16.3294 1.03159 18.4064 6.99993 18.4064C12.9682 18.4064 13.9986 16.3294 13.9986 16.3294C13.9986 16.1742 13.9987 16.0662 13.9989 15.9928C13.9977 16.0175 13.9954 15.9696 13.991 15.6926Z' fill='%23A0A0A0'/%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                height: 19px;
+                width: 14px;
+                display: block;
+                margin: 3px 0;
+            }
+
+            > span {
+                display: none;
+            }
+        }
+    }
+}

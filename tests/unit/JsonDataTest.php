@@ -21,9 +21,10 @@ class JsonDataTest extends Unit {
 
 	/**
 	 * @test
+	 * @throws \Spatie\Color\Exceptions\InvalidColorValue
 	 */
 	public function itShouldReturnAnArray() {
 		$data = JsonData::getJsonData();
-		$this->assertIsArray($data, '');
+		$this->assertIsArray( $data, '' );
 	}
 }

@@ -1,0 +1,53 @@
+/**
+ * Class for Figure tag and figure caption tag
+ * https://codex.wordpress.org/CSS
+ */
+// .wp-caption{}
+// .wp-caption-text{}
+
+// .sticky{}
+// .gallery-caption{}
+// .bypostauthor{}
+// .alignright{}
+// .alignleft{}
+// .aligncenter{}
+
+/* =WordPress Core
+-------------------------------------------------------------- */
+.aligncenter,
+div.aligncenter,
+a img.aligncenter,
+//.aligncenter > img
+{
+    @extend .mr-auto;
+    @extend .ml-auto;
+    //img {
+    //    @extend .mr-auto;
+    //    @extend .ml-auto;
+    //}
+}
+
+.alignright,
+a img.alignright
+{
+    @extend .float-right;
+    margin: 0 0 1em 1em;
+}
+
+.alignleft,
+a img.alignleft
+{
+    @extend .float-left;
+    margin: 0 1em 1em 0;
+}
+
+//Immagiini caricate nei post normalmente
+
+.alignnone,
+a img.alignnone
+{
+    display: inline;
+    margin-bottom: 1em;
+    margin-right: 1em;
+    margin-top: 1em;
+}

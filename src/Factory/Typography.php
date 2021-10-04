@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace ItalyStrap\ExperimentalTheme\Factory;
 
-use \ItalyStrap\ExperimentalTheme\Typography as BaseTypo;
+use \ItalyStrap\ExperimentalTheme\Styles\Typography as BaseTypo;
 
 final class Typography
 {

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace ItalyStrap\ExperimentalTheme\Factory;
 
-use \ItalyStrap\ExperimentalTheme\Color as BaseColor;
+use \ItalyStrap\ExperimentalTheme\Styles\Color as BaseColor;
 
 final class Color
 {

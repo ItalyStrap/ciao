@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace ItalyStrap\ExperimentalTheme\Factory;
 
-use ItalyStrap\ExperimentalTheme\Spacing as BaseSpacing;
+use ItalyStrap\ExperimentalTheme\Styles\Spacing as BaseSpacing;
 
 final class Spacing
 {
@@ -83,6 +83,10 @@ final class Spacing
 
 	public static function vertical( string $value ): BaseSpacing {
 		return self::shorthand( [$value, '', $value, ''] );
+	}
+
+	public static function verticalAsync( string $top, string $bottom ): BaseSpacing {
+		return self::shorthand( [$top, '', $bottom, ''] );
 	}
 
 	public static function horizontal( string $value ): BaseSpacing {

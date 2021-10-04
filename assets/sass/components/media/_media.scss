@@ -1,0 +1,98 @@
+.wp-block-media-text__media img,
+.size-full,
+.wp-post-image,
+.wp-block-image img
+{
+	@include img-fluid();
+}
+
+/**
+ * Featured Image archive and singular
+ */
+.featured-image {
+	margin-bottom: 0;
+	.wp-post-image:not(.full-width){
+		@extend .rounded;
+	}
+}
+
+.wp-caption {
+	display: block;
+	max-width: 100%;
+	// background: #fff;
+	// border: 1px solid #f0f0f0;
+	// max-width: 96%; /* Image does not overflow the content area */
+	// padding: 0.3em 3px 10px;
+	// text-align: center;
+	&.alignnone {
+		margin: 0.3em 1.25em 1.25em 0;
+	}
+	&.alignleft {
+		margin: 0.3em 1.25em 1.25em 0;
+		.wp-caption-text {
+			text-align: left;
+		}
+	}
+	&.alignright {
+		margin: 0.3em 0 1.25em 1.25em;
+		.wp-caption-text {
+			text-align: right;
+		}
+	}
+	&.aligncenter {
+		margin: 0.3em 1.25em;
+		.wp-caption-text {
+			text-align: center;
+		}
+	}
+	// img {
+	//     border: 0 none;
+	//     height: auto;
+	//     margin: 0;
+	//     max-width: 98.5%;
+	//     padding: 0;
+	//     width: auto;
+	// }
+	p.wp-caption-text,
+	.wp-caption-text {
+		// background: #fff;
+		border: $border-width solid $wp-caption-text-border-color;
+		border-top: none;
+		color: $wp-caption-text-color;
+		font-size: 0.85em;
+		line-height: 1em;
+		margin: 0;
+		padding: 0.5em;
+	}
+}
+
+// Margin bottom for Audio shortcode
+.mejs-container {
+	margin-bottom: 1.5em;
+}
+
+// Generate by Gutenberg
+.is-style-default {
+	img {
+		border-radius: 0;
+	}
+}
+
+//.is-style-default {
+//	img {
+//		border-radius: $border-radius-lg;
+//	}
+//}
+
+.is-style-rounded {
+	img {
+		border-radius: $border-radius-lg;
+	}
+}
+
+.is-style-circle-mask,
+.is-style-rounded-circle {
+	img {
+		border-radius: 50%;
+	}
+}

@@ -1,0 +1,44 @@
+#wp-calendar{
+    width: 100%;
+}
+
+/**
+ * This fix the bullet on sidebars
+ */
+.widget {
+    margin-top: $widget-margin-top;
+
+    // Make sure select elements fit in widgets.
+    select {
+        max-width: 100%;
+    }
+
+    > ul {
+        list-style: none outside none;
+        padding-left: 0;
+    }
+
+    li {
+        line-height: $widget-list-line-height;
+        margin-top: $widget-list-margin-top;
+        padding-top: $widget-list-padding-y;
+        padding-bottom: $widget-list-padding-y;
+    }
+
+    img {
+        @extend .img-fluid;
+    }
+}
+
+/**
+ * Snippet example for widget:
+ */
+// aside {
+// 	.widget{
+// 		li {
+// 			background-color: #e5e5e5;
+// 			margin: 6px 0;
+// 			padding: 6px 12px;
+// 		}
+// 	}
+// }

@@ -3,7 +3,20 @@ declare(strict_types=1);
 
 namespace ItalyStrap\Tests;
 
-trait InstantiableTrait {
+trait BaseUnitTrait {
+
+	/**
+	 * @var \UnitTester
+	 */
+	protected $tester;
+
+	protected function _before()
+	{
+	}
+
+	protected function _after()
+	{
+	}
 
 	abstract protected function getInstance();
 

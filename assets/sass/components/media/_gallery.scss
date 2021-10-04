@@ -1,0 +1,26 @@
+.gallery {
+    display: flex;
+    flex-flow: row wrap;
+    .gallery-item {
+        padding: $gallery-item-padding-y $gallery-item-padding-x;
+    }
+    .gallery-caption {
+        color: $gallery-caption-color;
+        font-size: $gallery-caption-font-size;
+    }
+    .gallery-icon,
+    .gallery-caption {
+        text-align: center;
+    }
+    img {
+        @include img-fluid();
+    }
+}
+
+@for $i from 1 through 9 {
+    .gallery-columns-#{$i} {
+        .gallery-item {
+            flex:  1 1 (100% / $i);
+        }
+    }
+}

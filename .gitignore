@@ -1,6 +1,7 @@
 # Directory
 /vendor/
 /_others/
+/node_modules/
 
 # File
 *.local
