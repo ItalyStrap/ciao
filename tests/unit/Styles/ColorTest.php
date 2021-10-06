@@ -6,9 +6,9 @@ namespace ItalyStrap\Tests\Styles;
 use ItalyStrap\ExperimentalTheme\Styles\Color;
 use ItalyStrap\Tests\BaseUnitTrait;
 
-class ColorTest extends \Codeception\Test\Unit
-{
-    use BaseUnitTrait;
+class ColorTest extends \Codeception\Test\Unit {
+
+	use BaseUnitTrait;
 
 	protected function getInstance(): Color {
 		$sut = new Color();

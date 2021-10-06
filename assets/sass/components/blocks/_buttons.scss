@@ -1,0 +1,80 @@
+/**
+ * This is like the .btn in bootstrap
+ * Example:
+ * @extend .wp-block-button__link;
+ */
+.wp-block-button__link {
+    display: inline-block;
+    text-align: center;
+    transition: color .15s ease-in-out,
+    background-color .15s ease-in-out,
+    border-color .15s ease-in-out,
+    box-shadow .15s ease-in-out;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    word-break: break-word;
+
+    &:hover,
+    &:active,
+    &:focus {
+        text-decoration: none;
+        --wp--custom--button--bg:           var(--wp--custom--button--hover--bg);
+        --wp--custom--button--border-color: var(--wp--custom--button--hover--border-color);
+        --wp--custom--button--text:         var(--wp--custom--button--hover--text);
+        //opacity: 0.75;
+    }
+}
+
+.is-style-fill {
+    > .wp-block-button__link {
+
+        &.has-gray-600-background-color {
+            --wp--custom--button--hover--text: var(--wp--preset--color--gray-100);
+            --wp--custom--button--hover--bg: var(--wp--preset--color--gray-900);
+
+            &:hover,
+            &:active,
+            &:focus {
+                --wp--preset--color--gray-600: var(--wp--preset--color--gray-900);
+                color: var( --wp--custom--button--hover--text );
+            }
+        }
+
+        &.has-gray-800-color {
+
+        }
+    }
+}
+
+
+.is-style-outline {
+    > .wp-block-button__link {
+        --wp--custom--button--bg:           transparent;
+        --wp--custom--button--border-color: currentColor;
+        --wp--custom--button--text:         var( --wp--preset--color--base );
+
+        &:not(.has-background) {
+            color: var(--wp--custom--button--text);
+            background-color: var(--wp--custom--button--bg);
+            border-color: var(--wp--custom--button--border-color);
+        }
+
+        &:hover,
+        &:active,
+        &:focus {
+            --wp--custom--button--bg:           var(--wp--custom--button--hover--bg);
+            --wp--custom--button--border-color: var(--wp--custom--button--hover--border-color);
+            --wp--custom--button--text:         var(--wp--custom--button--hover--text);
+        }
+    }
+}
+
+/// Form button fix for border color
+.wp-block-post-comments {
+    input {
+        &.wp-block-button__link {
+            border-color: currentColor;
+        }
+    }
+}

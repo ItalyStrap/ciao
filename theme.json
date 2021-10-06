@@ -31,18 +31,63 @@
             "palette": [
                 {
                     "slug": "text",
-                    "color": "rgba(0,0,0,1.00)",
+                    "color": "hsla(0,0%,0%,1)",
                     "name": "Black for text, headings, links"
                 },
                 {
                     "slug": "background",
-                    "color": "rgba(255,255,255,1.00)",
+                    "color": "hsla(0,0%,100%,1)",
                     "name": "White for body background"
                 },
                 {
                     "slug": "base",
                     "color": "rgba(57,134,224,1.00)",
                     "name": "Brand base color"
+                },
+                {
+                    "slug": "gray-100",
+                    "color": "#191919",
+                    "name": "Gray of gray by 10%"
+                },
+                {
+                    "slug": "gray-200",
+                    "color": "#333333",
+                    "name": "Gray of gray by 20%"
+                },
+                {
+                    "slug": "gray-300",
+                    "color": "#4c4c4c",
+                    "name": "Gray of gray by 30%"
+                },
+                {
+                    "slug": "gray-400",
+                    "color": "#666666",
+                    "name": "Gray of gray by 40%"
+                },
+                {
+                    "slug": "gray-500",
+                    "color": "#7f7f7f",
+                    "name": "Gray of gray by 50%"
+                },
+                {
+                    "slug": "gray-600",
+                    "color": "#999999",
+                    "name": "Gray of gray by 60%"
+                },
+                {
+                    "slug": "gray-700",
+                    "color": "#b2b2b2",
+                    "name": "Gray of gray by 70%"
+                },
+                {
+                    "slug": "gray-800",
+                    "color": "#cccccc",
+                    "name": "Gray of gray by 80%"
+                },
+                {
+                    "slug": "gray-900",
+                    "color": "#e5e5e5",
+                    "name": "Gray of gray by 90%"
                 }
             ],
             "gradients": [
@@ -98,33 +143,38 @@
                 },
                 {
                     "slug": "h1",
-                    "size": "calc(var(--wp--preset--font-size--base) * 2.5)",
+                    "size": "calc( var(--wp--preset--font-size--base) * 2.5)",
                     "name": "Used in H1 titles"
                 },
                 {
                     "slug": "h2",
-                    "size": "calc(var(--wp--preset--font-size--base) * 2)",
+                    "size": "calc( var(--wp--preset--font-size--base) * 2)",
                     "name": "Used in H2 titles"
                 },
                 {
                     "slug": "h3",
-                    "size": "calc(var(--wp--preset--font-size--base) * 1.75)",
+                    "size": "calc( var(--wp--preset--font-size--base) * 1.75)",
                     "name": "Used in H3 titles"
                 },
                 {
                     "slug": "h4",
-                    "size": "calc(var(--wp--preset--font-size--base) * 1.5)",
+                    "size": "calc( var(--wp--preset--font-size--base) * 1.5)",
                     "name": "Used in H4 titles"
                 },
                 {
                     "slug": "h5",
-                    "size": "calc(var(--wp--preset--font-size--base) * 1.25)",
+                    "size": "calc( var(--wp--preset--font-size--base) * 1.25)",
                     "name": "Used in H5 titles"
                 },
                 {
                     "slug": "h6",
                     "size": "var(--wp--preset--font-size--base)",
                     "name": "Used in H6 titles"
+                },
+                {
+                    "slug": "small",
+                    "size": "calc( var(--wp--preset--font-size--base) * 0.75)",
+                    "name": "Smallest font size"
                 }
             ],
             "fontFamilies": [
@@ -167,23 +217,46 @@
                 "h": "calc( var(--wp--custom--spacer--base) * 4 )",
                 "s": "calc( var(--wp--custom--spacer--base) / 1.5 )",
                 "m": "calc( var(--wp--custom--spacer--base) * 2 )",
-                "l": "calc( var(--wp--custom--spacer--base) * 4 )"
-            },
-            "blockGap": {
-                "base": "var(--wp--custom--spacer--base)",
-                "s": "calc( var(--wp--custom--spacer--base) / 1.5 )",
-                "m": "calc( var(--wp--custom--spacer--base) * 1.5 )",
                 "l": "calc( var(--wp--custom--spacer--base) * 3 )",
                 "xl": "calc( var(--wp--custom--spacer--base) * 4 )"
             },
             "lineHeight": {
+                "base": "1.5",
                 "s": "1.3",
-                "m": "1.5",
+                "m": "var(--wp--custom--line-height--base)",
                 "l": "1.7"
+            },
+            "body": {
+                "bg": "var(--wp--preset--color--base)",
+                "text": "var(--wp--preset--color--background)"
+            },
+            "link": {
+                "bg": "var(--wp--preset--color--base)",
+                "text": "var(--wp--preset--color--background)",
+                "decoration": "underline",
+                "hover": {
+                    "text": "var(--wp--preset--color--text)",
+                    "decoration": "underline"
+                }
             },
             "button": {
                 "bg": "var(--wp--preset--color--base)",
-                "text": "var(--wp--preset--color--background)"
+                "text": "hsla(0,0%,100%,1)",
+                "borderColor": "transparent",
+                "hover": {
+                    "bg": "hsla(213,73%,35%,1)",
+                    "text": "hsla(0,0%,100%,1)",
+                    "borderColor": "transparent"
+                }
+            },
+            "form": {
+                "border": {
+                    "color": "",
+                    "width": ""
+                },
+                "input": {
+                    "color": ""
+                }
             }
         },
         "blocks": {
@@ -195,7 +268,6 @@
         }
     },
     "styles": {
-        "border": [],
         "color": {
             "background": "var(--wp--preset--color--background)",
             "text": "var(--wp--preset--color--text)"
@@ -205,24 +277,15 @@
             "fontSize": "var(--wp--preset--font-size--base)",
             "fontStyle": "normal",
             "fontWeight": "400",
+            "letterSpacing": "normal",
             "lineHeight": "var(--wp--custom--line-height--m)",
             "textDecoration": "none",
             "textTransform": "none"
         },
         "spacing": {
-            "blockGap": "var(--wp--custom--block-gap--m)",
-            "margin": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-            },
-            "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-            }
+            "blockGap": "var(--wp--custom--spacer--m)",
+            "margin": "0",
+            "padding": "0"
         },
         "elements": {
             "link": {
@@ -236,9 +299,7 @@
                     "fontSize": "var(--wp--preset--font-size--h-1)"
                 },
                 "spacing": {
-                    "margin": {
-                        "top": "var(--wp--custom--block-gap--m)"
-                    }
+                    "margin": "var(--wp--custom--spacer--m) 0 0px 0"
                 }
             },
             "h2": {
@@ -246,9 +307,7 @@
                     "fontSize": "var(--wp--preset--font-size--h-2)"
                 },
                 "spacing": {
-                    "margin": {
-                        "top": "var(--wp--custom--block-gap--m)"
-                    }
+                    "margin": "var(--wp--custom--spacer--m) 0 0px 0"
                 }
             },
             "h3": {
@@ -256,9 +315,7 @@
                     "fontSize": "var(--wp--preset--font-size--h-3)"
                 },
                 "spacing": {
-                    "margin": {
-                        "top": "var(--wp--custom--block-gap--m)"
-                    }
+                    "margin": "var(--wp--custom--spacer--m) 0 0px 0"
                 }
             },
             "h4": {
@@ -266,9 +323,7 @@
                     "fontSize": "var(--wp--preset--font-size--h-4)"
                 },
                 "spacing": {
-                    "margin": {
-                        "top": "var(--wp--custom--block-gap--m)"
-                    }
+                    "margin": "var(--wp--custom--spacer--m) 0 0px 0"
                 }
             },
             "h5": {
@@ -276,9 +331,7 @@
                     "fontSize": "var(--wp--preset--font-size--h-5)"
                 },
                 "spacing": {
-                    "margin": {
-                        "top": "var(--wp--custom--block-gap--m)"
-                    }
+                    "margin": "var(--wp--custom--spacer--m) 0 0px 0"
                 }
             },
             "h6": {
@@ -286,19 +339,14 @@
                     "fontSize": "var(--wp--preset--font-size--h-6)"
                 },
                 "spacing": {
-                    "margin": {
-                        "top": "var(--wp--custom--block-gap--m)"
-                    }
+                    "margin": "var(--wp--custom--spacer--m) 0 0px 0"
                 }
             }
         },
         "blocks": {
             "core/paragraph": {
                 "spacing": {
-                    "margin": {
-                        "top": "var(--wp--custom--block-gap--s)",
-                        "bottom": "0px"
-                    }
+                    "margin": "var(--wp--custom--spacer--s) 0 0px 0"
                 },
                 "color": {
                     "text": "var(--wp--preset--color--text)"
@@ -306,18 +354,24 @@
             },
             "core/button": {
                 "border": {
-                    "radius": "calc(var(--wp--preset--font-size--base)/4)",
+                    "color": "var(--wp--custom--button--border-color)",
+                    "radius": "calc(var(--wp--preset--font-size--base)/3)",
                     "style": "solid",
-                    "width": "1px"
+                    "width": "2px"
                 },
                 "color": {
                     "background": "var(--wp--custom--button--bg)",
                     "text": "var(--wp--custom--button--text)"
                 },
+                "spacing": {
+                    "padding": "0.4em 0.85em !important"
+                },
                 "typography": {
                     "fontFamily": "var(--wp--preset--font-family--base)",
                     "fontSize": "var(--wp--preset--font-size--base)",
-                    "textTransform": "uppercase"
+                    "textDecoration": "none",
+                    "textTransform": "uppercase",
+                    "lineHeight": "var(--wp--custom--line-height--base)"
                 }
             },
             "core/code": {
@@ -326,7 +380,7 @@
                 },
                 "spacing": {
                     "margin": {
-                        "top": "var(--wp--custom--block-gap--l)"
+                        "top": "var(--wp--custom--spacer--l)"
                     },
                     "padding": {
                         "top": "var(--wp--custom--spacer--v)",
@@ -350,7 +404,7 @@
                 },
                 "spacing": {
                     "margin": {
-                        "top": "var(--wp--custom--block-gap--l)"
+                        "top": "var(--wp--custom--spacer--l)"
                     },
                     "padding": {
                         "left": "var(--wp--custom--spacer--h)"
@@ -367,6 +421,16 @@
                 },
                 "typography": {
                     "fontSize": "var(--wp--preset--font-size--h-6)"
+                }
+            },
+            "core/spacer": {
+                "color": {
+                    "text": "var(--wp--preset--color--text)"
+                },
+                "border": {
+                    "color": "currentColor",
+                    "style": "solid",
+                    "width": "0 0 0 0"
                 }
             },
             "core/separator": {

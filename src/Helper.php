@@ -3,9 +3,8 @@ declare(strict_types=1);
 
 namespace ItalyStrap\ExperimentalTheme;
 
+final class Helper {
 
-final class Helper
-{
 	public static function templateParts( string $name, string $area ): array {
 		return [
 			'name' => $name,

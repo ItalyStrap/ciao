@@ -1,26 +1,59 @@
-.form-actions {
-  @extend .alignwide;
+//.form-actions {
+//  @extend .alignwide;
+//
+//  margin-top: $spacer * 1.5;
+//}
 
-  margin-top: $spacer * 1.5;
-}
-
+/**
+ * This is the container for the comment form.
+ */
 .comment-respond {
-  .comment-reply-title {
-    color: $dark-blue;
-  }
 }
 
+/**
+ * This is the form
+ * It is contained inside the .comment-respond element
+ */
 .comment-form {
   .comment-form-author,
   .comment-form-email,
   .comment-form-url,
   .comment-form-comment {
-    margin-top: $spacer * 1.5;
+    margin-top: var( --wp--custom--spacer--s );
   }
 
   .logged-in-as {
     a {
       text-decoration: underline;
+    }
+  }
+
+  label {
+    margin-bottom: var(--wp--custom--spacer--s);
+  }
+
+  input,
+  textarea,
+  {
+    display: block;
+    width: 100%;
+    padding: .375em .75em;
+
+    &:not(.submit) {
+      color: #212529;
+      background-clip: padding-box;
+      border: 1px solid #ced4da;
+      appearance: none;
+      border-radius: .25rem;
+      transition: border-color .15s ease-in-out,
+                  box-shadow .15s ease-in-out;
+    }
+
+    &:focus {
+      color: #212529;
+      border-color: #86b7fe;
+      outline: 0;
+      box-shadow: 0 0 0 .25rem rgba(13,110,253,.25);
     }
   }
 }

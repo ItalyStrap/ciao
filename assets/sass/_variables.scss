@@ -1,29 +1,29 @@
 @import "../../node_modules/bourbon/core/bourbon";
 
 /// Project colors:
-$dark-green: #225565; // Titolo HERO con sfondo azzurro
-$dark-blue: #1A3151; // Testo HERO con sfondo azzurro
+//$dark-green: #225565; // Titolo HERO con sfondo azzurro
+//$dark-blue: #1A3151; // Testo HERO con sfondo azzurro
 //$azzurro: #46CBD6; // Heading e CTA bottoni sfondo bianco
 //$light-green: --wp--preset--color--base; // Heading e CTA bottoni sfondo bianco
-$light-green: #48C8DD; // Heading e CTA bottoni sfondo bianco
+//$light-green: #48C8DD; // Heading e CTA bottoni sfondo bianco
 // #45CCD2
-$turquoise: #45CCD2;
+//$turquoise: #45CCD2;
 
-$accent : #f26742; // Sfondo pulsanti e testo bianco
+//$accent : #f26742; // Sfondo pulsanti e testo bianco
 
 // background: #FFE075;
-$yellow: #FFE075;
+//$yellow: #FFE075;
 
 // background: #94BEF0;
-$cyan: #94BEF0;
+//$cyan: #94BEF0;
 
 // background: #7ACAA6;
-$green: #7ACAA6;
-
-$light-yellow: #FFFAE8;
-
-$navbar-text-transform: uppercase;
-$navbar-min-height:  85px;
+//$green: #7ACAA6;
+//
+//$light-yellow: #FFFAE8;
+//
+//$navbar-text-transform: uppercase;
+//$navbar-min-height:  85px;
 
 /// Project font sizes:
 // 45px
@@ -37,16 +37,16 @@ $navbar-min-height:  85px;
 
 /// Project gradients
 // background: linear-gradient(95deg,rgb(72,200,221) 0%,rgb(69,204,210) 100%);
-$light-green-to-medium-turquoise-linear-gradient: linear-gradient(180deg, rgba($light-green, 1), rgba($turquoise, 1));
+//$light-green-to-medium-turquoise-linear-gradient: linear-gradient(180deg, rgba($light-green, 1), rgba($turquoise, 1));
 
 //48C8DD, 20%
 //929292, 100%
 //background: linear-gradient(0deg, rgba(72, 200, 221, 0.2), rgba(72, 200, 221, 0.2)), url(.jpg), #929292;
-$light-green-to-light-green-linear-gradient:  linear-gradient(0deg, rgba($light-green, 0.2), rgba($light-green, 0.2));
+//$light-green-to-light-green-linear-gradient:  linear-gradient(0deg, rgba($light-green, 0.2), rgba($light-green, 0.2));
 //$light-green-to-dark-grey-linear-gradient: linear-gradient(180deg, rgba($light-green, 1), rgba($turquoise, 1));
 
-$light-blue: #EBF3F3;
-$light-blue-to-transparent-linear-gradient: linear-gradient(180deg, $light-blue 0%, rgba(235, 243, 243, 0) 40%);
+//$light-blue: #EBF3F3;
+//$light-blue-to-transparent-linear-gradient: linear-gradient(180deg, $light-blue 0%, rgba(235, 243, 243, 0) 40%);
 
 /// Project box-shadow
 // Bottone
@@ -65,23 +65,23 @@ $light-blue-to-transparent-linear-gradient: linear-gradient(180deg, $light-blue 
 // Avatar
 // filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.25));
 
-$prefix: --bs;
+//$prefix: --bs;
 
 /// Start override here
 
 // L: 8
-$white: #fff;
-$gray-100: #f8f9fa;
-$gray-200: #e9ecef;
-$gray-300: #dee2e6;
-//$gray-400: #ced4da;
-$gray-400: #E6E6E7;
-$gray-500: #adb5bd;
-$gray-600: #6c757d;
-$gray-700: #495057;
-$gray-800: #343a40;
-$gray-900: #212529;
-$black:    #000;
+//$white: #fff;
+//$gray-100: #f8f9fa;
+//$gray-200: #e9ecef;
+//$gray-300: #dee2e6;
+////$gray-400: #ced4da;
+//$gray-400: #E6E6E7;
+//$gray-500: #adb5bd;
+//$gray-600: #6c757d;
+//$gray-700: #495057;
+//$gray-800: #343a40;
+//$gray-900: #212529;
+//$black:    #000;
 
 /// Buttons:
 /// Sfondo bianco e testo azzurro, no border
@@ -89,26 +89,27 @@ $black:    #000;
 //border-radius: 5px;
 
 // L:63
-$primary: $light-green;
+//$primary: $light-green;
+//$primary: var( --wp--preset--color--base );
 
-$icon-font-path: '../fonts/';
+//$icon-font-path: '../fonts/';
 
 //$font-size-base: 1.05rem;
 
 // L: 73
-$theme-colors-custom: (
-    "dark-green":  $dark-green,
-    "dark-blue":   $dark-blue,
-    "light-green": $light-green,
-    "accent":      $accent,
-    "yellow":      $yellow,
-    "light-yellow":$light-yellow,
-    "cyan":        $cyan,
-    "green":       $green,
-    "white":       $white,
-    "grey":        #383838,
-    "light-grey":  #999999,
-);
+//$theme-colors-custom: (
+//    "dark-green":  $dark-green,
+//    "dark-blue":   $dark-blue,
+//    "light-green": $light-green,
+//    "accent":      $accent,
+//    "yellow":      $yellow,
+//    "light-yellow":$light-yellow,
+//    "cyan":        $cyan,
+//    "green":       $green,
+//    "white":       $white,
+//    "grey":        #383838,
+//    "light-grey":  #999999,
+//);
 
 // L: 214
 //$enable-gradients:            true !default;
@@ -116,115 +117,118 @@ $theme-colors-custom: (
 //$enable-negative-margins:     true !default;
 
 // L: 237
-$spacer: 1rem !default;
+//$spacer: 1rem !default;
 //$spacer: 1vw;
 //$spacer: calc(1.34375rem + 1.125vw);
-$spacers: (
-    0: 0,
-    1: $spacer / 4,
-    2: $spacer / 2,
-    3: $spacer,
-    4: $spacer * 1.5,
-    5: $spacer * 3,
-    6: $spacer * 4,
-) !default;
+//$spacers: (
+//    0: 0,
+//    1: $spacer / 4,
+//    2: $spacer / 2,
+//    3: $spacer,
+//    4: $spacer * 1.5,
+//    5: $spacer * 3,
+//    6: $spacer * 4,
+//) !default;
 
 // L: 273
 //$link-color:                              $light-green;
-$link-color:                              $dark-blue;
-$link-decoration:                         none;
-$link-hover-decoration:                   underline;
+//$link-color:                              $dark-blue;
+//$link-decoration:                         none;
+//$link-hover-decoration:                   underline;
 
 // L: 297
-$grid-breakpoints: (
-    xs: 0,
-    sm: 576px,
-    md: 768px,
-    lg: 992px,
-    xl: 1200px,
-    //xxl: 1400px
-) !default;
+//$grid-breakpoints: (
+//    xs: 0,
+//    sm: 576px,
+//    md: 768px,
+//    lg: 992px,
+//    xl: 1200px,
+//    //xxl: 1400px
+//) !default;
 
 // L: 315
 //$container-max-widths: ();
 
-$border-radius:               .3125rem;
+//$border-radius:               .3125rem;
 
 // L: 395
 // stylelint-disable value-keyword-case
-$font-family-sans-serif:      "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
-$font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
+//$font-family-sans-serif:      "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+//$font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
 // stylelint-enable value-keyword-case
 
 // L: 404
-$font-size-base:              1rem;
+//$font-size-base:              1rem;
 //$font-size-base:              1vw;
-$font-size-sm:                $font-size-base * .875 !default;
+//$font-size-sm:                $font-size-base * .875 !default;
 //$font-size-sm:                $font-size-base * .75 !default;
 
 // L: 408
-$font-weight-lighter:         lighter;
-$font-weight-light:           300;
-$font-weight-normal:          400;
-$font-weight-bold:            700;
-$font-weight-bolder:          900;
+//$font-weight-lighter:         lighter;
+//$font-weight-light:           300;
+//$font-weight-normal:          400;
+//$font-weight-bold:            700;
+//$font-weight-bolder:          900;
 
 // L: 416
 //$line-height-base:            1.361875;
-$line-height-base:            1.375;
+//$line-height-base:            1.375;
 //$line-height-sm:              1.25 !default;
 //$line-height-lg:              2 !default;
 
 // $font-size-base * 2.8125 !default; ex 45px
 
 // L: 420
-$h1-font-size:                $font-size-base * 2.1875; // 35px
-$h2-font-size:                $font-size-base * 1.875; // 30px
-$h3-font-size:                $font-size-base * 1.625; // 26px
-$h4-font-size:                $font-size-base * 1.5; // 24px
-$h5-font-size:                $font-size-base * 1.125; // 18px
-$h6-font-size:                $font-size-base; // 16px
+//$h1-font-size:                $font-size-base * 2.1875; // 35px
+//$h2-font-size:                $font-size-base * 1.875; // 30px
+//$h3-font-size:                $font-size-base * 1.625; // 26px
+//$h4-font-size:                $font-size-base * 1.5; // 24px
+//$h5-font-size:                $font-size-base * 1.125; // 18px
+//$h6-font-size:                $font-size-base; // 16px
 
-$font-sizes: (
-    huge: $font-size-base * 2.8125,
-    1: $h1-font-size,
-    2: $h2-font-size,
-    3: $h3-font-size,
-    4: $h4-font-size,
-    5: $h5-font-size,
-    6: $h6-font-size,
-    sm: $h6-font-size * .875,
-    xs: $h6-font-size * .75,
-) !default;
+//$font-sizes: (
+//    huge: $font-size-base * 2.8125,
+//    1: $h1-font-size,
+//    2: $h2-font-size,
+//    3: $h3-font-size,
+//    4: $h4-font-size,
+//    5: $h5-font-size,
+//    6: $h6-font-size,
+//    sm: $h6-font-size * .875,
+//    xs: $h6-font-size * .75,
+//) !default;
 
 // L: 428
-$headings-font-family:        "Work Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-$headings-font-weight:        $font-weight-bold;
-$headings-line-height:        1.275;
-$headings-color:              $primary;
+//$headings-font-family:        "Work Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+//$headings-font-weight:        $font-weight-bold;
+//$headings-line-height:        1.275;
+//$headings-color:              $primary;
 
 // L: 435
-$display-font-sizes: ();
+//$display-font-sizes: ();
+
+// L: 448
+$link-hover-color: var( --wp--custom--link--hover--text );
 
 // L: 561
-$input-btn-border-width:      2px;
+//$input-btn-border-width:      2px;
 
 // L: 609
-$btn-border-radius:           0.5rem;
+//$btn-border-radius:           0.5rem;
 //$btn-border-radius-sm:        $border-radius-sm !default;
 //$btn-border-radius-lg:        $border-radius-lg !default;
 
 // L: 650
-$input-border-color:                    $gray-400 !default;
+//$input-border-color:                    $gray-400 !default;
 
 //L: 862
-$navbar-padding-y: $spacer;
+//$navbar-padding-y: $spacer;
 
 // L: 906
-$navbar-light-color: $dark-blue;
-$navbar-light-hover-color:          rgba($dark-blue, .7) !default;
-$navbar-light-active-color:         rgba($dark-blue, .9) !default;
-$navbar-light-disabled-color:       rgba($dark-blue, .3) !default;
+//$navbar-light-color: $dark-blue;
+//$navbar-light-hover-color:          rgba($dark-blue, .7) !default;
+//$navbar-light-active-color:         rgba($dark-blue, .9) !default;
+//$navbar-light-disabled-color:       rgba($dark-blue, .3) !default;
 
 ///
 /// Custom variables
@@ -239,38 +243,38 @@ $navbar-light-disabled-color:       rgba($dark-blue, .3) !default;
 //    "small": $font-size-sm,
 //) !default;
 
-$screen-xs: 480px !default;
-$screen-sm: 768px !default;
-$screen-md: 992px !default;
-$screen-lg: 1200px !default;
-$screen-xl: 1440px !default;
+//$screen-xs: 480px !default;
+//$screen-sm: 768px !default;
+//$screen-md: 992px !default;
+//$screen-lg: 1200px !default;
+//$screen-xl: 1440px !default;
 
-$dropdown-submenu-border-left-color-a-after: #ccc;
+//$dropdown-submenu-border-left-color-a-after: #ccc;
 
 // Media
 
-$gallery-caption-color: $gray-500;
-$gallery-caption-font-size: $font-size-sm;
-
-$gallery-item-padding-y: 0.5em;
-$gallery-item-padding-x: 0.5em;
-
-$wp-caption-text-color: $gray-500;
-$wp-caption-text-border-color: $gray-200;
+//$gallery-caption-color: $gray-500;
+//$gallery-caption-font-size: $font-size-sm;
+//
+//$gallery-item-padding-y: 0.5em;
+//$gallery-item-padding-x: 0.5em;
+//
+//$wp-caption-text-color: $gray-500;
+//$wp-caption-text-border-color: $gray-200;
 
 // Comments
-$comments-area-margin-top: $spacer * 3;
-$comment-metadata-font-size: $font-size-sm;
+//$comments-area-margin-top: $spacer * 3;
+//$comment-metadata-font-size: $font-size-sm;
 
 // Widgets
-$widget-margin-top: $spacer;
-$widget-list-line-height: $line-height-base;
-$widget-list-margin-top: 0;
-$widget-list-padding-y: $spacer / 2;
+//$widget-margin-top: $spacer;
+//$widget-list-line-height: $line-height-base;
+//$widget-list-margin-top: 0;
+//$widget-list-padding-y: $spacer / 2;
 
 // Misc
-$author-info-margin-top: $spacer * 2;
+//$author-info-margin-top: $spacer * 2;
 
 // Footer
-$site-footer-padding-y:                  $spacer * 6;
-$site-footer-padding-x:                  null !default;
+//$site-footer-padding-y:                  $spacer * 6;
+//$site-footer-padding-x:                  null !default;

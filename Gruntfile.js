@@ -343,7 +343,7 @@ module.exports = function(grunt) {
 				tasks: ['exec:theme_json'],
 			},
 			php: {
-				files: ['src/**.php', 'tests/unit/**/*.php'],
+				files: ['src/**/*.php', 'tests/unit/**/*.php'],
 				tasks: ['exec:unit_debug'],
 			},
 			options: {

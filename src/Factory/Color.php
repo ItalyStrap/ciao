@@ -5,8 +5,8 @@ namespace ItalyStrap\ExperimentalTheme\Factory;
 
 use \ItalyStrap\ExperimentalTheme\Styles\Color as BaseColor;
 
-final class Color
-{
+final class Color {
+
 	public static function make(): BaseColor {
 		return new BaseColor();
 	}

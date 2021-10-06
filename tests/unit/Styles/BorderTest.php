@@ -7,8 +7,8 @@ use Codeception\Test\Unit;
 use ItalyStrap\ExperimentalTheme\Styles\Border;
 use ItalyStrap\Tests\BaseUnitTrait;
 
-class BorderTest extends Unit
-{
+class BorderTest extends Unit {
+
 	use BaseUnitTrait;
 
 	protected function getInstance(): Border {

@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace ItalyStrap\ExperimentalTheme\Styles;
 
-trait ImmutableCollectionTrait
-{
+trait ImmutableCollectionTrait {
+
 	/**
 	 * @var array<string, string>
 	 */
@@ -18,7 +18,6 @@ trait ImmutableCollectionTrait
 
 	final private function assertIsImmutable( string $key ): void {
 		if ( \array_key_exists( $key, $this->collection ) ) {
-
 			$bt = \debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS );
 
 			$bt[1] ??= [];

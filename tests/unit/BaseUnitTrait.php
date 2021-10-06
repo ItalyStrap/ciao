@@ -10,12 +10,12 @@ trait BaseUnitTrait {
 	 */
 	protected $tester;
 
-	protected function _before()
-	{
+	// phpcs:ignore
+	protected function _before() {
 	}
 
-	protected function _after()
-	{
+	// phpcs:ignore
+	protected function _after() {
 	}
 
 	abstract protected function getInstance();

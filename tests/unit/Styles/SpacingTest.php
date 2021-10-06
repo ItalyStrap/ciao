@@ -51,7 +51,7 @@ class SpacingTest extends Unit {
 //			->bottom( '25px' )
 //			->left('25px');
 
-		codecept_debug( \get_class_methods( $sut ) );
+//		codecept_debug( \get_class_methods( $sut ) );
 
 		\call_user_func( [ $sut, $method ], $value );
 
@@ -108,5 +108,69 @@ class SpacingTest extends Unit {
 		$this->assertEmpty( $sut_cloned->toArray(), '' );
 
 		$sut_cloned->left('20px');
+	}
+
+	/**
+	 * @test
+	 */
+	public function itShouldBeStringable() {
+
+		$sut = $this->getInstance();
+
+		$sut->top('25px');
+		$this->assertStringMatchesFormat( '25px 0 0 0', (string) $sut, '' );
+
+		$sut->bottom('20px');
+		$this->assertStringMatchesFormat( '25px 0 20px 0', (string) $sut, '' );
+
+		$sut->left('0');
+		$this->assertStringMatchesFormat( '25px 0 20px 0', (string) $sut, '' );
+
+		$sut->right('50px');
+		$this->assertStringMatchesFormat( '25px 50px 20px 0', (string) $sut, '' );
+	}
+
+	public function sameValueProvider() {
+
+		yield 'Value of 0'	=> [
+			['0','0','0','0',],
+			'0'
+		];
+
+		yield 'Value of 0px'	=> [
+			['0px','0px','0px','0px',],
+			'0px'
+		];
+
+		yield 'Value of 0 if we have 0px and 0'	=> [
+			['0px','0','0px','0px',],
+			'0px'
+		];
+
+		yield 'Value of 42px'	=> [
+			['42px','42px','42px','42px',],
+			'42px'
+		];
+
+		yield 'Value of 42px even if we have 42 with no unit'	=> [
+			['42px','42','42px','42px',],
+			'42px'
+		];
+	}
+
+	/**
+	 * @dataProvider sameValueProvider
+	 * @test
+	 */
+	public function itShouldBeStringableAndReturnOnly( array $value, string $expected ) {
+
+		$sut = $this->getInstance();
+
+		$sut->top( $value[0] );
+		$sut->bottom( $value[1] );
+		$sut->left( $value[2] );
+		$sut->right( $value[3] );
+
+		$this->assertStringMatchesFormat( $expected, (string) $sut, '' );
 	}
 }

@@ -42,7 +42,8 @@
         "italystrap/theme-json-generator": "dev-master",
         "spatie/color": "^1.1",
         "italystrap/html": "^1.2",
-        "infection/codeception-adapter": "^0.4.0"
+        "infection/codeception-adapter": "^0.4.0",
+        "mexitek/phpcolors": "^1.0"
     },
     "autoload": {
         "psr-4": {

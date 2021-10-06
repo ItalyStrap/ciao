@@ -43,16 +43,29 @@ final class JsonData {
 		$color_base = Factory::fromString('#3986E0');
 		$border_color = Factory::fromString('#cccccc');
 
+		$button_bg_hover_obj = new \Mexitek\PHPColors\Color( (string) $color_base->toHex() );
+		$button_text_hover = new \Mexitek\PHPColors\Color( (string) $color_background->toHex() );
+
+		$button_bg_hover = ( new \Mexitek\PHPColors\Color( (string) $color_base->toHex() ) )->darken(20);
+		$button_text_hover = ( new \Mexitek\PHPColors\Color( (string) $color_background->toHex() ) )->darken(10);
+
+		if ( $button_bg_hover_obj->isDark() ) {
+			var_dump( 'IS DARK' );
+			$button_text_hover = ( new \Mexitek\PHPColors\Color( (string) $color_background->toHex() ) )->lighten(10);
+		}
+
+		$grays = $this->generateShadesFromColorHex( $color_text, 'gray' );
+
 		$palette = new Preset(
 			[
 				[
 					"slug" => "text",
-					"color" => (string) $color_text->toRgba(),
+					"color" => (string) $color_text->toHsla(),
 					"name" => "Black for text, headings, links"
 				],
 				[
 					"slug" => "background",
-					"color" => (string) $color_background->toRgba(),
+					"color" => (string) $color_background->toHsla(),
 					"name" => "White for body background"
 				],
 				[
@@ -60,6 +73,7 @@ final class JsonData {
 					"color" => (string) $color_base->toRgba(),
 					"name" => "Brand base color"
 				],
+				...$grays
 			],
 			'color'
 		);
@@ -90,33 +104,38 @@ final class JsonData {
 				],
 				[
 					"slug" => "h1",
-					"size" => "calc({{base}} * 2.5)",
+					"size" => "calc( {{base}} * 2.5)",
 					"name" => "Used in H1 titles"
 				],
 				[
 					"slug" => "h2",
-					"size" => "calc({{base}} * 2)",
+					"size" => "calc( {{base}} * 2)",
 					"name" => "Used in H2 titles"
 				],
 				[
 					"slug" => "h3",
-					"size" => "calc({{base}} * 1.75)",
+					"size" => "calc( {{base}} * 1.75)",
 					"name" => "Used in H3 titles"
 				],
 				[
 					"slug" => "h4",
-					"size" => "calc({{base}} * 1.5)",
+					"size" => "calc( {{base}} * 1.5)",
 					"name" => "Used in H4 titles"
 				],
 				[
 					"slug" => "h5",
-					"size" => "calc({{base}} * 1.25)",
+					"size" => "calc( {{base}} * 1.25)",
 					"name" => "Used in H5 titles"
 				],
 				[
 					"slug" => "h6",
 					"size" => "{{base}}",
 					"name" => "Used in H6 titles"
+				],
+				[
+					"slug" => "small",
+					"size" => "calc( {{base}} * 0.75)",
+					"name" => "Smallest font size"
 				],
 			],
 			'fontSize',
@@ -126,11 +145,13 @@ final class JsonData {
 		$font_family = new Preset(
 			[
 				[
+					// phpcs:ignore
 					'fontFamily' => 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
 					'slug' => "base",
 					"name" => "Default font family",
 				],
 				[
+					// phpcs:ignore
 					'fontFamily' => 'SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
 					'slug' => "monospace",
 					"name" => "Font family for code",
@@ -150,23 +171,47 @@ final class JsonData {
 					'h'		=> 'calc( {{spacer.base}} * 4 )',
 					's'		=> 'calc( {{spacer.base}} / 1.5 )',
 					'm'		=> 'calc( {{spacer.base}} * 2 )',
-					'l'		=> 'calc( {{spacer.base}} * 4 )',
-				],
-				'blockGap'		=> [
-					'base'	=> '{{spacer.base}}',
-					's'		=> 'calc( {{spacer.base}} / 1.5 )',
-					'm'		=> 'calc( {{spacer.base}} * 1.5 )',
 					'l'		=> 'calc( {{spacer.base}} * 3 )',
 					'xl'	=> 'calc( {{spacer.base}} * 4 )',
 				],
 				'lineHeight' 	=> [
+					'base' => 1.5,
 					's' => 1.3,
-					'm' => 1.5,
+					'm' => '{{lineHeight.base}}',
 					'l' => 1.7
+				],
+				'body'		=> [
+					'bg'	=> '{{color.base}}',
+					'text'	=> '{{color.background}}',
+				],
+				'link'		=> [
+					'bg'			=> '{{color.base}}',
+					'text'			=> '{{color.background}}',
+					'decoration'	=> 'underline',
+					'hover'	=> [
+						'text'			=> '{{color.text}}',
+						'decoration'	=> 'underline',
+					],
 				],
 				'button'		=> [
 					'bg'	=> '{{color.base}}',
-					'text'	=> '{{color.background}}',
+//					'text'	=> '{{color.text}}',
+					'text'	=> Factory::fromString( '#' . $button_text_hover )->toHsla(),
+					'borderColor'	=> 'transparent',
+					'hover'	=> [
+						'bg'	=> Factory::fromString( '#' . $button_bg_hover )->toHsla(),
+						'text'	=> Factory::fromString('#' . $button_text_hover)->toHsla(),
+						'borderColor'	=> 'transparent',
+					],
+				],
+				'form'	=> [
+					'border'	=> [
+						'color'	=> '',
+						'width'	=> '',
+					],
+					'input'	=> [
+						'color'	=> '',
+					],
 				],
 			]
 		);
@@ -289,15 +334,13 @@ final class JsonData {
 				/**
 				 * ============================================
 				 * Global styles
+				 *
+				 * border
+				 * color
+				 * typography
+				 * spacing
 				 * ============================================
 				 */
-				'border' => ( new Border() )
-					->color('')
-					->radius('')
-					->style('')
-					->width('')
-					->toArray(),
-
 				'color' => ( new Color() )
 					->background( $palette->varOf( 'background' ) )
 					->text( $palette->varOf( 'text' ) )
@@ -307,14 +350,18 @@ final class JsonData {
 					->fontSize( $font_sizes->varOf( 'base' ) )
 					->fontStyle( 'normal' )
 					->fontWeight( '400' )
+					->letterSpacing( 'normal' )
 					->lineHeight( $custom->varOf( 'lineHeight.m' ) )
 					->textDecoration( 'none' )
 					->textTransform( 'none' )
 					->toArray(),
 				'spacing'	=> [
-					'blockGap'	=> $custom->varOf( 'blockGap.m' ),
-					'margin'	=> FSpace::shorthand(['0px'])->toArray(),
-					'padding'	=> FSpace::shorthand(['0px'])->toArray(),
+					'blockGap'	=> $custom->varOf( 'spacer.m' ),
+					/**
+					 * For margin and padding we can write simply the shorthand
+					 */
+					'margin'	=> "0",
+					'padding'	=> "0",
 				],
 
 				/**
@@ -332,37 +379,49 @@ final class JsonData {
 					'h1' => [
 						'typography' => FTypo::make()->fontSize( $font_sizes->varOf('h1') )->toArray(),
 						'spacing'	=> [
-							'margin'	=> FSpace::top( $custom->varOf( 'blockGap.m' ) )->toArray(),
+							'margin'	=> (string) FSpace::make()
+								->top( $custom->varOf( 'spacer.m' ) )
+								->bottom( '0px' ),
 						],
 					],
 					'h2' => [
 						'typography' =>  FTypo::make()->fontSize( $font_sizes->varOf('h2') )->toArray(),
 						'spacing'	=> [
-							'margin'	=> FSpace::top( $custom->varOf( 'blockGap.m' ) )->toArray(),
+							'margin'	=> (string) FSpace::make()
+								->top( $custom->varOf( 'spacer.m' ) )
+								->bottom( '0px' ),
 						],
 					],
 					'h3' => [
 						'typography' => FTypo::make()->fontSize( $font_sizes->varOf('h3') )->toArray(),
 						'spacing'	=> [
-							'margin'	=> FSpace::top( $custom->varOf( 'blockGap.m' ) )->toArray(),
+							'margin'	=> (string) FSpace::make()
+								->top( $custom->varOf( 'spacer.m' ) )
+								->bottom( '0px' ),
 						],
 					],
 					'h4' => [
 						'typography' => FTypo::make()->fontSize( $font_sizes->varOf('h4') )->toArray(),
 						'spacing'	=> [
-							'margin'	=> FSpace::top( $custom->varOf( 'blockGap.m' ) )->toArray(),
+							'margin'	=> (string) FSpace::make()
+								->top( $custom->varOf( 'spacer.m' ) )
+								->bottom( '0px' ),
 						],
 					],
 					'h5' => [
 						'typography' => FTypo::make()->fontSize( $font_sizes->varOf('h5') )->toArray(),
 						'spacing'	=> [
-							'margin'	=> FSpace::top( $custom->varOf( 'blockGap.m' ) )->toArray(),
+							'margin'	=> (string) FSpace::make()
+								->top( $custom->varOf( 'spacer.m' ) )
+								->bottom( '0px' ),
 						],
 					],
 					'h6' => [
 						'typography' => FTypo::make()->fontSize( $font_sizes->varOf('h6') )->toArray(),
 						'spacing'	=> [
-							'margin'	=> FSpace::top( $custom->varOf( 'blockGap.m' ) )->toArray(),
+							'margin'	=> (string) FSpace::make()
+								->top( $custom->varOf( 'spacer.m' ) )
+								->bottom( '0px' ),
 						],
 					],
 				],
@@ -397,10 +456,9 @@ final class JsonData {
 					 */
 					'core/paragraph' => [
 						'spacing'	=> [
-							'margin'	=> FSpace::make()
-								->top( $custom->varOf( 'blockGap.s' ) )
-								->bottom( '0px' )
-								->toArray(),
+							'margin'	=> (string) FSpace::make()
+								->top( $custom->varOf( 'spacer.s' ) )
+								->bottom( '0px' ),
 						],
 						'color' => FClr::make()
 							->text( $palette->varOf( 'text' ) )
@@ -408,21 +466,27 @@ final class JsonData {
 					],
 					'core/button' => [
 						'border' => ( new Border() )
+							->color( $custom->varOf( 'button.borderColor' ) )
 							->radius( \sprintf(
-								'calc(%s/4)',
+								'calc(%s/3)',
 								$font_sizes->varOf('base')
 							) )
 							->style( 'solid' )
-							->width( '1px' )
+							->width( '2px' )
 							->toArray(),
 						'color' => FClr::make()
 							->background( $custom->varOf('button.bg') )
 							->text( $custom->varOf('button.text') )
 							->toArray(),
+						'spacing'	=> [
+							'padding'	=> '0.4em 0.85em !important',
+						],
 						'typography' => FTypo::make()
 							->fontFamily( $font_family->varOf('base') )
 							->fontSize( $font_sizes->varOf('base') )
+							->textDecoration( 'none' )
 							->textTransform( 'uppercase' )
+							->lineHeight($custom->varOf('lineHeight.base'))
 							->toArray(),
 					],
 					'core/code' => [
@@ -431,7 +495,7 @@ final class JsonData {
 							->toArray(),
 						'spacing' => [
 							'margin'	=> FSpace::make()
-								->top( $custom->varOf( 'blockGap.l' ) )
+								->top( $custom->varOf( 'spacer.l' ) )
 								->toArray(),
 							'padding' => FSpace::shorthand(
 								[
@@ -455,7 +519,7 @@ final class JsonData {
 							->toArray(),
 						'spacing' => [
 							'margin'	=> FSpace::make()
-								->top( $custom->varOf( 'blockGap.l' ) )
+								->top( $custom->varOf( 'spacer.l' ) )
 								->toArray(),
 							'padding'	=> FSpace::make()
 								->left( $custom->varOf( 'spacer.h' ) )
@@ -488,6 +552,28 @@ final class JsonData {
 							->fontSize( $font_sizes->varOf('h6') )
 							->toArray(),
 					],
+
+					/**
+					 * <!-- wp:spacer -->
+					 * <div style="height:100px" aria-hidden="true" class="wp-block-spacer"></div>
+					 * <!-- /wp:spacer -->
+					 */
+					'core/spacer' => [
+						'color' => FClr::make()
+							->text( $palette->varOf('text') )
+							->toArray(),
+						'border' => ( new Border() )
+							->color( 'currentColor' )
+							->style( 'solid' )
+							->width( '0 0 0 0' )
+							->toArray(),
+					],
+
+					/**
+					 * <!-- wp:separator -->
+					 * <hr class="wp-block-separator"/>
+					 * <!-- /wp:separator -->
+					 */
 					'core/separator' => [
 						'color' => FClr::make()
 							->text( $palette->varOf('text') )
@@ -532,20 +618,29 @@ final class JsonData {
 	 */
 	private function parseDataAndCleanFromEmptyValue( array $result ): array {
 
-		// https://stackoverflow.com/questions/9895130/recursively-remove-empty-elements-and-subarrays-from-a-multi-dimensional-array
+// https://stackoverflow.com/questions/9895130/recursively-remove-empty-elements-and-subarrays-from-a-multi-dimensional-array
 
-//		$result = array_map( function ( $arr ) {
+//		$result = array_map( function ( $value ) {
 //
-//			if ( ! \is_array( $arr ) ) {
-//				return $arr;
+//			if ( ! \is_array( $value ) ) {
+//				return $value;
 //			}
 //
-//			return \array_filter( $arr );
+//			$filtered_value = \array_filter( $value, function ( $value ) {
+//
+//				if ( \is_array( $value ) && [] === $value ) {
+//					return false;
+//				}
+//
+//				return true;
+//			} );
+//
+//			return $this->parseDataAndCleanFromEmptyValue( $filtered_value );
 //
 //		}, $result );
-//
-//		$result = array_filter( $result );
 
+//		$result = array_filter( $result );
+//
 //		foreach ( $result as $key => $value ) {
 //			if ( $value === '' || $value === [] ) {
 //				unset( $result[ $key ] );
@@ -557,5 +652,41 @@ final class JsonData {
 //		}
 
 		return $result;
+	}
+
+	/**
+	 * @param \Spatie\Color\Color $color_text
+	 * @return array
+	 * @throws \Exception
+	 */
+	private function generateShadesFromColorHex(
+		\Spatie\Color\Color $color_text,
+		string $slug,
+		int $min = 10,
+		int $max = 100,
+		bool $toHEX = true
+	): array {
+
+		$color = new \Mexitek\PHPColors\Color( (string) $color_text->toHex() );
+
+		$colors = [];
+		for ( $i = $min; $i < $max; $i += 10 ) {
+			$color_string = $color->isDark() ? $color->lighten( $i ) : $color->darken( $i );
+
+			$colors[ $i ] = [
+				"slug" => \sprintf(
+					'%s-%d0',
+					$slug,
+					$i
+				),
+				"color" => '#' . $color_string,
+				"name" => \sprintf(
+					"%s of gray by %s%%",
+					ucfirst( $slug ),
+					$i
+				)
+			];
+		}
+		return $colors;
 	}
 }

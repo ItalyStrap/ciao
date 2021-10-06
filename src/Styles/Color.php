@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace ItalyStrap\ExperimentalTheme\Styles;
 
-final class Color implements ArrayableInterface  {
+final class Color implements ArrayableInterface {
 
 	use ImmutableCollectionTrait, CollectionToArray;
 

@@ -37,38 +37,3 @@
 //        background-repeat: no-repeat;
 //    }
 //}
-
-.jarallax {
-    position: relative;
-    z-index: 0;
-
-    > [id*="jarallax-container"] {
-        max-width: 100% !important;
-
-        .wp-block-image {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-        }
-    }
-
-    > .jarallax-img {
-        //position: absolute;
-        //object-fit: cover;
-        //background-size: contain;
-        //top: 0;
-        //left: 0;
-        //width: 100%;
-        //height: 100%;
-        //z-index: -1;
-        //
-        //display: flex;
-        //flex-direction: column;
-        //
-        //
-        //img {
-        //    align-self: center;
-        //}
-    }
-}

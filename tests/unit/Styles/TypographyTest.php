@@ -7,9 +7,9 @@ use Codeception\Test\Unit;
 use ItalyStrap\ExperimentalTheme\Styles\Typography;
 use ItalyStrap\Tests\BaseUnitTrait;
 
-class TypographyTest extends Unit
-{
-    use BaseUnitTrait;
+class TypographyTest extends Unit {
+
+	use BaseUnitTrait;
 
 	protected function getInstance(): Typography {
 		$sut = new Typography();

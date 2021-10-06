@@ -6,20 +6,9 @@ namespace ItalyStrap\Tests;
 use Codeception\Test\Unit;
 use ItalyStrap\ExperimentalTheme\Factory\Spacing;
 
-class SpacingFactoryTest extends Unit
-{
-    /**
-     * @var \UnitTester
-     */
-    protected $tester;
-    
-    protected function _before()
-    {
-    }
+class SpacingFactoryTest extends Unit {
 
-    protected function _after()
-    {
-    }
+	use BaseUnitTrait;
 
 	public function valueProvider(): \Generator {
 
@@ -70,15 +59,18 @@ class SpacingFactoryTest extends Unit
 				'bottom'	=> '3px',
 			]
 		];
-    }
+	}
 
 	/**
 	 * @dataProvider valueProvider
 	 * @test
 	 */
-    public function itShouldReturnArrayWithSpacingPropsFor( array $value, array $expected )
-    {
+	public function itShouldReturnArrayWithSpacingPropsFor( array $value, array $expected ) {
 		$sut = Spacing::shorthand( $value );
 		$this->assertEquals($expected, $sut->toArray(), '');
-    }
+	}
+
+	protected function getInstance() {
+		// TODO: Implement getInstance() method.
+	}
 }

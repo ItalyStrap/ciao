@@ -45,5 +45,4 @@ final class Border implements ArrayableInterface {
 		$this->setCollection( self::WIDTH, $value );
 		return $this;
 	}
-
 }

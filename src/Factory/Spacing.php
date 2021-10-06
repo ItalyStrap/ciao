@@ -5,8 +5,8 @@ namespace ItalyStrap\ExperimentalTheme\Factory;
 
 use ItalyStrap\ExperimentalTheme\Styles\Spacing as BaseSpacing;
 
-final class Spacing
-{
+final class Spacing {
+
 	public static function make(): BaseSpacing {
 		return new BaseSpacing();
 	}

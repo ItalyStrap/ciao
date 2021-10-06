@@ -8,16 +8,7 @@ use ItalyStrap\ExperimentalTheme\JsonData;
 
 class JsonDataTest extends Unit {
 
-	/**
-	 * @var \UnitTester
-	 */
-	protected $tester;
-	
-	protected function _before() {
-	}
-
-	protected function _after() {
-	}
+	use BaseUnitTrait;
 
 	/**
 	 * @test
@@ -26,5 +17,9 @@ class JsonDataTest extends Unit {
 	public function itShouldReturnAnArray() {
 		$data = JsonData::getJsonData();
 		$this->assertIsArray( $data, '' );
+	}
+
+	protected function getInstance() {
+		// TODO: Implement getInstance() method.
 	}
 }

@@ -5,8 +5,8 @@ namespace ItalyStrap\ExperimentalTheme\Factory;
 
 use \ItalyStrap\ExperimentalTheme\Styles\Typography as BaseTypo;
 
-final class Typography
-{
+final class Typography {
+
 	public static function make(): BaseTypo {
 		return new BaseTypo();
 	}
