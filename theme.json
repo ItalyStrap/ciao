@@ -30,14 +30,24 @@
             "link": true,
             "palette": [
                 {
-                    "slug": "bodyColor",
+                    "slug": "light",
+                    "color": "hsla(0,0%,100%,1)",
+                    "name": "Lighter color"
+                },
+                {
+                    "slug": "dark",
                     "color": "hsla(0,0%,0%,1)",
-                    "name": "Black for text, headings, links"
+                    "name": "Darker color"
                 },
                 {
                     "slug": "bodyBg",
                     "color": "hsla(0,0%,100%,1)",
-                    "name": "White for body background"
+                    "name": "Color for body background"
+                },
+                {
+                    "slug": "bodyColor",
+                    "color": "hsla(0,0%,0%,1)",
+                    "name": "Color for text, headings, links"
                 },
                 {
                     "slug": "base",
@@ -57,7 +67,7 @@
                 {
                     "slug": "baseComplementary",
                     "color": "hsla(32,73%,55%,1)",
-                    "name": "Brand base color"
+                    "name": "Brand base complementary color"
                 },
                 {
                     "slug": "gray-100",
@@ -107,13 +117,13 @@
             ],
             "gradients": [
                 {
-                    "slug": "black-to-white",
-                    "gradient": "linear-gradient(160deg,var(--wp--preset--color--body-color),var(--wp--preset--color--body-bg))",
+                    "slug": "light-to-dark",
+                    "gradient": "linear-gradient(160deg,var(--wp--preset--color--light),var(--wp--preset--color--dark))",
                     "name": "Black to white"
                 },
                 {
                     "slug": "base-to-white",
-                    "gradient": "linear-gradient(135deg,var(--wp--preset--color--base),hsla(212,73%,83%,1))",
+                    "gradient": "linear-gradient(135deg,var(--wp--preset--color--base),var(--wp--preset--color--base-dark))",
                     "name": "Base to white"
                 }
             ],
@@ -198,7 +208,7 @@
                 },
                 {
                     "slug": "x-small",
-                    "size": "calc( var(--wp--preset--font-size--base) * 0.5)",
+                    "size": "calc( var(--wp--preset--font-size--base) * 0.65)",
                     "name": "Extra Small font size"
                 }
             ],
@@ -555,27 +565,28 @@
             },
             "core/navigation": {
                 "color": {
-                    "text": "var(--wp--preset--color--body-bg)",
-                    "background": "var(--wp--preset--color--body-color)"
+                    "text": "var(--wp--preset--color--body-color)",
+                    "background": "var(--wp--preset--color--body-bg)"
                 },
                 "spacing": {
                     "padding": "1.1rem 0 1.1rem 0"
                 },
                 "typography": {
-                    "fontSize": "var(--wp--preset--font-size--small)",
+                    "fontSize": "var(--wp--preset--font-size--x-small)",
                     "fontWeight": "400",
                     "textTransform": "uppercase"
                 },
                 "elements": {
                     "link": {
                         "color": {
-                            "text": "var(--wp--preset--color--body-bg)",
+                            "text": "var(--wp--preset--color--base)",
                             "background": "transparent"
                         }
                     },
                     "h1": {
                         "color": {
-                            "text": "var(--wp--preset--color--body-bg)"
+                            "text": "var(--wp--preset--color--base)",
+                            "background": "transparent"
                         },
                         "typography": {
                             "fontSize": "var(--wp--preset--font-size--h-6)"

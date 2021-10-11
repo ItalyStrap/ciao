@@ -1,0 +1,59 @@
+# Copyright (C) 2021 Enea Overclokk
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Ciao 0.0.1-beta.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/ciao\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-10-11T08:14:27+02:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.5.0\n"
+"X-Domain: ciao\n"
+
+#. Theme Name of the theme
+msgid "Ciao"
+msgstr ""
+
+#. Theme URI of the theme
+msgid "//italystrap.com"
+msgstr ""
+
+#. Description of the theme
+msgid "BLock Based Child theme for ItalyStrap built for WordPress Full Site Editing <a href=\"https://github.com/ItalyStrap/child/graphs/contributors\">Contribute on GitHub</a>"
+msgstr ""
+
+#. Author of the theme
+msgid "Enea Overclokk"
+msgstr ""
+
+#. Author URI of the theme
+msgid "//www.overclokk.net"
+msgstr ""
+
+#: src/bootstrap.php:48
+msgid "Spacer Vertical XL"
+msgstr ""
+
+#: src/bootstrap.php:57
+msgid "Spacer Vertical L"
+msgstr ""
+
+#: src/bootstrap.php:66
+msgid "Spacer Vertical Large"
+msgstr ""
+
+#: src/bootstrap.php:78
+msgid "Fill shadow"
+msgstr ""
+
+#: src/bootstrap.php:86
+msgid "Fixed Top"
+msgstr ""
+
+#: src/bootstrap.php:104
+msgid "Inner borders"
+msgstr ""

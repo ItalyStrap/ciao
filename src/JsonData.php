@@ -36,54 +36,66 @@ final class JsonData {
 	 * @throws InvalidColorValue
 	 */
 	public function buildJsonData(): array {
-
-		$light = new ColorDataType( '#ede7d9' );
-		$dark = new ColorDataType('#0c0910');
-		$color_background = new ColorDataType( '#ffffff' );
-		$color_text = new ColorDataType('#000000');
-		$color_base = new ColorDataType('#3986E0');
+//
+//		$light = new ColorDataType( '#ede7d9' );
+//		$dark = new ColorDataType('#0c0910');
+		$light = new ColorDataType( '#ffffff' );
+		$dark = new ColorDataType('#000000');
+		$body_bg = new ColorDataType( '#ffffff' );
+		$body_text = new ColorDataType('#000000');
+		$base_clr = new ColorDataType('#3986E0');
 		$border_color = new ColorDataType('#cccccc');
 
-		$button_bg_hover = $color_base->darken(20);
-		$button_text_hover = $color_background->darken(10);
+		$button_bg_hover = $base_clr->darken(20);
+		$button_text_hover = $body_bg->darken(10);
 
-		if ( $color_base->isDark() ) {
-			$button_text_hover = $color_background->lighten(10);
+		if ( $base_clr->isDark() ) {
+			$button_text_hover = $body_bg->lighten(10);
 		}
 
-		$grays = $this->generateShadesFromColorHex( $color_text, 'gray' );
+		$grays = $this->generateShadesFromColorHex( $body_text, 'gray' );
 
 		$palette = new Preset(
 			[
 				[
-					"slug" => "bodyColor",
-					"color" => $color_text->toHsla(),
-					"name" => "Black for text, headings, links"
+					"slug" => "light",
+					"color" => $light->toHsla(),
+					"name" => "Lighter color"
+				],
+				[
+					"slug" => "dark",
+					"color" => $dark->toHsla(),
+					"name" => "Darker color"
 				],
 				[
 					"slug" => "bodyBg",
-					"color" => $color_background->toHsla(),
-					"name" => "White for body background"
+					"color" => $body_bg->toHsla(),
+					"name" => "Color for body background"
+				],
+				[
+					"slug" => "bodyColor",
+					"color" => $body_text->toHsla(),
+					"name" => "Color for text, headings, links"
 				],
 				[
 					"slug" => "base",
-					"color" => $color_base->toHsla(),
+					"color" => $base_clr->toHsla(),
 					"name" => "Brand base color"
 				],
 				[
 					"slug" => "baseDark",
-					"color" => $color_base->darken( 20 )->toHsla(),
+					"color" => $base_clr->darken( 20 )->toHsla(),
 					"name" => "Darker Brand base color"
 				],
 				[
 					"slug" => "baseLight",
-					"color" => $color_base->lighten( 20 )->toHsla(),
+					"color" => $base_clr->lighten( 20 )->toHsla(),
 					"name" => "Lighter Brand base color"
 				],
 				[
 					"slug" => "baseComplementary",
-					"color" => $color_base->complementary()->toHsla(),
-					"name" => "Brand base color"
+					"color" => $base_clr->complementary()->toHsla(),
+					"name" => "Brand base complementary color"
 				],
 				...$grays
 			],
@@ -93,11 +105,11 @@ final class JsonData {
 		$gradient = new Preset(
 			[
 				[
-					"slug"		=> "black-to-white",
+					"slug"		=> "light-to-dark",
 					"gradient"	=> \sprintf(
 						'linear-gradient(160deg,%s,%s)',
-						'{{color.bodyColor}}',
-						'{{color.bodyBg}}'
+						'{{color.light}}',
+						'{{color.dark}}'
 					),
 					"name"		=> "Black to white"
 				],
@@ -106,7 +118,7 @@ final class JsonData {
 					"gradient"	=> \sprintf(
 						'linear-gradient(135deg,%s,%s)',
 						'{{color.base}}',
-						$color_base->lighten(10)->mix( $color_background->toHex() )->toHsla()
+						'{{color.baseDark}}'
 					),
 					"name"		=> "Base to white"
 				],
@@ -160,7 +172,7 @@ final class JsonData {
 				],
 				[
 					"slug" => "x-small",
-					"size" => "calc( {{base}} * 0.5)",
+					"size" => "calc( {{base}} * 0.65)",
 					"name" => "Extra Small font size"
 				],
 			],
@@ -286,32 +298,32 @@ final class JsonData {
 					'duotone'	=> [
 						[
 							'colors' => [
-								$color_text->toHex(),
-								$color_background->toHex(),
+								$body_text->toHex(),
+								$body_bg->toHex(),
 							],
 							"slug" => "black-to-white",
 							"name" => "Black to White"
 						],
 						[
 							'colors' => [
-								$color_base->toHex(),
-								$color_background->toHex(),
+								$base_clr->toHex(),
+								$body_bg->toHex(),
 							],
 							"slug" => "base-to-white",
 							"name" => "base-to-white"
 						],
 						[
 							'colors' => [
-								$color_text->toRgba(),
-								$color_base->toHex(),
+								$body_text->toRgba(),
+								$base_clr->toHex(),
 							],
 							"slug" => "black-to-base",
 							"name" => "black-to-base"
 						],
 						[
 							'colors' => [
-								$color_base->toHex(),
-								$color_text->toRgba(),
+								$base_clr->toHex(),
+								$body_text->toRgba(),
 							],
 							"slug" => "base-to-black",
 							"name" => "base-to-black"
@@ -700,30 +712,28 @@ final class JsonData {
 					],
 					'core/navigation' => [ // .wp-block-navigation
 						'color' => FClr::make()
-							->text( $palette->varOf('bodyBg') )
-							->background( $palette->varOf('bodyColor') )
+							->text( $palette->varOf('bodyColor') )
+							->background( $palette->varOf('bodyBg') )
 							->toArray(),
 						'spacing'	=> [
 							'padding'	=> (string) FSpace::vertical( '1.1rem' ),
 						],
 						'typography' => FTypo::make()
-							->fontSize( $font_sizes->varOf('small') )
+							->fontSize( $font_sizes->varOf('x-small') )
 							->fontWeight( '400' )
 							->textTransform('uppercase')
 							->toArray(),
 						'elements' => [
 							'link' => [ // .wp-block-navigation a
 								'color'	=> FClr::make()
-//									->text( $palette->varOf( 'base' ) )
-									->text( $palette->varOf( 'bodyBg' ) )
+									->text( $palette->varOf( 'base' ) )
 									->background( 'transparent' )
 									->toArray(),
 							],
 							'h1' => [ // .wp-block-navigation h1
 								'color'	=> FClr::make()
-//									->text( $palette->varOf( 'base' ) )
-									->text( $palette->varOf( 'bodyBg' ) )
-//									->background( 'transparent' )
+									->text( $palette->varOf( 'base' ) )
+									->background( 'transparent' )
 									->toArray(),
 								'typography' => FTypo::make()->fontSize( $font_sizes->varOf('h6') )->toArray(),
 								'spacing'	=> [
