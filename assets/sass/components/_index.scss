@@ -1,8 +1,4 @@
-@forward "navigations/navbar";
-@forward "navigations/posts-navigation";
-    //@import "content/index";
-@forward "media/index";
-@forward "comment/index";
-    //@import "misc/index";
-@forward "blocks/index";
-    //@import "widgets/index";
+@forward "header";
+@forward "footer";
+@forward "comment";
+@forward "blocks";

@@ -1,11 +1,6 @@
 //$fonts-path: "../wp-content/themes/ciao/assets/fonts/";
-//
-//@import "variables";
-//
-//@import "vendors/index";
-////
-//@import "global/index";
-@forward "common";
+@forward "vendors";
+@forward "components";
 
 ///
 /// Custom style
