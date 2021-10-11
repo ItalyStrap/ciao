@@ -24,6 +24,9 @@ trait BaseUnitTrait {
 	 * @test
 	 */
 	public function itShouldBeInstantiable() {
-		$this->getInstance();
+		$sut = $this->getInstance();
+//		if ( ! $sut ) {
+//			$this->fail( 'Create an instance' );
+//		}
 	}
 }

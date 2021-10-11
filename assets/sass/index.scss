@@ -1,8 +1,8 @@
-@import "variables";
+@forward "../../node_modules/normalize.css/normalize.css";
+//@forward "vendors/bootstrap/reboot";
+//@forward "variables";
 //
-@import "vendors/index";
+//@forward "vendors/index";
 //
-@import "global/index";
-@import "header/index";
-@import "footer/index";
-@import "components/index";
+//@forward "global/index";
+@forward "common";

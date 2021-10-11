@@ -19,8 +19,8 @@ div.aligncenter,
 a img.aligncenter,
 //.aligncenter > img
 {
-    @extend .mr-auto;
-    @extend .ml-auto;
+    margin-right: auto;
+    margin-left: auto;
     //img {
     //    @extend .mr-auto;
     //    @extend .ml-auto;
@@ -30,14 +30,16 @@ a img.aligncenter,
 .alignright,
 a img.alignright
 {
-    @extend .float-right;
+    float: right;
+    //@extend .float-right;
     margin: 0 0 1em 1em;
 }
 
 .alignleft,
 a img.alignleft
 {
-    @extend .float-left;
+    float: left;
+    //@extend .float-left;
     margin: 0 1em 1em 0;
 }
 

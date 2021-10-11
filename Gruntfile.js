@@ -1,7 +1,8 @@
 const mozjpeg = require( 'imagemin-mozjpeg' );
 const path = require('path');
 
-const sass = require('node-sass');
+const Fiber = require('fibers');
+const sass = require('sass');
 
 /**
  * ============================================================
@@ -156,6 +157,7 @@ module.exports = function(grunt) {
 				force:true,
 				sourceMap: true,
 				implementation: sass,
+				fiber: Fiber,
 				// sassDir:'assets/sass',
 				// cssDir:'assets/css',
 				// imagesDir:'assets/img',

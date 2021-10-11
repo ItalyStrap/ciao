@@ -1,4 +1,5 @@
-//@import "cover";
-//@import "file";
-//@import "columns";
-@import "buttons";
+//@forward "cover";
+//@forward "columns";
+@forward "content";
+@forward "buttons";
+@forward "image";

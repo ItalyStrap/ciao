@@ -44,7 +44,7 @@ class HTMLCommentTest extends \Codeception\Test\Unit {
 			'aria-hidden' => "true",
 		]  );
 
-		codecept_debug( $result );
+//		codecept_debug( $result );
 
 		$path = codecept_absolute_path('');
 
@@ -54,17 +54,17 @@ class HTMLCommentTest extends \Codeception\Test\Unit {
 			throw new \RuntimeException("File {$block_json} does not exists");
 		}
 
-		codecept_debug( $block_json );
+//		codecept_debug( $block_json );
 
 		$json_content = \json_decode( \file_get_contents( $block_json ) );
 
-		codecept_debug( $json_content );
+//		codecept_debug( $json_content );
 
 		$json_config = new Config( $json_content );
 
 //		codecept_debug( $json_config->get( 'attributes' )->height );
 //		codecept_debug( $json_config->get( 'attributes.height.default' ) );
-		codecept_debug( $json_config->get( 'attributes.content.selector' ) );
+//		codecept_debug( $json_config->get( 'attributes.content.selector' ) );
 	}
 
 	/**

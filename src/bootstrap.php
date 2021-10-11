@@ -6,20 +6,16 @@ namespace ItalyStrap\ExperimentalTheme;
 use Auryn\InjectorException;
 use ItalyStrap\Config\Config;
 use ItalyStrap\Event\EventDispatcher;
+use ItalyStrap\Theme\SupportSubscriber;
 use RuntimeException;
 use Throwable;
 use function get_stylesheet_directory;
 use function get_template_directory;
 use function ItalyStrap\Factory\injector;
 use function remove_theme_support;
-use function wp_dequeue_style;
 
 require get_stylesheet_directory() . '/vendor/autoload.php';
 require_once get_template_directory() . '/src/bootstrap.php';
-
-function dm_remove_wp_block_library_css() {
-	wp_dequeue_style( 'wp-block-library' );
-}
 
 try {
 	$injector = injector();
@@ -29,13 +25,39 @@ try {
 
 //	$event_dispatcher->addListener(
 //		'wp_enqueue_scripts',
-//		__NAMESPACE__ . '\dm_remove_wp_block_library_css'
+//		function () {
+//			wp_dequeue_style( 'wp-block-library' );
+//		}
 //	);
+
+	/**
+	 * Only load styles for used blocks
+	 * @link https://make.wordpress.org/core/2021/07/01/block-styles-loading-enhancements-in-wordpress-5-8/
+	 */
+//	$event_dispatcher->addListener( 'should_load_separate_core_block_assets', '__return_true' );
 
 	$event_dispatcher->addListener( 'after_setup_theme', function () {
 
-		remove_theme_support('wp-block-styles' );
-		remove_theme_support('editor-styles' );
+//		remove_theme_support('wp-block-styles' );
+//		remove_theme_support('editor-styles' );
+
+		register_block_style(
+			'core/group',
+			[
+				'name'  => 'hero-xl',
+				'label' => __( 'Spacer Vertical XL', 'ciao' ),
+				'inline_style' => '.is-style-hero-xl {padding: var(--wp--custom--spacer--xl) 0;}',
+			]
+		);
+
+		register_block_style(
+			'core/group',
+			[
+				'name'  => 'hero-l',
+				'label' => __( 'Spacer Vertical L', 'ciao' ),
+				'inline_style' => '.is-style-hero-l {padding: var(--wp--custom--spacer--l) 0;}',
+			]
+		);
 
 		register_block_style(
 			'core/spacer',
@@ -58,6 +80,24 @@ try {
 		);
 
 		register_block_style(
+			'core/navigation',
+			[
+				'name'  => 'fixed-top',
+				'label' => __( 'Fixed Top', 'ciao' ),
+//				'inline_style' =>
+//					'.is-style-fixed-top {
+//  --site-blocks-mt: var(--wp--custom--navbar--height--min);
+//  position: fixed;
+//  top: 0;
+//  right: 0;
+//  left: 0;
+//  z-index: 1030;
+//  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+//}.wp-site-blocks{margin-top:var(--site-blocks-mt, 0)}',
+			]
+		);
+
+		register_block_style(
 			'core/column',
 			[
 				'name'         => 'column-border',
@@ -69,28 +109,6 @@ try {
 }',
 			]
 		);
-
-//		d( get_theme_support('align-wide') );
-
-//	\add_theme_support( 'align-wide' );
-
-//	add_theme_support(
-//		'editor-color-palette',
-//		[
-//			[
-//				'name'  => __( 'Primary', 'italystrap' ),
-//				'slug'  => 'primary',
-//				//				'color' => twentynineteen_hsl_hex( 'default' === get_theme_mod( 'primary_color' ) ? 199 : get_theme_mod( 'primary_color_hue', 199 ), 100, 33 ),
-//				'color' => '#333',
-//			],
-//			[
-//				'name'  => __( 'Success', 'italystrap' ),
-//				'slug'  => 'success',
-//				//				'color' => twentynineteen_hsl_hex( 'default' === get_theme_mod( 'primary_color' ) ? 199 : get_theme_mod( 'primary_color_hue', 199 ), 100, 23 ),
-//				'color' => '#5cb85c',
-//			]
-//		]
-//	);
 
 		/** @var Config $theme_json */
 //		$theme_json = new \ItalyStrap\Config\Config( WP_Theme_JSON_Resolver::get_theme_data()->get_raw_data() );

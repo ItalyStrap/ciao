@@ -61,6 +61,7 @@ $buttons-to: (
     "primary": $primary,
     "accent": $accent,
 ) !default;
+
 @each $color, $value in $buttons-to {
     .btn-#{$color} {
         @include button-variant($value, $value);

@@ -1,7 +1,9 @@
 .wp-block-media-text__media img,
 .size-full,
 .wp-post-image,
-.wp-block-image img
+.wp-block-image img,
+p img,
+figure img
 {
 	@include img-fluid();
 }
@@ -11,9 +13,9 @@
  */
 .featured-image {
 	margin-bottom: 0;
-	.wp-post-image:not(.full-width){
-		@extend .rounded;
-	}
+	//.wp-post-image:not(.full-width){
+	//	@extend .rounded;
+	//}
 }
 
 .wp-caption {
@@ -56,9 +58,9 @@
 	p.wp-caption-text,
 	.wp-caption-text {
 		// background: #fff;
-		border: $border-width solid $wp-caption-text-border-color;
+		//border: $border-width solid $wp-caption-text-border-color;
 		border-top: none;
-		color: $wp-caption-text-color;
+		//color: $wp-caption-text-color;
 		font-size: 0.85em;
 		line-height: 1em;
 		margin: 0;
@@ -86,7 +88,7 @@
 
 .is-style-rounded {
 	img {
-		border-radius: $border-radius-lg;
+		//border-radius: $border-radius-lg;
 	}
 }
 

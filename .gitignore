@@ -2,6 +2,7 @@
 /vendor/
 /_others/
 /node_modules/
+/assets/sass/_old/
 
 # File
 *.local
