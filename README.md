@@ -1,0 +1,1 @@
+## Child theme for ItalyStrap block based for WordPress Full Site Editing
