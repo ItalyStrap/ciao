@@ -638,20 +638,12 @@ final class JsonData {
 					 * Blocks for templating
 					 * ============================================
 					 */
-//					'core/post-title' => [
-//						'typography' => [
-//							'fontSize' => \sprintf(
-//								'calc(%s * 1.5)',
-//								$font_sizes->varOf('h1')
-//							),
-//						],
-//					],
 					'core/post-date' => [
 						'color' => FClr::make()
 							->text( $palette->varOf('bodyColor') )
 							->toArray(),
 						'typography' => FTypo::make()
-							->fontSize( $font_sizes->varOf('h6') )
+							->fontSize( $font_sizes->varOf('x-small') )
 							->toArray(),
 					],
 
@@ -689,7 +681,7 @@ final class JsonData {
 
 					/**
 					 * ============================================
-					 * Blocks at site level
+					 * Blocks for titles
 					 * ============================================
 					 */
 					'core/site-title' => [
@@ -701,6 +693,54 @@ final class JsonData {
 							->fontWeight( '600' )
 							->toArray(),
 					],
+					'core/post-title' => [
+						'color' => FClr::make()
+							->text( $palette->varOf('bodyColor') )
+							->toArray(),
+						'typography' => [
+							'fontSize' => \sprintf(
+								'calc(%s * 1.5)',
+								$font_sizes->varOf('h6')
+							),
+						],
+					],
+					'core/query' => [
+//						'color' => FClr::make()
+//							->text( $palette->varOf('bodyColor') )
+//							->toArray(),
+//						'typography' => [
+//							'fontSize' => \sprintf(
+//								'calc(%s * 1.5)',
+//								$font_sizes->varOf('h6')
+//							),
+//						],
+						'elements' => [
+//							'link' => [ // .wp-block-navigation a
+//								'color'	=> FClr::make()
+//									->text( $palette->varOf( 'base' ) )
+//									->background( 'transparent' )
+//									->toArray(),
+//							],
+//							'h2' => [ // .wp-block-navigation h1
+//								'color'	=> FClr::make()
+//									->text( $palette->varOf( 'base' ) )
+//									->background( 'transparent' )
+//									->toArray(),
+//								'typography' => FTypo::make()->fontSize( $font_sizes->varOf('h1') )->toArray(),
+//								'spacing'	=> [
+//									'margin'	=> (string) FSpace::make()
+//										->top( '0' )
+//										->bottom( '0' ),
+//								],
+//							],
+						],
+					],
+
+					/**
+					 * ============================================
+					 * Blocks at site level
+					 * ============================================
+					 */
 					'core/site-tagline' => [
 						'color' => FClr::make()
 							->text( $palette->varOf('bodyColor') )

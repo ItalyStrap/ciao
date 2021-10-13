@@ -1,18 +1,19 @@
 <?php // phpcs:ignoreFile
 declare(strict_types=1);
 
-namespace ItalyStrap\ExperimentalTheme;
+namespace ItalyStrap\Ciao;
 
 use Auryn\InjectorException;
 use ItalyStrap\Config\Config;
 use ItalyStrap\Event\EventDispatcher;
-use ItalyStrap\Theme\SupportSubscriber;
+use ItalyStrap\Finder\Finder;
+use ItalyStrap\Finder\FinderFactory;
+use ItalyStrap\View\View;
 use RuntimeException;
 use Throwable;
 use function get_stylesheet_directory;
 use function get_template_directory;
 use function ItalyStrap\Factory\injector;
-use function remove_theme_support;
 
 require get_stylesheet_directory() . '/vendor/autoload.php';
 require_once get_template_directory() . '/src/bootstrap.php';
@@ -30,16 +31,53 @@ try {
 //		}
 //	);
 
-	/**
-	 * Only load styles for used blocks
-	 * @link https://make.wordpress.org/core/2021/07/01/block-styles-loading-enhancements-in-wordpress-5-8/
-	 */
-//	$event_dispatcher->addListener( 'should_load_separate_core_block_assets', '__return_true' );
+	if ( ! \ItalyStrap\Core\is_debug() ) {
 
-	$event_dispatcher->addListener( 'after_setup_theme', function () {
+		/**
+		 * Only load styles for used blocks
+		 * @link https://make.wordpress.org/core/2021/07/01/block-styles-loading-enhancements-in-wordpress-5-8/
+		 */
+		$event_dispatcher->addListener( 'should_load_separate_core_block_assets', '__return_true' );
+	}
+
+
+
+	$event_dispatcher->addListener( 'after_setup_theme', function () use ( $event_dispatcher, $injector ) {
 
 //		remove_theme_support('wp-block-styles' );
 //		remove_theme_support('editor-styles' );
+
+		$finder = ( new FinderFactory() )->make();
+		$finder->in( get_stylesheet_directory() . '/config/block_pattern' );
+
+		/** @var View $view */
+		$view = new View( $finder );
+
+		/**
+		 *
+		 * @param string $pattern_name       Pattern name including namespace.
+		 * @param array  $pattern_properties Array containing the properties of the pattern: title,
+		 *                                   content, description, viewportWidth, categories, keywords.
+		 */
+		\register_block_pattern(
+			'ciao/loop',
+			[
+				'title'	=> 'Loop for Ciao theme',
+				'description'	=> 'A loop with left image and right excerpt',
+				'viewportWidth'	=> '1000',
+				'categories' => ['query'],
+				'keywords' => '',
+				'content'	=> $view->render( 'loop' ),
+			]
+		);
+
+		register_block_style(
+			'core/query',
+			[
+				'name'  => 'even-odd',
+				'label' => __( 'Even odd effect', 'ciao' ),
+			]
+		);
 
 		register_block_style(
 			'core/group',
@@ -110,6 +148,20 @@ try {
 			]
 		);
 
+		/**
+		 * Just to remember this filter
+		 * @link https://developer.wordpress.org/reference/hooks/render_block/
+		 */
+//		$event_dispatcher->addListener( 'render_block', function ( string $block_content, array $block ) {
+//			if ( $block['blockName'] !== 'core/template-part' ) {
+//				return $block_content;
+//			}
+//
+//			d($block_content, $block);
+//
+//			return $block_content;
+//		}, 10, 2 );
+
 		/** @var Config $theme_json */
 //		$theme_json = new \ItalyStrap\Config\Config( WP_Theme_JSON_Resolver::get_theme_data()->get_raw_data() );
 //		$theme_json = new \ItalyStrap\Config\Config( \WP_Theme_JSON_Resolver::get_theme_data()->get_raw_data() );
@@ -120,28 +172,6 @@ try {
 //		d(\WP_Theme_JSON_Resolver::get_merged_data()->get_raw_data());
 //		d(\WP_Theme_JSON_Resolver::get_merged_data()->get_stylesheet());
 //		d(\WP_Theme_JSON_Resolver::get_merged_data()->get_settings());
-
-
-//		echo '<pre>';
-//		var_dump( $theme_json->get('settings.defaults.color.palette') );
-//		var_dump( $theme_json->get('styles.root.color') );
-//		echo '</pre>';
-//		echo '<pre>';
-//		echo $theme_json->count();
-//		foreach ( $theme_json as $key => $value ) {
-//			var_dump( $key );
-//			var_dump( $value );
-//		}
-//		echo '</pre>';
-
-//		$instance = WP_Block_Type_Registry::get_instance();
-//
-//		\add_action('init', function () use ( $instance ) {
-//			echo '<pre>';
-//			var_dump($instance->get_all_registered());
-//			echo '</pre>';
-//			die();
-//		}, 11);
 	}, PHP_INT_MAX );
 
 	// yes, I know this is very bad but for now this is for experimental purpose.

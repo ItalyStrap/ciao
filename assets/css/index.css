@@ -476,4 +476,22 @@ template {
   opacity: 60%;
 }
 
+.is-style-even-odd li {
+  display: flex;
+  gap: 2rem;
+  flex-direction: row;
+}
+.is-style-even-odd li:nth-child(even) {
+  flex-direction: row-reverse;
+}
+.is-style-even-odd li figure {
+  min-width: 50%;
+  height: 100%;
+  align-self: center;
+}
+.is-style-even-odd li > div {
+  height: 100%;
+  align-self: center;
+}
+
 /*# sourceMappingURL=index.css.map */
