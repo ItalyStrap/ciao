@@ -9,6 +9,7 @@ use ItalyStrap\Event\EventDispatcher;
 use ItalyStrap\Finder\Finder;
 use ItalyStrap\Finder\FinderFactory;
 use ItalyStrap\View\View;
+use ItalyStrap\View\ViewACM;
 use RuntimeException;
 use Throwable;
 use function get_stylesheet_directory;
@@ -44,13 +45,12 @@ try {
 
 	$event_dispatcher->addListener( 'after_setup_theme', function () use ( $event_dispatcher, $injector ) {
 
-//		remove_theme_support('wp-block-styles' );
-//		remove_theme_support('editor-styles' );
+		$support = new \ItalyStrap\ExperimentalTheme\Support();
+//		$support->remove('wp-block-styles');
+//		$support->remove('editor-styles');
 
 		$finder = ( new FinderFactory() )->make();
-		$finder->in( get_stylesheet_directory() . '/config/block_pattern' );
-
-		/** @var View $view */
+		$finder->in( get_stylesheet_directory() . '/config/block_pattern/views' );
 		$view = new View( $finder );
 
 		/**
@@ -64,10 +64,24 @@ try {
 			[
 				'title'	=> 'Loop for Ciao theme',
 				'description'	=> 'A loop with left image and right excerpt',
-				'viewportWidth'	=> '1000',
+				'viewportWidth'	=> '1200',
 				'categories' => ['query'],
 				'keywords' => '',
 				'content'	=> $view->render( 'loop' ),
+			]
+		);
+
+		\register_block_pattern(
+			'ciao/paragraph',
+			[
+				'title'	=> 'A fake paragraph',
+				'description'	=> 'A fake paragraph for testing',
+				'viewportWidth'	=> '1200',
+				'categories' => ['text'],
+				'keywords' => '',
+				'content'	=> $view->render(
+					'paragraph', [ 'content' => \rtrim( \str_repeat( 'Lorem Ipsum Dolor ', 10 ) ) ]
+				),
 			]
 		);
 
@@ -160,7 +174,14 @@ try {
 //			d($block_content, $block);
 //
 //			return $block_content;
-//		}, 10, 2 );
+//		}, 110, 2 );
+//
+//		$event_dispatcher->addListener( 'render_block_core/template-part', function ( string $block_content, array $block ) {
+//
+//			d($block_content, $block);
+//
+//			return $block_content;
+//		}, 110, 2 );
 
 		/** @var Config $theme_json */
 //		$theme_json = new \ItalyStrap\Config\Config( WP_Theme_JSON_Resolver::get_theme_data()->get_raw_data() );
