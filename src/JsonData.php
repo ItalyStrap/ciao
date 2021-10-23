@@ -137,17 +137,17 @@ final class JsonData {
 				],
 				[
 					"slug" => "h1",
-					"size" => "calc( {{base}} * 2.5)",
+					"size" => "calc( {{base}} * 2.8125)",
 					"name" => "Used in H1 titles"
 				],
 				[
 					"slug" => "h2",
-					"size" => "calc( {{base}} * 2)",
+					"size" => "calc( {{base}} * 2.1875)",
 					"name" => "Used in H2 titles"
 				],
 				[
 					"slug" => "h3",
-					"size" => "calc( {{base}} * 1.75)",
+					"size" => "calc( {{base}} * 1.625)",
 					"name" => "Used in H3 titles"
 				],
 				[
@@ -157,7 +157,7 @@ final class JsonData {
 				],
 				[
 					"slug" => "h5",
-					"size" => "calc( {{base}} * 1.25)",
+					"size" => "calc( {{base}} * 1.125)",
 					"name" => "Used in H5 titles"
 				],
 				[
@@ -167,12 +167,12 @@ final class JsonData {
 				],
 				[
 					"slug" => "small",
-					"size" => "calc( {{base}} * 0.75)",
+					"size" => "calc( {{base}} * 0.875)",
 					"name" => "Small font size"
 				],
 				[
 					"slug" => "x-small",
-					"size" => "calc( {{base}} * 0.65)",
+					"size" => "calc( {{base}} * 0.75)",
 					"name" => "Extra Small font size"
 				],
 			],
@@ -253,8 +253,13 @@ final class JsonData {
 					],
 				],
 				'navbar'	=> [
-					'height'	=> [
-						'min'	=> 'calc( {{spacer.base}} * 5.3125 )',
+					'min'		=> [
+						'height'	=> 'calc( {{spacer.base}} * 5.3125 )',
+					],
+				],
+				'query'		=> [
+					'post'	=> [
+						'title'	=> '{{fontSize.h1}}',
 					],
 				],
 //				'site-blocks'	=> [
@@ -698,11 +703,11 @@ final class JsonData {
 							->text( $palette->varOf('bodyColor') )
 							->toArray(),
 						'typography' => [
-							'fontSize' => \sprintf(
-								'calc(%s * 1.5)',
-								$font_sizes->varOf('h6')
-							),
+							'fontSize' => $font_sizes->varOf('h1'),
 						],
+//						'typography' => [
+//							'fontSize' => $custom->varOf('query.post.title'),
+//						],
 					],
 					'core/query' => [
 //						'color' => FClr::make()
@@ -770,18 +775,18 @@ final class JsonData {
 									->background( 'transparent' )
 									->toArray(),
 							],
-							'h1' => [ // .wp-block-navigation h1
-								'color'	=> FClr::make()
-									->text( $palette->varOf( 'base' ) )
-									->background( 'transparent' )
-									->toArray(),
-								'typography' => FTypo::make()->fontSize( $font_sizes->varOf('h6') )->toArray(),
-								'spacing'	=> [
-									'margin'	=> (string) FSpace::make()
-										->top( '0' )
-										->bottom( '0' ),
-								],
-							],
+//							'h1' => [ // .wp-block-navigation h1
+//								'color'	=> FClr::make()
+//									->text( $palette->varOf( 'base' ) )
+//									->background( 'transparent' )
+//									->toArray(),
+//								'typography' => FTypo::make()->fontSize( $font_sizes->varOf('h6') )->toArray(),
+//								'spacing'	=> [
+//									'margin'	=> (string) FSpace::make()
+//										->top( '0' )
+//										->bottom( '0' ),
+//								],
+//							],
 						],
 					],
 				],
