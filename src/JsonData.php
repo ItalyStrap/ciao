@@ -3,21 +3,19 @@ declare(strict_types=1);
 
 namespace ItalyStrap\ExperimentalTheme;
 
-use ItalyStrap\ExperimentalTheme\Styles\Border;
-use ItalyStrap\ExperimentalTheme\Styles\Color;
+use ItalyStrap\ThemeJsonGenerator\ColorDataType;
+use ItalyStrap\ThemeJsonGenerator\Styles\Border;
+use ItalyStrap\ThemeJsonGenerator\Styles\Color;
 use ItalyStrap\ThemeJsonGenerator\SectionNames;
 use Spatie\Color\Exceptions\InvalidColorValue;
 use ItalyStrap\ThemeJsonGenerator\Collection\Preset;
 use ItalyStrap\ThemeJsonGenerator\Collection\Custom;
-use ItalyStrap\ExperimentalTheme\Factory\Color as FClr;
-use ItalyStrap\ExperimentalTheme\Factory\Spacing as FSpace;
-use ItalyStrap\ExperimentalTheme\Factory\Typography as FTypo;
+use ItalyStrap\ThemeJsonGenerator\Factory\Color as FClr;
+use ItalyStrap\ThemeJsonGenerator\Factory\Spacing as FSpace;
+use ItalyStrap\ThemeJsonGenerator\Factory\Typography as FTypo;
 
 final class JsonData {
 
-	/**
-	 * @throws InvalidColorValue
-	 */
 	public static function getJsonData(): array {
 		$data = new self();
 
@@ -32,9 +30,6 @@ final class JsonData {
 		return $result;
 	}
 
-	/**
-	 * @throws InvalidColorValue
-	 */
 	public function buildJsonData(): array {
 //
 //		$light = new ColorDataType( '#ede7d9' );
