@@ -22,7 +22,7 @@ class JsonDataTest extends Unit {
 		// TODO: Implement getInstance() method.
 	}
 
-	public function DirContentList() {
+	public function dirContentList() {
 
 		$root_dir = codecept_root_dir('');
 
