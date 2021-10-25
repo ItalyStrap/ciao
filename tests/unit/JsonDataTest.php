@@ -12,7 +12,6 @@ class JsonDataTest extends Unit {
 
 	/**
 	 * @test
-	 * @throws \Spatie\Color\Exceptions\InvalidColorValue
 	 */
 	public function itShouldReturnAnArray() {
 		$data = JsonData::getJsonData();
@@ -21,5 +20,28 @@ class JsonDataTest extends Unit {
 
 	protected function getInstance() {
 		// TODO: Implement getInstance() method.
+	}
+
+	public function DirContentList() {
+
+		$root_dir = codecept_root_dir('');
+
+		$blocks = dirname( dirname( $root_dir ) ) . '/plugins/gutenberg/build/block-library/blocks/';
+
+		$dirs = \array_filter( glob( $blocks . '*' ), 'is_dir' );
+
+		foreach ( $dirs as $dir ) {
+			$block_json = $dir . '/block.json';
+			if ( ! \is_readable( $dir . '/block.json' ) ) {
+				continue;
+			}
+			$file = \json_decode( \file_get_contents( $block_json ) );
+			codecept_debug( $file->name );
+
+			codecept_debug( codecept_data_dir('') );
+
+			$return = \file_put_contents( codecept_data_dir() . '/ciao.php', 'ciao' );
+			codecept_debug( $return );
+		}
 	}
 }

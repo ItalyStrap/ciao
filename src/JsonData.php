@@ -7,7 +7,6 @@ use ItalyStrap\ThemeJsonGenerator\ColorDataType;
 use ItalyStrap\ThemeJsonGenerator\Styles\Border;
 use ItalyStrap\ThemeJsonGenerator\Styles\Color;
 use ItalyStrap\ThemeJsonGenerator\SectionNames;
-use Spatie\Color\Exceptions\InvalidColorValue;
 use ItalyStrap\ThemeJsonGenerator\Collection\Preset;
 use ItalyStrap\ThemeJsonGenerator\Collection\Custom;
 use ItalyStrap\ThemeJsonGenerator\Factory\Color as FClr;
@@ -693,48 +692,38 @@ final class JsonData {
 							->fontWeight( '600' )
 							->toArray(),
 					],
-					'core/post-title' => [
+					'core/post-title' => [ // .wp-block-post-title
 						'color' => FClr::make()
 							->text( $palette->varOf('bodyColor') )
 							->toArray(),
-						'typography' => [
-							'fontSize' => $font_sizes->varOf('h1'),
-						],
-//						'typography' => [
-//							'fontSize' => $custom->varOf('query.post.title'),
-//						],
-					],
-					'core/query' => [
-//						'color' => FClr::make()
-//							->text( $palette->varOf('bodyColor') )
-//							->toArray(),
-//						'typography' => [
-//							'fontSize' => \sprintf(
-//								'calc(%s * 1.5)',
-//								$font_sizes->varOf('h6')
-//							),
-//						],
+						'typography' => FTypo::make()
+							->fontSize( $font_sizes->varOf('h1') )
+							->toArray(),
 						'elements' => [
-//							'link' => [ // .wp-block-navigation a
-//								'color'	=> FClr::make()
-//									->text( $palette->varOf( 'base' ) )
-//									->background( 'transparent' )
-//									->toArray(),
-//							],
-//							'h2' => [ // .wp-block-navigation h1
-//								'color'	=> FClr::make()
-//									->text( $palette->varOf( 'base' ) )
-//									->background( 'transparent' )
-//									->toArray(),
-//								'typography' => FTypo::make()->fontSize( $font_sizes->varOf('h1') )->toArray(),
-//								'spacing'	=> [
-//									'margin'	=> (string) FSpace::make()
-//										->top( '0' )
-//										->bottom( '0' ),
-//								],
-//							],
+							'link' => [ // .wp-block-post-title a
+								'color'	=> FClr::make()
+									->text( $palette->varOf( 'bodyColor' ) )
+									->background( 'transparent' )
+									->toArray(),
+							],
 						],
 					],
+					/**
+					 * <!-- wp:query-title {"type":"archive"} /-->
+					 * .wp-block-query-title
+					 */
+					'core/query-title' => [
+						'color' => FClr::make()
+							->text( $palette->varOf('bodyColor') )
+							->toArray(),
+						'typography' => FTypo::make()
+							->fontSize( $font_sizes->varOf('h6') )
+							->toArray(),
+					],
+//					'core/query' => [
+//						'elements' => [
+//						],
+//					],
 
 					/**
 					 * ============================================
@@ -763,27 +752,29 @@ final class JsonData {
 							->fontWeight( '400' )
 							->textTransform('uppercase')
 							->toArray(),
-						'elements' => [
-							'link' => [ // .wp-block-navigation a
-								'color'	=> FClr::make()
-									->text( $palette->varOf( 'base' ) )
-									->background( 'transparent' )
-									->toArray(),
-							],
-//							'h1' => [ // .wp-block-navigation h1
+//						'elements' => [
+//							'link' => [ // .wp-block-navigation a
 //								'color'	=> FClr::make()
 //									->text( $palette->varOf( 'base' ) )
 //									->background( 'transparent' )
 //									->toArray(),
-//								'typography' => FTypo::make()->fontSize( $font_sizes->varOf('h6') )->toArray(),
-//								'spacing'	=> [
-//									'margin'	=> (string) FSpace::make()
-//										->top( '0' )
-//										->bottom( '0' ),
-//								],
 //							],
-						],
+//						],
 					],
+//					'core/navigation-link' => [ // .wp-block-navigation-link
+//						'color' => FClr::make()
+////							->text( $palette->varOf('bodyColor') )
+//							->text( 'red' )
+//							->background( $palette->varOf('bodyBg') )
+//							->toArray(),
+//					],
+//					'core/navigation-submenu' => [ // .wp-block-navigation
+//						'color' => FClr::make()
+////							->text( $palette->varOf('bodyColor') )
+//							->text( 'red' )
+//							->background( $palette->varOf('bodyBg') )
+//							->toArray(),
+//					],
 				],
 			],
 		];
@@ -835,23 +826,18 @@ final class JsonData {
 	 * @param string $slug
 	 * @param int $min
 	 * @param int $max
-	 * @param bool $toHEX
 	 * @return array
-	 * @throws \Exception
 	 */
 	private function generateShadesFromColorHex(
 		ColorDataType $color_text,
 		string $slug,
 		int $min = 10,
-		int $max = 100,
-		bool $toHEX = true
+		int $max = 100
 	): array {
-
-		$color = new \Mexitek\PHPColors\Color( (string) $color_text->toHex() );
 
 		$colors = [];
 		for ( $i = $min; $i < $max; $i += 10 ) {
-			$color_string = $color->isDark() ? $color->lighten( $i ) : $color->darken( $i );
+			$color_string = $color_text->isDark() ? $color_text->lighten( $i ) : $color_text->darken( $i );
 
 			$colors[ $i ] = [
 				"slug" => \sprintf(
@@ -859,9 +845,9 @@ final class JsonData {
 					$slug,
 					$i
 				),
-				"color" => '#' . $color_string,
+				"color" => $color_string->toHsla(),
 				"name" => \sprintf(
-					"%s of gray by %s%%",
+					"Shade of %s by %s%%",
 					ucfirst( $slug ),
 					$i
 				)

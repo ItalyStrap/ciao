@@ -6,10 +6,8 @@ namespace ItalyStrap\Ciao;
 use Auryn\InjectorException;
 use ItalyStrap\Config\Config;
 use ItalyStrap\Event\EventDispatcher;
-use ItalyStrap\Finder\Finder;
 use ItalyStrap\Finder\FinderFactory;
 use ItalyStrap\View\View;
-use ItalyStrap\View\ViewACM;
 use RuntimeException;
 use Throwable;
 use function get_stylesheet_directory;
@@ -45,7 +43,7 @@ try {
 
 	$event_dispatcher->addListener( 'after_setup_theme', function () use ( $event_dispatcher, $injector ) {
 
-		$support = new \ItalyStrap\ExperimentalTheme\Support();
+		$support = new \ItalyStrap\Theme\Support();
 //		$support->remove('wp-block-styles');
 //		$support->remove('editor-styles');
 

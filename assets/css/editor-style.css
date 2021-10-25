@@ -157,4 +157,13 @@
   align-self: center;
 }
 
+/**
+ * If we add a margin top on all p tags we have to
+ * normalize some elements that has a p tag in some configuration
+ * like read-more link in case it is configured at new line.
+ */
+.wp-block-post-excerpt__more-text {
+  margin-top: 0;
+}
+
 /*# sourceMappingURL=editor-style.css.map */

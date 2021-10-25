@@ -71,48 +71,48 @@
                 },
                 {
                     "slug": "gray-100",
-                    "color": "#191919",
-                    "name": "Gray of gray by 10%"
+                    "color": "hsla(0,0%,10%,1)",
+                    "name": "Shade of Gray by 10%"
                 },
                 {
                     "slug": "gray-200",
-                    "color": "#333333",
-                    "name": "Gray of gray by 20%"
+                    "color": "hsla(0,0%,20%,1)",
+                    "name": "Shade of Gray by 20%"
                 },
                 {
                     "slug": "gray-300",
-                    "color": "#4c4c4c",
-                    "name": "Gray of gray by 30%"
+                    "color": "hsla(0,0%,30%,1)",
+                    "name": "Shade of Gray by 30%"
                 },
                 {
                     "slug": "gray-400",
-                    "color": "#666666",
-                    "name": "Gray of gray by 40%"
+                    "color": "hsla(0,0%,40%,1)",
+                    "name": "Shade of Gray by 40%"
                 },
                 {
                     "slug": "gray-500",
-                    "color": "#7f7f7f",
-                    "name": "Gray of gray by 50%"
+                    "color": "hsla(0,0%,50%,1)",
+                    "name": "Shade of Gray by 50%"
                 },
                 {
                     "slug": "gray-600",
-                    "color": "#999999",
-                    "name": "Gray of gray by 60%"
+                    "color": "hsla(0,0%,60%,1)",
+                    "name": "Shade of Gray by 60%"
                 },
                 {
                     "slug": "gray-700",
-                    "color": "#b2b2b2",
-                    "name": "Gray of gray by 70%"
+                    "color": "hsla(0,0%,70%,1)",
+                    "name": "Shade of Gray by 70%"
                 },
                 {
                     "slug": "gray-800",
-                    "color": "#cccccc",
-                    "name": "Gray of gray by 80%"
+                    "color": "hsla(0,0%,80%,1)",
+                    "name": "Shade of Gray by 80%"
                 },
                 {
                     "slug": "gray-900",
-                    "color": "#e5e5e5",
-                    "name": "Gray of gray by 90%"
+                    "color": "hsla(0,0%,90%,1)",
+                    "name": "Shade of Gray by 90%"
                 }
             ],
             "gradients": [
@@ -565,10 +565,23 @@
                 },
                 "typography": {
                     "fontSize": "var(--wp--preset--font-size--h-1)"
+                },
+                "elements": {
+                    "link": {
+                        "color": {
+                            "text": "var(--wp--preset--color--body-color)",
+                            "background": "transparent"
+                        }
+                    }
                 }
             },
-            "core/query": {
-                "elements": []
+            "core/query-title": {
+                "color": {
+                    "text": "var(--wp--preset--color--body-color)"
+                },
+                "typography": {
+                    "fontSize": "var(--wp--preset--font-size--h-6)"
+                }
             },
             "core/site-tagline": {
                 "color": {
@@ -591,14 +604,6 @@
                     "fontSize": "var(--wp--preset--font-size--x-small)",
                     "fontWeight": "400",
                     "textTransform": "uppercase"
-                },
-                "elements": {
-                    "link": {
-                        "color": {
-                            "text": "var(--wp--preset--color--base)",
-                            "background": "transparent"
-                        }
-                    }
                 }
             }
         }
