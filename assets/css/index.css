@@ -391,8 +391,8 @@ template {
   width: 100%;
   padding: var(--wp--custom--button--padding);
 }
-.comment-form input:not(.submit),
-.comment-form textarea:not(.submit) {
+.comment-form input:not([type=submit]),
+.comment-form textarea:not([type=submit]) {
   color: #212529;
   background-clip: padding-box;
   border: 1px solid #ced4da;

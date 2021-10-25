@@ -34,7 +34,7 @@
     width: 100%;
     padding: var(--wp--custom--button--padding);
 
-    &:not(.submit) {
+    &:not([type="submit"]) {
       color: #212529;
       background-clip: padding-box;
       border: 1px solid #ced4da;
