@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "../../theme";
 /**
  * This is like the .btn in bootstrap
  * Example:
@@ -28,7 +29,8 @@
     &:focus {
         text-decoration: none;
 
-        background-color: var(--wp--custom--button--hover--bg);
+        background-color: var(theme.$wp--custom--button--hover--bg);
+        //background-color: var(--wp--custom--button--hover--bg);
         border-color: var(--wp--custom--button--hover--border-color);
         color: var(--wp--custom--button--hover--text);
         //opacity: 0.75;

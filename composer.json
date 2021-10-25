@@ -68,7 +68,8 @@
     }],
     "extra": {
         "theme-json": {
-            "callable": "\\ItalyStrap\\ExperimentalTheme\\JsonData::getJsonData"
+            "callable": "\\ItalyStrap\\ExperimentalTheme\\JsonData::getJsonData",
+            "path-for-theme-sass": "assets/sass/"
         }
     },
     "scripts": {
