@@ -505,4 +505,12 @@ template {
   margin-top: 0;
 }
 
+.wp-block-post-author__avatar .avatar {
+  border-radius: 50%;
+}
+
+.wp-block-post-author__bio {
+  margin-top: 1em;
+}
+
 /*# sourceMappingURL=index.css.map */

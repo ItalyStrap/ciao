@@ -425,7 +425,10 @@ final class JsonData {
 							->toArray(),
 					],
 					'h1' => [
-						'typography' => FTypo::make()->fontSize( $font_sizes->varOf('h1') )->toArray(),
+						'typography' => FTypo::make()
+							->fontSize( $font_sizes->varOf('h1') )
+							->fontFamily( $font_family->varOf('base') )
+							->toArray(),
 						'spacing'	=> [
 							'margin'	=> (string) FSpace::make()
 								->top( $custom->varOf( 'spacer.m' ) )
@@ -433,7 +436,10 @@ final class JsonData {
 						],
 					],
 					'h2' => [
-						'typography' =>  FTypo::make()->fontSize( $font_sizes->varOf('h2') )->toArray(),
+						'typography' =>  FTypo::make()
+							->fontSize( $font_sizes->varOf('h2') )
+							->fontFamily( $font_family->varOf('base') )
+							->toArray(),
 						'spacing'	=> [
 							'margin'	=> (string) FSpace::make()
 								->top( $custom->varOf( 'spacer.m' ) )
@@ -483,18 +489,46 @@ final class JsonData {
 
 					/**
 					 * ============================================
-					 * Blocks container
+					 * Blocks for titles
 					 * ============================================
 					 */
-					'overblocks/container' => [
-						'spacing'	=> [
-							'margin'	=> '0',
+					'core/site-title' => [
+						'color' => FClr::make()
+							->text( $palette->varOf('bodyColor') )
+							->toArray(),
+						'typography' => FTypo::make()
+							->fontSize( $font_sizes->varOf('h1') )
+							->fontWeight( '600' )
+							->toArray(),
+					],
+					'core/post-title' => [ // .wp-block-post-title
+						'color' => FClr::make()
+							->text( $palette->varOf('bodyColor') )
+							->toArray(),
+						'typography' => FTypo::make()
+							->fontSize( $font_sizes->varOf('h1') )
+							->toArray(),
+						'elements' => [
+							'link' => [ // .wp-block-post-title a
+								'color'	=> FClr::make()
+									->text( $palette->varOf( 'bodyColor' ) )
+									->background( 'transparent' )
+									->toArray(),
+							],
 						],
 					],
-					'core/columns' => [
-						'spacing'	=> [
-							'margin'	=> '0',
-						],
+					/**
+					 * Title for queried object {Archive page}
+					 * <!-- wp:query-title {"type":"archive"} /-->
+					 * .wp-block-query-title
+					 */
+					'core/query-title' => [
+						'color' => FClr::make()
+							->text( $palette->varOf('bodyColor') )
+							->toArray(),
+						'typography' => FTypo::make()
+							->fontSize( $font_sizes->varOf('h6') )
+							->toArray(),
 					],
 
 					/**
@@ -527,6 +561,22 @@ final class JsonData {
 							'margin'	=> (string) FSpace::make()
 								->top( $custom->varOf( 'spacer.m' ) )
 								->bottom('0'),
+						],
+					],
+
+					/**
+					 * ============================================
+					 * Blocks container
+					 * ============================================
+					 */
+					'overblocks/container' => [
+						'spacing'	=> [
+							'margin'	=> '0',
+						],
+					],
+					'core/columns' => [
+						'spacing'	=> [
+							'margin'	=> '0',
 						],
 					],
 
@@ -646,6 +696,19 @@ final class JsonData {
 							->toArray(),
 					],
 
+					'core/post-author' => [
+						'color' => FClr::make()
+							->text( $palette->varOf('bodyColor') )
+							->toArray(),
+						'typography' => FTypo::make()
+							->fontSize( $font_sizes->varOf('small') )
+							->toArray(),
+						'spacing'	=> [
+							'margin'	=> (string) FSpace::make()
+								->top( $custom->varOf( 'spacer.m' ) ),
+						],
+					],
+
 					/**
 					 * <!-- wp:spacer -->
 					 * <div style="height:100px" aria-hidden="true" class="wp-block-spacer"></div>
@@ -678,48 +741,6 @@ final class JsonData {
 							->toArray(),
 					],
 
-					/**
-					 * ============================================
-					 * Blocks for titles
-					 * ============================================
-					 */
-					'core/site-title' => [
-						'color' => FClr::make()
-							->text( $palette->varOf('bodyColor') )
-							->toArray(),
-						'typography' => FTypo::make()
-							->fontSize( $font_sizes->varOf('h1') )
-							->fontWeight( '600' )
-							->toArray(),
-					],
-					'core/post-title' => [ // .wp-block-post-title
-						'color' => FClr::make()
-							->text( $palette->varOf('bodyColor') )
-							->toArray(),
-						'typography' => FTypo::make()
-							->fontSize( $font_sizes->varOf('h1') )
-							->toArray(),
-						'elements' => [
-							'link' => [ // .wp-block-post-title a
-								'color'	=> FClr::make()
-									->text( $palette->varOf( 'bodyColor' ) )
-									->background( 'transparent' )
-									->toArray(),
-							],
-						],
-					],
-					/**
-					 * <!-- wp:query-title {"type":"archive"} /-->
-					 * .wp-block-query-title
-					 */
-					'core/query-title' => [
-						'color' => FClr::make()
-							->text( $palette->varOf('bodyColor') )
-							->toArray(),
-						'typography' => FTypo::make()
-							->fontSize( $font_sizes->varOf('h6') )
-							->toArray(),
-					],
 //					'core/query' => [
 //						'elements' => [
 //						],
@@ -775,6 +796,21 @@ final class JsonData {
 //							->background( $palette->varOf('bodyBg') )
 //							->toArray(),
 //					],
+
+					/**
+					 * ============================================
+					 * Blocks for post comments
+					 * ============================================
+					 */
+					'core/post-comments' => [
+						'color' => FClr::make()
+							->text( $palette->varOf('bodyColor') )
+							->toArray(),
+						'typography' => FTypo::make()
+							->fontSize( $font_sizes->varOf('base') )
+							->fontWeight( '300' )
+							->toArray(),
+					],
 				],
 			],
 		];
