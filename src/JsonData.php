@@ -336,9 +336,10 @@ final class JsonData {
 					'fontFamilies'		=> $font_family->toArray(),
 				],
 				'spacing' => [
+					'blockGap'	=> true,
 					'customMargin' => true,
 					'customPadding' => true,
-					'units' => [ 'px', 'em', 'rem', 'vh', 'vw' ]
+					'units' => [ '%', 'px', 'em', 'rem', 'vh', 'vw' ]
 				],
 				'border' => [
 					'customColor'	=> true,

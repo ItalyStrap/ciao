@@ -1,0 +1,5 @@
+@use "../mixins/responsive-image" as ri;
+
+img {
+    @include ri.responsive-img;
+}

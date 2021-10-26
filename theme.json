@@ -226,9 +226,11 @@
             ]
         },
         "spacing": {
+            "blockGap": true,
             "customMargin": true,
             "customPadding": true,
             "units": [
+                "%",
                 "px",
                 "em",
                 "rem",
