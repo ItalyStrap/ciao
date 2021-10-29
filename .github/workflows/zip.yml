@@ -56,8 +56,8 @@ jobs:
 #        recursive: true
 #        dest: ciao.zip
 
-#    - uses: actions/upload-artifact@v2
-#      with:
-#        name: ciao
-#        path: ciao.zip
-#        retention-days: 5
+    - uses: actions/upload-artifact@v2
+      with:
+        name: ciao
+        path: dist/ciao.zip
+        retention-days: 5
