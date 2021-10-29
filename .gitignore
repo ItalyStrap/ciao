@@ -3,6 +3,7 @@
 /_others/
 /node_modules/
 /assets/sass/_old/
+/dist/
 
 # File
 *.local

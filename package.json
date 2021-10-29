@@ -46,5 +46,12 @@
   },
   "dependencies": {
     "bootstrap": "^5.1.2"
+  },
+  "scripts": {
+    "build": "grunt compress:build"
+  },
+  "jshintConfig": {
+    "curly": true,
+    "esversion": 6
   }
 }

@@ -1,6 +1,9 @@
 const mozjpeg = require( 'imagemin-mozjpeg' );
 const path = require('path');
 
+/**
+ * DartSass support
+ */
 const Fiber = require('fibers');
 const sass = require('sass');
 
@@ -20,62 +23,35 @@ const TEMPLATEPATH     = WP_THEME_PATH + 'italystrap' + path.sep;
 const STYLESHEETPATH   = WP_THEME_PATH + path.basename( path.resolve() ) + path.sep;
 
 const NODE_PATH = 'node_modules/';
-const BOOTSTRAP_PATH = NODE_PATH + 'bootstrap/';
-const BOOTSTRAP_JS_PATH = BOOTSTRAP_PATH + 'js/dist/';
-const BOOTSTRAP_JS_FILES = [
-	NODE_PATH + '@popperjs/core/cjs/popper.js',
-	BOOTSTRAP_JS_PATH + 'dom/data.js',
-	BOOTSTRAP_JS_PATH + 'dom/event-handler.j',
-	BOOTSTRAP_JS_PATH + 'dom/manipulator.js',
-	BOOTSTRAP_JS_PATH + 'dom/polyfill.js',
-	BOOTSTRAP_JS_PATH + 'dom/selector-engine.js',
-	BOOTSTRAP_JS_PATH + 'alert.js',
-	BOOTSTRAP_JS_PATH + 'button.js',
-	BOOTSTRAP_JS_PATH + 'carousel.js',
-	BOOTSTRAP_JS_PATH + 'collapse.js',
-	BOOTSTRAP_JS_PATH + 'dropdown.js',
-	BOOTSTRAP_JS_PATH + 'modal.js',
-	BOOTSTRAP_JS_PATH + 'popover.js',
-	BOOTSTRAP_JS_PATH + 'scrollspy.js',
-	BOOTSTRAP_JS_PATH + 'tab.js',
-	BOOTSTRAP_JS_PATH + 'toast.js',
-	BOOTSTRAP_JS_PATH + 'tooltip.js',
-];
 
-const AUTH = {
-	host: 'ftp.your-host.tld',
-	port: 21,
-	authKey: 'key1'
-};
-const SFTP_AUTH = {
-	host: 'ftp.your-host.tld',
-	port: 22,
-	authKey: 'sftp'
-};
+const THEME_FILES_FOR_PRODUCTION = [
 
-const PARENT_PATH = 'E:/xampp/htdocs/italystrap/wp-content/';
-
-const italystrap_theme = [
+	// All files
 	'**',
-	'!codecept',
-	'!.git/**',
+
+	// Not this dirs
+	'!**/.git/**',
+	'!**/node_modules/**',
+	'!**/test*/**',
+	'!assets/sass/**',
+	'!assets/**/src/**',
+	'!dist/**',
+
+	// Not this files
+	'!.env*',
 	'!.gitattributes',
 	'!.gitignore',
-	'!.sass-cache/**',
-	'!node_modules/**',
-	'!bower/**',
-	'!tests/**',
-	'!future-inclusions/**',
-	'!sass/**',
-	'!css/src/**',
-	'!js/src/**',
-	'!snippets.md',
-	'!bower.json',
+	'!c3.php',
+	'!codecept*',
+	'!composer*',
 	'!Gruntfile.js',
-	'!package.json',
+	'!infection*',
+	'!package*',
+	'!phpstan*',
+	'!*.xml',
 	'!*.yml',
 	'!*.zip',
-	'!**/*.map',
+	'!*.svg',
 ];
 
 const SITEMAP = [
@@ -97,26 +73,26 @@ module.exports = function(grunt) {
             unit_debug: 'composer run unit:debug'
         },
 
-		babel: {
-			options: {
-				sourceMap: false,
-				presets: ['@babel/preset-env']
-			},
-			dist: {
-				files: {
-					'assets/temp/bootstrap.js': [
-						'assets/temp/concat-bootstrap.js',
-					],
-				}
-			}
-		},
+		// babel: {
+		// 	options: {
+		// 		sourceMap: false,
+		// 		presets: ['@babel/preset-env']
+		// 	},
+		// 	dist: {
+		// 		files: {
+		// 			'assets/temp/bootstrap.js': [
+		// 				'assets/temp/concat-bootstrap.js',
+		// 			],
+		// 		}
+		// 	}
+		// },
 
-		ts: {
-			default: {
-				tsconfig: './tsconfig.json',
-				src: ['assets/ts/index.ts'],
-			},
-		},
+		// ts: {
+		// 	default: {
+		// 		tsconfig: './tsconfig.json',
+		// 		src: ['assets/ts/index.ts'],
+		// 	},
+		// },
 
 		uglify: {
 			src: {
@@ -127,8 +103,6 @@ module.exports = function(grunt) {
 				},
 				files: {
 					'assets/js/index.js': [
-						NODE_PATH + 'jarallax/dist/jarallax.min.js',
-						BOOTSTRAP_PATH + 'dist/js/bootstrap.js',
 						'assets/ts/index.js' // <- Modify this
 					],
 				}
@@ -136,8 +110,6 @@ module.exports = function(grunt) {
 			dist: {
 				files: {
 					'assets/js/index.min.js': [
-						NODE_PATH + 'jarallax/dist/jarallax.min.js',
-						BOOTSTRAP_PATH + 'dist/js/bootstrap.js',
 						'assets/ts/index.js' // <- Modify this
 					],
 				}
@@ -287,15 +259,15 @@ module.exports = function(grunt) {
 		 * Copy updated dependency
 		 * $ grunt copy
 		 */
-		copy: { // https://github.com/gruntjs/grunt-contrib-copy
-			parent_theme: {
-				expand: true, // https://github.com/gruntjs/grunt-contrib-copy/issues/90
-				cwd: PARENT_PATH + 'themes/ItalyStrap/',
-				src: ['**', '!node_modules/**', '!bower/**', '!tests/**'],
-				dest: '../italystrap/',
-				filter: 'isFile',
-			},
-		},
+		// copy: { // https://github.com/gruntjs/grunt-contrib-copy
+		// 	parent_theme: {
+		// 		expand: true, // https://github.com/gruntjs/grunt-contrib-copy/issues/90
+		// 		cwd: PARENT_PATH + 'themes/ItalyStrap/',
+		// 		src: ['**', '!node_modules/**', '!bower/**', '!tests/**'],
+		// 		dest: '../italystrap/',
+		// 		filter: 'isFile',
+		// 	},
+		// },
 
 		clean: { // https://github.com/gruntjs/grunt-contrib-clean
 			options: { force: true },
@@ -311,8 +283,20 @@ module.exports = function(grunt) {
 				},
 				files: [
 					{
-						src: italystrap_theme, // What should be included in the zip
+						src: THEME_FILES_FOR_PRODUCTION, // What should be included in the zip
 						dest: '<%= pkg.name %>/',        // Where the zipfile should go
+						filter: 'isFile',
+					},
+				]
+			},
+			build: {
+				options: {
+					archive: 'dist/<%= pkg.name %>.zip'
+				},
+				files: [
+					{
+						src: THEME_FILES_FOR_PRODUCTION,
+						dest: '<%= pkg.name %>/',
 						filter: 'isFile',
 					},
 				]

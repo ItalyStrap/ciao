@@ -29,6 +29,19 @@ jobs:
     - name: 👀 See the content
       run: ls
 
+    - name: Use Node.js 12
+      uses: actions/setup-node@v2-beta
+      with:
+        node-version: '12'
+
+    - name: 🔨 Build Project
+      run: |
+        npm install
+        npm run build
+
+    - name: List output files
+      run: find dist/ -print
+
 #    - name: Archive Release
 #      uses: thedoctor0/zip-release@master
 #      with:
