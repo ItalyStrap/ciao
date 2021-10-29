@@ -62,10 +62,6 @@
             "functions/autoload.php"
         ]
     },
-    "repositories": [{
-        "type": "vcs",
-        "url": "E:\\xampp\\htdocs\\moduli\\wp-content\\plugins\\theme-json-generator"
-    }],
     "extra": {
         "theme-json": {
             "callable": "\\ItalyStrap\\ExperimentalTheme\\JsonData::getJsonData",
