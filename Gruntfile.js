@@ -272,7 +272,6 @@ module.exports = function(grunt) {
 		clean: { // https://github.com/gruntjs/grunt-contrib-clean
 			options: { force: true },
 			clean: [
-				// "assets/temp/**.*",
 				"dist/",
 			]
 		},
@@ -290,7 +289,7 @@ module.exports = function(grunt) {
 					},
 				]
 			},
-			build: {
+			dist: {
 				options: {
 					archive: 'dist/<%= pkg.name %>.zip'
 				},
@@ -347,7 +346,9 @@ module.exports = function(grunt) {
 
     grunt.registerTask( 'build', [
 			'css',
-			'js'
+			// 'js',
+			'copy:dist',
+			'clean',
         ]
     );
 

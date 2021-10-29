@@ -83,6 +83,22 @@
             "vendor\\bin\\codecept run unit --debug",
             "@clean"
         ],
+        "wpunit": [
+            "vendor\\bin\\codecept run wpunit && vendor\\bin\\infection --threads=4",
+            "@clean"
+        ],
+        "wpunit:debug": [
+            "vendor\\bin\\codecept run wpunit --debug",
+            "@clean"
+        ],
+        "functional": [
+            "vendor\\bin\\codecept run functional",
+            "@clean"
+        ],
+        "functional:debug": [
+            "vendor\\bin\\codecept run functional --debug",
+            "@clean"
+        ],
         "bench": [
             "vendor\\bin\\phpbench run --report=performance"
         ],
