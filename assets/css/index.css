@@ -507,15 +507,117 @@ template {
 
 .wp-block-post-author__avatar .avatar {
   border-radius: 50%;
+  border-color: var(--wp--preset--color--gray-200);
+  border-style: solid;
+  border-width: 5px;
 }
 
 .wp-block-post-author__bio {
   margin-top: 1em;
 }
 
+.is-style-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid var(--wp--preset--color--gray-800);
+  border-radius: var(--wp--custom--button--border-radius);
+}
+.is-style-card .has-background {
+  margin: 0;
+}
+.is-style-card .has-background:first-child {
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+.is-style-card > .is-style-list-group {
+  border-radius: 0;
+}
+.is-style-card > .is-style-list-group > * {
+  border-right: 0;
+  border-left: 0;
+}
+.is-style-card > .is-style-list-group:last-child {
+  border-bottom: 0;
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+}
+
+.is-style-list-group {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  border-radius: var(--wp--custom--button--border-radius);
+  /**
+   * Reset from Gutenberg Style.css
+   */
+}
+.is-style-list-group > * {
+  position: relative;
+  display: block;
+  padding: 0.5rem 1rem;
+  color: var(--wp--preset--color--dark);
+  text-decoration: none;
+  background-color: var(--wp--preset--color--body-bg);
+  border: 1px solid var(--wp--preset--color--gray-800);
+}
+.is-style-list-group > *:first-child {
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+.is-style-list-group > *:last-child {
+  border-bottom-right-radius: inherit;
+  border-bottom-left-radius: inherit;
+}
+.is-style-list-group > * + * {
+  border-top-width: 0;
+}
+.is-style-list-group a {
+  margin: -0.5rem -1rem;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  display: inline-block;
+  box-sizing: content-box;
+}
+.is-style-list-group a:hover {
+  background-color: aliceblue;
+}
+.is-style-list-group a:first-child {
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+.is-style-list-group a:last-child {
+  border-bottom-right-radius: inherit;
+  border-bottom-left-radius: inherit;
+}
+.is-style-list-group p {
+  margin-top: initial;
+}
+.is-style-list-group p.has-background {
+  padding: 0.5rem 1rem;
+}
+
 img {
   max-width: 100%;
   height: auto;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1.has-background,
+h2.has-background,
+h3.has-background,
+h4.has-background,
+h5.has-background,
+h6.has-background {
+  padding: 0.25em 0.575em;
 }
 
 /*# sourceMappingURL=index.css.map */

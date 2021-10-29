@@ -15,7 +15,7 @@ use function get_template_directory;
 use function ItalyStrap\Factory\injector;
 
 require get_stylesheet_directory() . '/vendor/autoload.php';
-require_once get_template_directory() . '/src/bootstrap.php';
+require get_template_directory() . '/src/bootstrap.php';
 
 try {
 	$injector = injector();
@@ -80,6 +80,22 @@ try {
 				'content'	=> $view->render(
 					'paragraph', [ 'content' => \rtrim( \str_repeat( 'Lorem Ipsum Dolor ', 10 ) ) ]
 				),
+			]
+		);
+
+		register_block_style(
+			'core/list',
+			[
+				'name'  => 'list-group',
+				'label' => __( 'list-group effect', 'ciao' ),
+			]
+		);
+
+		register_block_style(
+			'overblocks/container',
+			[
+				'name'  => 'card',
+				'label' => __( 'Card effect', 'ciao' ),
 			]
 		);
 

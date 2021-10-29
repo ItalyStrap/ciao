@@ -19,7 +19,6 @@ class JsonDataTest extends Unit {
 	}
 
 	protected function getInstance() {
-		// TODO: Implement getInstance() method.
 	}
 
 	public function dirContentList() {

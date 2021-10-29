@@ -1,0 +1,15 @@
+/// This reset the overlap of parent if has padding
+* {
+    box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    &.has-background {
+        padding: 0.25em 0.575em;
+    }
+}

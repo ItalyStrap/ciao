@@ -172,6 +172,5 @@ class HTMLCommentTest extends \Codeception\Test\Unit {
 	}
 
 	protected function getInstance() {
-		// TODO: Implement getInstance() method.
 	}
 }

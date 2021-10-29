@@ -37,7 +37,10 @@ final class JsonData {
 		$dark = new ColorDataType('#000000');
 		$body_bg = new ColorDataType( '#ffffff' );
 		$body_text = new ColorDataType('#000000');
+		$heading_text = new ColorDataType('#000000');
+//		$heading_text = new ColorDataType('#0099aa');
 		$base_clr = new ColorDataType('#3986E0');
+		$link_clr = new ColorDataType('#3986E0');
 		$border_color = new ColorDataType('#cccccc');
 
 		$button_bg_hover = $base_clr->darken(20);
@@ -46,8 +49,6 @@ final class JsonData {
 		if ( $base_clr->isDark() ) {
 			$button_text_hover = $body_bg->lighten(10);
 		}
-
-		$grays = $this->generateShadesFromColorHex( $body_text, 'gray' );
 
 		$palette = new Preset(
 			[
@@ -69,7 +70,17 @@ final class JsonData {
 				[
 					"slug" => "bodyColor",
 					"color" => $body_text->toHsla(),
-					"name" => "Color for text, headings, links"
+					"name" => "Color for text"
+				],
+				[
+					"slug" => "headingColor",
+					"color" => $heading_text->toHsla(),
+					"name" => "Color for headings"
+				],
+				[
+					"slug" => "linkColor",
+					"color" => $link_clr->toHsla(),
+					"name" => "Color for links"
 				],
 				[
 					"slug" => "base",
@@ -91,7 +102,7 @@ final class JsonData {
 					"color" => $base_clr->complementary()->toHsla(),
 					"name" => "Brand base complementary color"
 				],
-				...$grays
+				...$this->generateShadesFromColorHex( $body_text, 'gray' )
 			],
 			'color'
 		);
@@ -195,7 +206,7 @@ final class JsonData {
 		$custom = new Custom(
 			[
 				'contentSize'	=> 'clamp(16rem, 60vw, 60rem)',
-				'wideSize'		=> 'clamp(16rem, 80vw, 70rem)',
+				'wideSize'		=> 'clamp(16rem, 85vw, 70rem)',
 				'baseFontSize' 	=> "1rem",
 				'spacer' 		=> [
 					'base'	=> '1rem',
@@ -208,8 +219,8 @@ final class JsonData {
 				],
 				'lineHeight' 	=> [
 					'base' => 1.5,
-					'xs' => 1.3,
-					's' => 1.4,
+					'xs' => 1.1,
+					's' => 1.3,
 					'm' => '{{lineHeight.base}}',
 					'l' => 1.7
 				],
@@ -230,6 +241,7 @@ final class JsonData {
 					'bg'	=> '{{color.base}}',
 					'text'	=> $button_text_hover->toHex(),
 					'borderColor'	=> 'transparent',
+					'borderRadius'	=> 'calc( {{fontSize.base}} /4)',
 					'hover'	=> [
 						'bg'	=> $button_bg_hover->toHex(),
 						'text'	=> $button_text_hover->toHex(),
@@ -398,7 +410,7 @@ final class JsonData {
 					->fontFamily( $font_family->varOf('base') )
 					->fontSize( $font_sizes->varOf( 'base' ) )
 					->fontStyle( 'normal' )
-					->fontWeight( '400' )
+					->fontWeight( '300' )
 					->letterSpacing( 'normal' )
 					->lineHeight( $custom->varOf( 'lineHeight.m' ) )
 					->textDecoration( 'none' )
@@ -428,56 +440,94 @@ final class JsonData {
 					'h1' => [
 						'typography' => FTypo::make()
 							->fontSize( $font_sizes->varOf('h1') )
+							->fontWeight( '900' )
+							->lineHeight( $custom->varOf( 'lineHeight.xs' ) )
 							->fontFamily( $font_family->varOf('base') )
 							->toArray(),
 						'spacing'	=> [
 							'margin'	=> (string) FSpace::make()
-								->top( $custom->varOf( 'spacer.m' ) )
+								->top( $custom->varOf( 'spacer.s' ) )
 								->bottom( '0px' ),
 						],
+						'color'	=> FClr::make()
+							->text( $palette->varOf( 'headingColor' ) )
+							->toArray(),
 					],
 					'h2' => [
 						'typography' =>  FTypo::make()
 							->fontSize( $font_sizes->varOf('h2') )
+							->fontWeight( '900' )
+							->lineHeight( $custom->varOf( 'lineHeight.xs' ) )
 							->fontFamily( $font_family->varOf('base') )
 							->toArray(),
 						'spacing'	=> [
 							'margin'	=> (string) FSpace::make()
-								->top( $custom->varOf( 'spacer.m' ) )
+								->top( $custom->varOf( 'spacer.s' ) )
 								->bottom( '0px' ),
 						],
+						'color'	=> FClr::make()
+							->text( $palette->varOf( 'headingColor' ) )
+							->toArray(),
 					],
 					'h3' => [
-						'typography' => FTypo::make()->fontSize( $font_sizes->varOf('h3') )->toArray(),
+						'typography' => FTypo::make()
+							->fontSize( $font_sizes->varOf('h3') )
+							->fontWeight( '900' )
+							->lineHeight( $custom->varOf( 'lineHeight.xs' ) )
+							->toArray(),
 						'spacing'	=> [
 							'margin'	=> (string) FSpace::make()
-								->top( $custom->varOf( 'spacer.m' ) )
+								->top( $custom->varOf( 'spacer.s' ) )
 								->bottom( '0px' ),
 						],
+						'color'	=> FClr::make()
+							->text( $palette->varOf( 'headingColor' ) )
+							->toArray(),
 					],
 					'h4' => [
-						'typography' => FTypo::make()->fontSize( $font_sizes->varOf('h4') )->toArray(),
+						'typography' => FTypo::make()
+							->fontSize( $font_sizes->varOf('h4') )
+							->fontWeight( '900' )
+							->lineHeight( $custom->varOf( 'lineHeight.xs' ) )
+							->toArray(),
 						'spacing'	=> [
 							'margin'	=> (string) FSpace::make()
-								->top( $custom->varOf( 'spacer.m' ) )
+								->top( $custom->varOf( 'spacer.s' ) )
 								->bottom( '0px' ),
 						],
+						'color'	=> FClr::make()
+							->text( $palette->varOf( 'headingColor' ) )
+							->toArray(),
 					],
 					'h5' => [
-						'typography' => FTypo::make()->fontSize( $font_sizes->varOf('h5') )->toArray(),
+						'typography' => FTypo::make()
+							->fontSize( $font_sizes->varOf('h5') )
+							->fontWeight( '900' )
+							->lineHeight( $custom->varOf( 'lineHeight.xs' ) )
+							->toArray(),
 						'spacing'	=> [
 							'margin'	=> (string) FSpace::make()
-								->top( $custom->varOf( 'spacer.m' ) )
+								->top( $custom->varOf( 'spacer.s' ) )
 								->bottom( '0px' ),
 						],
+						'color'	=> FClr::make()
+							->text( $palette->varOf( 'headingColor' ) )
+							->toArray(),
 					],
 					'h6' => [
-						'typography' => FTypo::make()->fontSize( $font_sizes->varOf('h6') )->toArray(),
+						'typography' => FTypo::make()
+							->fontSize( $font_sizes->varOf('h6') )
+							->fontWeight( '900' )
+							->lineHeight( $custom->varOf( 'lineHeight.xs' ) )
+							->toArray(),
 						'spacing'	=> [
 							'margin'	=> (string) FSpace::make()
-								->top( $custom->varOf( 'spacer.m' ) )
+								->top( $custom->varOf( 'spacer.s' ) )
 								->bottom( '0px' ),
 						],
+						'color'	=> FClr::make()
+							->text( $palette->varOf( 'headingColor' ) )
+							->toArray(),
 					],
 				],
 
@@ -504,7 +554,7 @@ final class JsonData {
 					],
 					'core/post-title' => [ // .wp-block-post-title
 						'color' => FClr::make()
-							->text( $palette->varOf('bodyColor') )
+							->text( $palette->varOf('headingColor') )
 							->toArray(),
 						'typography' => FTypo::make()
 							->fontSize( $font_sizes->varOf('h1') )
@@ -524,12 +574,17 @@ final class JsonData {
 					 * .wp-block-query-title
 					 */
 					'core/query-title' => [
-						'color' => FClr::make()
-							->text( $palette->varOf('bodyColor') )
-							->toArray(),
 						'typography' => FTypo::make()
-							->fontSize( $font_sizes->varOf('h6') )
+							->fontSize( $font_sizes->varOf('h3') )
 							->toArray(),
+					],
+					'core/term-description' => [ // .wp-block-term-description
+						'typography' => FTypo::make()
+							->fontSize( $font_sizes->varOf('x-small') )
+							->toArray(),
+						'spacing'	=> [
+							'margin'	=> (string) FSpace::shorthand(['0']) . ' !important',
+						],
 					],
 
 					/**
@@ -567,17 +622,39 @@ final class JsonData {
 
 					/**
 					 * ============================================
+					 * Blocks for content
+					 * ============================================
+					 */
+					'core/post-content' => [ // .wp-block-post-content
+						'color' => FClr::make()
+							->text( 'inherit'  )
+							->toArray(),
+					],
+					'core/post-excerpt' => [ // .wp-block-post-content
+						'color' => FClr::make()
+							->text( 'inherit'  )
+							->toArray(),
+					],
+
+					/**
+					 * ============================================
 					 * Blocks container
 					 * ============================================
 					 */
-					'overblocks/container' => [
+//					'overblocks/container' => [
+//						'spacing'	=> [
+//							'margin'	=> '0',
+//						],
+//					],
+//					'core/columns' => [
+//						'spacing'	=> [
+//							'margin'	=> '0',
+//						],
+//					],
+					'core/template-part' => [
 						'spacing'	=> [
-							'margin'	=> '0',
-						],
-					],
-					'core/columns' => [
-						'spacing'	=> [
-							'margin'	=> '0',
+							'margin'	=> '0 !important',
+							'padding'	=> '0 !important',
 						],
 					],
 
@@ -591,6 +668,13 @@ final class JsonData {
 							'margin'	=> (string) FSpace::make()
 								->top( $custom->varOf( 'spacer.m' ) )
 								->bottom( '0px' ),
+						],
+					],
+					'core/list' => [ // p
+						'spacing'	=> [
+//							'margin'	=> (string) FSpace::make()
+//								->top( $custom->varOf( 'spacer.m' ) )
+//								->bottom( '0px' ),
 						],
 					],
 					'core/button' => [ // .wp-block-button__link
@@ -685,29 +769,75 @@ final class JsonData {
 
 					/**
 					 * ============================================
-					 * Blocks for templating
+					 * Blocks for post meta elements
 					 * ============================================
 					 */
 					'core/post-date' => [
 						'color' => FClr::make()
-							->text( $palette->varOf('bodyColor') )
+							->text( $palette->varOf('gray-200') )
 							->toArray(),
 						'typography' => FTypo::make()
 							->fontSize( $font_sizes->varOf('x-small') )
 							->toArray(),
 					],
 
+					'core/post-terms' => [
+						'color' => FClr::make()
+							->text( $palette->varOf('gray-200') )
+							->toArray(),
+						'typography' => FTypo::make()
+							->fontSize( $font_sizes->varOf('x-small') )
+							->toArray(),
+						'elements' => [
+							'link' => [ // .wp-block-file a
+								'color'	=> FClr::make()
+									->text( $palette->varOf( 'gray-200' ) )
+									->background( 'transparent' )
+									->toArray(),
+								'typography' => FTypo::make()
+									->textDecoration( 'none' )
+									->toArray(),
+							],
+						],
+					],
+
 					'core/post-author' => [
+						'border' => ( new Border() )
+							->color( $palette->varOf('bodyColor') )
+							->style( 'solid' )
+							->width( '1px' )
+							->toArray(),
 						'color' => FClr::make()
 							->text( $palette->varOf('bodyColor') )
+							->background( $palette->varOf('gray-900') )
 							->toArray(),
 						'typography' => FTypo::make()
 							->fontSize( $font_sizes->varOf('small') )
 							->toArray(),
 						'spacing'	=> [
-							'margin'	=> (string) FSpace::make()
-								->top( $custom->varOf( 'spacer.m' ) ),
+//							'margin'	=> (string) FSpace::make()
+//								->top( $custom->varOf( 'spacer.m' ) ),
+							'padding'	=> (string) FSpace::shorthand(
+								[
+									$custom->varOf( 'spacer.m' ),
+								]
+							),
 						],
+					],
+
+					/**
+					 * ============================================
+					 * Blocks for post comments
+					 * ============================================
+					 */
+					'core/post-comments' => [
+						'color' => FClr::make()
+							->text( $palette->varOf('bodyColor') )
+							->toArray(),
+						'typography' => FTypo::make()
+							->fontSize( $font_sizes->varOf('base') )
+							->fontWeight( '300' )
+							->toArray(),
 					],
 
 					/**
@@ -797,21 +927,6 @@ final class JsonData {
 //							->background( $palette->varOf('bodyBg') )
 //							->toArray(),
 //					],
-
-					/**
-					 * ============================================
-					 * Blocks for post comments
-					 * ============================================
-					 */
-					'core/post-comments' => [
-						'color' => FClr::make()
-							->text( $palette->varOf('bodyColor') )
-							->toArray(),
-						'typography' => FTypo::make()
-							->fontSize( $font_sizes->varOf('base') )
-							->fontWeight( '300' )
-							->toArray(),
-					],
 				],
 			],
 		];
