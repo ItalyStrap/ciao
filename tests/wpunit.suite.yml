@@ -18,5 +18,4 @@ modules:
             domain: "%TEST_SITE_WP_DOMAIN%"
             adminEmail: "%TEST_SITE_ADMIN_EMAIL%"
             title: "Test"
-            plugins: ['theme-json-generator/index.php']
-            activatePlugins: ['theme-json-generator/index.php']
+            theme: ["italystrap", "ciao"]

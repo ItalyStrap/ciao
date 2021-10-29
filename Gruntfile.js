@@ -70,7 +70,8 @@ module.exports = function(grunt) {
 
         exec: { // https://github.com/jharding/grunt-exec
             theme_json: 'composer run json',
-            unit_debug: 'composer run unit:debug'
+            unit_debug: 'composer run unit:debug',
+            functional: 'composer run functional',
         },
 
 		// babel: {
@@ -331,6 +332,10 @@ module.exports = function(grunt) {
 			php: {
 				files: ['src/**/*.php', 'tests/unit/**/*.php'],
 				tasks: ['exec:unit_debug'],
+			},
+			functional: {
+				files: ['block-template*/**', 'tests/functional/**/*.php'],
+				tasks: ['exec:functional'],
 			},
 			options: {
 				livereload: true,
