@@ -45,7 +45,8 @@
     "typescript": "^4.4"
   },
   "dependencies": {
-    "bootstrap": "^5.1.2"
+    "bootstrap": "^5.1.2",
+    "grunt-cli": "^1.4.3"
   },
   "scripts": {
     "build": "grunt compress:build"

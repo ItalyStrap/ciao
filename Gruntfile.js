@@ -259,20 +259,21 @@ module.exports = function(grunt) {
 		 * Copy updated dependency
 		 * $ grunt copy
 		 */
-		// copy: { // https://github.com/gruntjs/grunt-contrib-copy
-		// 	parent_theme: {
-		// 		expand: true, // https://github.com/gruntjs/grunt-contrib-copy/issues/90
-		// 		cwd: PARENT_PATH + 'themes/ItalyStrap/',
-		// 		src: ['**', '!node_modules/**', '!bower/**', '!tests/**'],
-		// 		dest: '../italystrap/',
-		// 		filter: 'isFile',
-		// 	},
-		// },
+		copy: { // https://github.com/gruntjs/grunt-contrib-copy
+			dist: {
+				expand: true, // https://github.com/gruntjs/grunt-contrib-copy/issues/90
+				// cwd: path.resolve(),
+				src: THEME_FILES_FOR_PRODUCTION,
+				dest: 'dist/',
+				filter: 'isFile',
+			},
+		},
 
 		clean: { // https://github.com/gruntjs/grunt-contrib-clean
 			options: { force: true },
 			clean: [
-				"assets/temp/**.*",
+				// "assets/temp/**.*",
+				"dist/",
 			]
 		},
 
@@ -368,15 +369,18 @@ module.exports = function(grunt) {
 	 * http://gruntjs.com/api/grunt.log
 	 */
     grunt.registerTask( 'debug', 'Debug mode.', function( arg ) {
+
+		// grunt.log.writeln('This is the success message');
         // var msg = 'Doing something...';
         // var ABSPATH = path.resolve('../../../' );
         // var theme_name = path.basename( path.resolve() );
-        // grunt.verbose.write( theme_name );
-        // grunt.verbose.write( ABSPATH );
-        // grunt.verbose.write( WP_CONTENT );
-        // grunt.verbose.write( STYLESHEETPATH );
-        grunt.verbose.write( arg );
-        // grunt.verbose.write( pkg.name );
+		// grunt.log.writeln(theme_name);
+        // grunt.log.writeln( ABSPATH );
+        // grunt.log.writeln( WP_CONTENT );
+        // grunt.log.writeln( STYLESHEETPATH );
+        grunt.log.writeln( path.resolve() );
+        // grunt.log.writeln( arg );
+        // grunt.log.writeln( pkg.name );
         return null;
     });
 };
