@@ -28,7 +28,7 @@ jobs:
 
     - name: 👀 See the content
       run: |
-        cd vendor
+#        cd vendor
         ls
 
 #    - name: Archive Release
