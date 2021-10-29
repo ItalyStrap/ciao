@@ -26,13 +26,21 @@ jobs:
       with:
         composer-options: "--no-dev -o"
 
-    - uses: papeloto/action-zip@v1
+    - name: Archive Release
+      uses: thedoctor0/zip-release@master
       with:
-        files: .
-        recursive: true
-        dest: ciao.zip
+        type: 'zip'
+        filename: 'ciao.zip'
+        exclusions: '*.git* /*node_modules/* .editorconfig /test*/* .env .gitignore codeception.*'
+
+
+#    - uses: papeloto/action-zip@v1
+#      with:
+#        files: .
+#        recursive: true
+#        dest: ciao.zip
 
     - uses: actions/upload-artifact@v2
       with:
-        name: Ciao Zip
+        name: ciao
         path: .
