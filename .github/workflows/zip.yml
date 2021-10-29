@@ -1,4 +1,4 @@
-name: Build
+name: Zip
 
 on:
   push:
@@ -21,9 +21,6 @@ jobs:
       with:
         php-version: 7.4
         tools: composer:v2
-
-    - name: Validate composer.json and composer.lock
-      run: composer validate --strict
 
     - uses: ramsey/composer-install@v1
       with:
