@@ -43,4 +43,5 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: ciao
-        path: .
+        path: ciao.zip
+        retention-days: 5
