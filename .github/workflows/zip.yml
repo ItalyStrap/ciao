@@ -31,3 +31,8 @@ jobs:
         files: .
         recursive: true
         dest: ciao.zip
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: Ciao Zip
+        path: .
