@@ -10,8 +10,7 @@ class HTMLCommentTest extends \Codeception\Test\Unit {
 
 	use BaseUnitTrait;
 
-	// tests
-	public function testSomeFeature() {
+	private function SomeFeature() {
 
 //    	\tad\FunctionMockerLe\define('esc_html', fn( string $tag ) => $tag );
 
