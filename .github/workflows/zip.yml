@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  zip:
 
     runs-on: ubuntu-latest
 
@@ -26,12 +26,17 @@ jobs:
       with:
         composer-options: "--no-dev -o"
 
-    - name: Archive Release
-      uses: thedoctor0/zip-release@master
-      with:
-        type: 'zip'
-        filename: 'ciao.zip'
-        exclusions: '*.git* /*node_modules/* .editorconfig /test*/* .env .gitignore codeception.*'
+    - name: 👀 See the content
+      run: |
+        cd vendor
+        ls
+
+#    - name: Archive Release
+#      uses: thedoctor0/zip-release@master
+#      with:
+#        type: 'zip'
+#        filename: 'ciao.zip'
+#        exclusions: '*.git* /*node_modules/* .editorconfig /test*/* .env .gitignore codeception.*'
 
 
 #    - uses: papeloto/action-zip@v1
@@ -40,8 +45,8 @@ jobs:
 #        recursive: true
 #        dest: ciao.zip
 
-    - uses: actions/upload-artifact@v2
-      with:
-        name: ciao
-        path: ciao.zip
-        retention-days: 5
+#    - uses: actions/upload-artifact@v2
+#      with:
+#        name: ciao
+#        path: ciao.zip
+#        retention-days: 5
