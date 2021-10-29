@@ -27,9 +27,7 @@ jobs:
         composer-options: "--no-dev -o"
 
     - name: 👀 See the content
-      run: |
-#        cd vendor
-        ls
+      run: ls
 
 #    - name: Archive Release
 #      uses: thedoctor0/zip-release@master
