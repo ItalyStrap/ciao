@@ -1,0 +1,64 @@
+@use "../../theme" as t;
+
+.navigation {
+
+    // @fix this fix float left for the default navigation from core
+    // In case there is no comments.php file in the theme
+    // We also need to add height: auto; for spacing correctly the
+    // .navigation container
+    overflow: auto;
+    height: auto;
+
+    .nav-links {
+        list-style: none outside none; // if it is a ul ol
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        font-size: var(t.$wp--preset--font-size--x-small);
+    }
+}
+
+.wp-block-post-comments {
+    margin-top: var( t.$wp--custom--spacer--h );
+
+    ul,
+    ol {
+       list-style:  none outside none;
+    }
+
+    .commentlist {
+        margin-top: var( t.$wp--custom--spacer--m);
+    }
+
+    .comment-author {
+        .fn {
+            font-weight: 700;
+            a {
+                color: var( t.$wp--preset--color--body-color );
+            }
+        }
+        .says {
+            font-size: var( t.$wp--preset--font-size--x-small );
+            color: var( t.$wp--preset--color--gray-600 );
+        }
+    }
+
+    /**
+     * This fix negative margin from gutenberg style.css
+     */
+    .comment-meta {
+        margin-left: unset;
+    }
+
+    .comment-metadata {
+        font-size: var( t.$wp--preset--font-size--x-small );
+        a {
+            color: var( t.$wp--preset--color--gray-600 );
+        }
+    }
+
+    .comment-content {
+        color: var( t.$wp--preset--color--gray-400 );
+        font-weight: 400;
+    }
+}

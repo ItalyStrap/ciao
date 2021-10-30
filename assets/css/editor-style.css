@@ -2,73 +2,6 @@
   padding: var(--wp--custom--spacer--h) 0;
 }
 
-.wp-block-post-comments {
-  margin-top: var(--wp--custom--spacer--h);
-  /**
-   * This fix negative margin from gutenberg style.css
-   */
-}
-.wp-block-post-comments ul,
-.wp-block-post-comments ol {
-  list-style: none outside none;
-}
-.wp-block-post-comments .parent,
-.wp-block-post-comments .children,
-.wp-block-post-comments .comment {
-  margin-top: var(--wp--custom--spacer--s);
-}
-.wp-block-post-comments .comment-meta {
-  margin-left: unset;
-}
-.wp-block-post-comments .comment-metadata {
-  font-size: var(--wp--preset--font-size--small);
-}
-
-/**
- * This is the container for the comment form.
- */
-/**
- * This is the form
- * It is contained inside the .comment-respond element
- */
-.comment-form .comment-form-author,
-.comment-form .comment-form-email,
-.comment-form .comment-form-url,
-.comment-form .comment-form-comment {
-  margin-top: var(--wp--custom--spacer--s);
-}
-.comment-form .logged-in-as {
-  font-size: var(--wp--preset--font-size--small);
-}
-.comment-form .logged-in-as a {
-  text-decoration: underline;
-}
-.comment-form label {
-  margin-bottom: var(--wp--custom--spacer--s);
-}
-.comment-form input,
-.comment-form textarea {
-  display: block;
-  width: 100%;
-  padding: var(--wp--custom--button--padding);
-}
-.comment-form input:not([type=submit]),
-.comment-form textarea:not([type=submit]) {
-  color: #212529;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  appearance: none;
-  border-radius: 0.25rem;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-.comment-form input:focus,
-.comment-form textarea:focus {
-  color: #212529;
-  border-color: #86b7fe;
-  outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-}
-
 /**
  * This is like the .btn in bootstrap
  * Example:
@@ -168,9 +101,9 @@
 
 .wp-block-post-author__avatar .avatar {
   border-radius: 50%;
-  border-color: var(--wp--preset--color--gray-200);
+  border-color: var(--wp--preset--color--gray-600);
   border-style: solid;
-  border-width: 5px;
+  border-width: 4px;
 }
 
 .wp-block-post-author__bio {
@@ -261,6 +194,104 @@
 }
 .is-style-list-group p.has-background {
   padding: 0.5rem 1rem;
+}
+
+.navigation {
+  overflow: auto;
+  height: auto;
+}
+.navigation .nav-links {
+  list-style: none outside none;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  font-size: var(--wp--preset--font-size--x-small);
+}
+
+.wp-block-post-comments {
+  margin-top: var(--wp--custom--spacer--h);
+  /**
+   * This fix negative margin from gutenberg style.css
+   */
+}
+.wp-block-post-comments ul,
+.wp-block-post-comments ol {
+  list-style: none outside none;
+}
+.wp-block-post-comments .commentlist {
+  margin-top: var(--wp--custom--spacer--m);
+}
+.wp-block-post-comments .comment-author .fn {
+  font-weight: 700;
+}
+.wp-block-post-comments .comment-author .fn a {
+  color: var(--wp--preset--color--body-color);
+}
+.wp-block-post-comments .comment-author .says {
+  font-size: var(--wp--preset--font-size--x-small);
+  color: var(--wp--preset--color--gray-600);
+}
+.wp-block-post-comments .comment-meta {
+  margin-left: unset;
+}
+.wp-block-post-comments .comment-metadata {
+  font-size: var(--wp--preset--font-size--x-small);
+}
+.wp-block-post-comments .comment-metadata a {
+  color: var(--wp--preset--color--gray-600);
+}
+.wp-block-post-comments .comment-content {
+  color: var(--wp--preset--color--gray-400);
+  font-weight: 400;
+}
+
+/**
+ * This is the container of the block post-comment-form
+ * its first child is .comment-respond
+ */
+/**
+ * This is the container for the comment form.
+ */
+/**
+ * This is the form
+ * It is contained inside the .comment-respond element
+ */
+.comment-form .comment-form-author,
+.comment-form .comment-form-email,
+.comment-form .comment-form-url,
+.comment-form .comment-form-comment {
+  margin-top: var(--wp--custom--spacer--s);
+}
+.comment-form .logged-in-as {
+  font-size: var(--wp--preset--font-size--small);
+}
+.comment-form .logged-in-as a {
+  text-decoration: underline;
+}
+.comment-form label {
+  margin-bottom: var(--wp--custom--spacer--s);
+}
+.comment-form input,
+.comment-form textarea {
+  display: block;
+  width: 100%;
+  padding: var(--wp--custom--button--padding);
+}
+.comment-form input:not([type=submit]),
+.comment-form textarea:not([type=submit]) {
+  color: #212529;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  appearance: none;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.comment-form input:focus,
+.comment-form textarea:focus {
+  color: #212529;
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
 
 img {

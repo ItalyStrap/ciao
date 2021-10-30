@@ -51,7 +51,7 @@
                 },
                 {
                     "slug": "headingColor",
-                    "color": "hsla(0,0%,0%,1)",
+                    "color": "hsla(0,0%,20%,1)",
                     "name": "Color for headings"
                 },
                 {
@@ -447,7 +447,7 @@
         "blocks": {
             "core/site-title": {
                 "color": {
-                    "text": "var(--wp--preset--color--body-color)"
+                    "text": "var(--wp--preset--color--heading-color)"
                 },
                 "typography": {
                     "fontSize": "var(--wp--preset--font-size--h-1)",
@@ -464,7 +464,7 @@
                 "elements": {
                     "link": {
                         "color": {
-                            "text": "var(--wp--preset--color--body-color)",
+                            "text": "inherit",
                             "background": "transparent"
                         }
                     }
@@ -472,7 +472,11 @@
             },
             "core/query-title": {
                 "typography": {
-                    "fontSize": "var(--wp--preset--font-size--h-3)"
+                    "fontSize": "var(--wp--preset--font-size--h-5)",
+                    "fontWeight": "700"
+                },
+                "color": {
+                    "text": "var(--wp--preset--color--gray-400)"
                 }
             },
             "core/term-description": {
@@ -481,6 +485,9 @@
                 },
                 "spacing": {
                     "margin": "0 0 0 0 !important"
+                },
+                "color": {
+                    "text": "var(--wp--preset--color--gray-400)"
                 }
             },
             "core/site-logo": {
@@ -643,7 +650,7 @@
             },
             "core/post-author": {
                 "border": {
-                    "color": "var(--wp--preset--color--body-color)",
+                    "color": "var(--wp--preset--color--gray-700)",
                     "style": "solid",
                     "width": "1px"
                 },
@@ -678,11 +685,8 @@
                 }
             },
             "core/separator": {
-                "color": {
-                    "text": "var(--wp--preset--color--body-color)"
-                },
                 "border": {
-                    "color": "currentColor",
+                    "color": "var(--wp--preset--color--gray-700)",
                     "style": "solid",
                     "width": "0 0 1px 0"
                 }

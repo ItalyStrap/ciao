@@ -37,7 +37,7 @@ final class JsonData {
 		$dark = new ColorDataType('#000000');
 		$body_bg = new ColorDataType( '#ffffff' );
 		$body_text = new ColorDataType('#000000');
-		$heading_text = new ColorDataType('#000000');
+		$heading_text = new ColorDataType( $body_text->lighten(20)->toHex() );
 //		$heading_text = new ColorDataType('#0099aa');
 		$base_clr = new ColorDataType('#3986E0');
 		$link_clr = new ColorDataType('#3986E0');
@@ -545,7 +545,7 @@ final class JsonData {
 					 */
 					'core/site-title' => [
 						'color' => FClr::make()
-							->text( $palette->varOf('bodyColor') )
+							->text( $palette->varOf('headingColor') )
 							->toArray(),
 						'typography' => FTypo::make()
 							->fontSize( $font_sizes->varOf('h1') )
@@ -562,7 +562,7 @@ final class JsonData {
 						'elements' => [
 							'link' => [ // .wp-block-post-title a
 								'color'	=> FClr::make()
-									->text( $palette->varOf( 'bodyColor' ) )
+									->text('inherit' )
 									->background( 'transparent' )
 									->toArray(),
 							],
@@ -575,8 +575,10 @@ final class JsonData {
 					 */
 					'core/query-title' => [
 						'typography' => FTypo::make()
-							->fontSize( $font_sizes->varOf('h3') )
+							->fontSize( $font_sizes->varOf('h5') )
+							->fontWeight( '700' )
 							->toArray(),
+						'color'	=> FClr::make()->text( $palette->varOf( 'gray-400' ) )->toArray(),
 					],
 					'core/term-description' => [ // .wp-block-term-description
 						'typography' => FTypo::make()
@@ -585,6 +587,7 @@ final class JsonData {
 						'spacing'	=> [
 							'margin'	=> (string) FSpace::shorthand(['0']) . ' !important',
 						],
+						'color'	=> FClr::make()->text( $palette->varOf( 'gray-400' ) )->toArray(),
 					],
 
 					/**
@@ -803,7 +806,7 @@ final class JsonData {
 
 					'core/post-author' => [
 						'border' => ( new Border() )
-							->color( $palette->varOf('bodyColor') )
+							->color( $palette->varOf('gray-700') )
 							->style( 'solid' )
 							->width( '1px' )
 							->toArray(),
@@ -839,6 +842,15 @@ final class JsonData {
 							->fontWeight( '300' )
 							->toArray(),
 					],
+//					'core/post-comments-form' => [
+//						'color' => FClr::make()
+//							->text( $palette->varOf('bodyColor') )
+//							->toArray(),
+//						'typography' => FTypo::make()
+//							->fontSize( $font_sizes->varOf('base') )
+//							->fontWeight( '300' )
+//							->toArray(),
+//					],
 
 					/**
 					 * <!-- wp:spacer -->
@@ -862,11 +874,11 @@ final class JsonData {
 					 * <!-- /wp:separator -->
 					 */
 					'core/separator' => [ // .wp-block-separator
-						'color' => FClr::make()
-							->text( $palette->varOf('bodyColor') )
-							->toArray(),
+//						'color' => FClr::make()
+//							->text( $palette->varOf('gray-700') )
+//							->toArray(),
 						'border' => ( new Border() )
-							->color( 'currentColor' )
+							->color( $palette->varOf('gray-700') )
 							->style( 'solid' )
 							->width( '0 0 1px 0' )
 							->toArray(),
@@ -974,22 +986,22 @@ final class JsonData {
 	}
 
 	/**
-	 * @param ColorDataType $color_text
+	 * @param ColorDataType $color
 	 * @param string $slug
 	 * @param int $min
 	 * @param int $max
 	 * @return array
 	 */
 	private function generateShadesFromColorHex(
-		ColorDataType $color_text,
-		string $slug,
-		int $min = 10,
-		int $max = 100
+		ColorDataType $color,
+		string        $slug,
+		int           $min = 10,
+		int           $max = 100,
+		int           $increment_by = 10
 	): array {
 
 		$colors = [];
-		for ( $i = $min; $i < $max; $i += 10 ) {
-			$color_string = $color_text->isDark() ? $color_text->lighten( $i ) : $color_text->darken( $i );
+		for ( $i = $min; $i < $max; $i += $increment_by ) {
 
 			$colors[ $i ] = [
 				"slug" => \sprintf(
@@ -997,7 +1009,9 @@ final class JsonData {
 					$slug,
 					$i
 				),
-				"color" => $color_string->toHsla(),
+				"color" => $color->isDark()
+					? $color->lighten( $i )->toHsla()
+					: $color->darken( $i )->toHsla(),
 				"name" => \sprintf(
 					"Shade of %s by %s%%",
 					ucfirst( $slug ),

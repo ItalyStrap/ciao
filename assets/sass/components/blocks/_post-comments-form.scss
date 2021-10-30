@@ -1,0 +1,64 @@
+@use "../../theme" as t;
+
+/**
+ * This is the container of the block post-comment-form
+ * its first child is .comment-respond
+ */
+.wp-block-post-comments-form {
+
+}
+
+/**
+ * This is the container for the comment form.
+ */
+.comment-respond {
+}
+
+/**
+ * This is the form
+ * It is contained inside the .comment-respond element
+ */
+.comment-form {
+    .comment-form-author,
+    .comment-form-email,
+    .comment-form-url,
+    .comment-form-comment {
+        margin-top: var( t.$wp--custom--spacer--s );
+    }
+
+    .logged-in-as {
+        font-size: var( t.$wp--preset--font-size--small );
+        a {
+            text-decoration: underline;
+        }
+    }
+
+    label {
+        margin-bottom: var( t.$wp--custom--spacer--s );
+    }
+
+    input,
+    textarea,
+    {
+        display: block;
+        width: 100%;
+        padding: var( t.$wp--custom--button--padding );
+
+        &:not([type="submit"]) {
+            color: #212529;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            appearance: none;
+            border-radius: .25rem;
+            transition: border-color .15s ease-in-out,
+            box-shadow .15s ease-in-out;
+        }
+
+        &:focus {
+            color: #212529;
+            border-color: #86b7fe;
+            outline: 0;
+            box-shadow: 0 0 0 .25rem rgba(13,110,253,.25);
+        }
+    }
+}
