@@ -1,174 +1,166 @@
 {
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
     "version": 1,
-    "templateParts": [
-        {
-            "name": "header",
-            "area": "header"
-        },
-        {
-            "name": "singular-header",
-            "area": "header"
-        },
-        {
-            "name": "footer",
-            "area": "footer"
-        }
-    ],
-    "customTemplates": [
-        {
-            "name": "blank",
-            "title": "Blank",
-            "postTypes": [
-                "page",
-                "post"
-            ]
-        }
-    ],
     "settings": {
         "color": {
             "custom": true,
             "link": true,
             "palette": [
                 {
+                    "slug": "base",
+                    "name": "Brand base color",
+                    "color": "hsla(212,73%,55%,1)"
+                },
+                {
                     "slug": "light",
-                    "color": "hsla(0,0%,100%,1)",
-                    "name": "Lighter color"
+                    "name": "Lighter color",
+                    "color": "hsla(0,0%,100%,1)"
                 },
                 {
                     "slug": "dark",
-                    "color": "hsla(0,0%,0%,1)",
-                    "name": "Darker color"
+                    "name": "Darker color",
+                    "color": "hsla(0,0%,0%,1)"
                 },
                 {
                     "slug": "bodyBg",
-                    "color": "hsla(0,0%,100%,1)",
-                    "name": "Color for body background"
+                    "name": "Color for body background",
+                    "color": "hsla(0,0%,100%,1)"
                 },
                 {
                     "slug": "bodyColor",
-                    "color": "hsla(0,0%,0%,1)",
-                    "name": "Color for text"
+                    "name": "Color for text",
+                    "color": "hsla(0,0%,0%,1)"
                 },
                 {
                     "slug": "headingColor",
-                    "color": "hsla(0,0%,20%,1)",
-                    "name": "Color for headings"
+                    "name": "Color for headings",
+                    "color": "hsla(0,0%,20%,1)"
                 },
                 {
                     "slug": "linkColor",
-                    "color": "hsla(212,73%,55%,1)",
-                    "name": "Color for links"
+                    "name": "Color for links",
+                    "color": "hsla(212,73%,55%,1)"
                 },
                 {
-                    "slug": "base",
-                    "color": "hsla(212,73%,55%,1)",
-                    "name": "Brand base color"
+                    "slug": "buttonBgHover",
+                    "name": "Color for button background on hover",
+                    "color": "hsla(212,73%,35%,1)"
+                },
+                {
+                    "slug": "buttonTextHover",
+                    "name": "Color for button text on hover",
+                    "color": "hsla(0,0%,90%,1)"
+                },
+                {
+                    "slug": "borderColor",
+                    "name": "Color for borders",
+                    "color": "hsla(0,0%,80%,1)"
                 },
                 {
                     "slug": "baseDark",
-                    "color": "hsla(213,73%,35%,1)",
-                    "name": "Darker Brand base color"
+                    "name": "Darker Brand base color",
+                    "color": "hsla(212,73%,35%,1)"
                 },
                 {
                     "slug": "baseLight",
-                    "color": "hsla(212,73%,75%,1)",
-                    "name": "Lighter Brand base color"
+                    "name": "Lighter Brand base color",
+                    "color": "hsla(212,73%,75%,1)"
                 },
                 {
                     "slug": "baseComplementary",
-                    "color": "hsla(32,73%,55%,1)",
-                    "name": "Brand base complementary color"
+                    "name": "Brand base complementary color",
+                    "color": "hsla(604,73%,55%,1)"
                 },
                 {
-                    "slug": "gray-100",
-                    "color": "hsla(0,0%,10%,1)",
-                    "name": "Shade of Gray by 10%"
+                    "slug": "bodyColor-100",
+                    "name": "Shade of BodyColor by 10%",
+                    "color": "hsla(0,0%,100%,1)"
                 },
                 {
-                    "slug": "gray-200",
-                    "color": "hsla(0,0%,20%,1)",
-                    "name": "Shade of Gray by 20%"
+                    "slug": "bodyColor-200",
+                    "name": "Shade of BodyColor by 20%",
+                    "color": "hsla(0,0%,100%,1)"
                 },
                 {
-                    "slug": "gray-300",
-                    "color": "hsla(0,0%,30%,1)",
-                    "name": "Shade of Gray by 30%"
+                    "slug": "bodyColor-300",
+                    "name": "Shade of BodyColor by 30%",
+                    "color": "hsla(0,0%,100%,1)"
                 },
                 {
-                    "slug": "gray-400",
-                    "color": "hsla(0,0%,40%,1)",
-                    "name": "Shade of Gray by 40%"
+                    "slug": "bodyColor-400",
+                    "name": "Shade of BodyColor by 40%",
+                    "color": "hsla(0,0%,100%,1)"
                 },
                 {
-                    "slug": "gray-500",
-                    "color": "hsla(0,0%,50%,1)",
-                    "name": "Shade of Gray by 50%"
+                    "slug": "bodyColor-500",
+                    "name": "Shade of BodyColor by 50%",
+                    "color": "hsla(0,0%,100%,1)"
                 },
                 {
-                    "slug": "gray-600",
-                    "color": "hsla(0,0%,60%,1)",
-                    "name": "Shade of Gray by 60%"
+                    "slug": "bodyColor-600",
+                    "name": "Shade of BodyColor by 60%",
+                    "color": "hsla(0,0%,100%,1)"
                 },
                 {
-                    "slug": "gray-700",
-                    "color": "hsla(0,0%,70%,1)",
-                    "name": "Shade of Gray by 70%"
+                    "slug": "bodyColor-700",
+                    "name": "Shade of BodyColor by 70%",
+                    "color": "hsla(0,0%,100%,1)"
                 },
                 {
-                    "slug": "gray-800",
-                    "color": "hsla(0,0%,80%,1)",
-                    "name": "Shade of Gray by 80%"
+                    "slug": "bodyColor-800",
+                    "name": "Shade of BodyColor by 80%",
+                    "color": "hsla(0,0%,100%,1)"
                 },
                 {
-                    "slug": "gray-900",
-                    "color": "hsla(0,0%,90%,1)",
-                    "name": "Shade of Gray by 90%"
+                    "slug": "bodyColor-900",
+                    "name": "Shade of BodyColor by 90%",
+                    "color": "hsla(0,0%,100%,1)"
                 }
             ],
             "gradients": [
                 {
                     "slug": "light-to-dark",
-                    "gradient": "linear-gradient(160deg,var(--wp--preset--color--light),var(--wp--preset--color--dark))",
-                    "name": "Black to white"
+                    "name": "Black to white",
+                    "gradient": "linear-gradient(160deg, var(--wp--preset--color--light), var(--wp--preset--color--dark))"
                 },
                 {
                     "slug": "base-to-white",
-                    "gradient": "linear-gradient(135deg,var(--wp--preset--color--base),var(--wp--preset--color--base-dark))",
-                    "name": "Base to white"
+                    "name": "Base to white",
+                    "gradient": "linear-gradient(135deg, var(--wp--preset--color--base), var(--wp--preset--color--base-dark))"
                 }
             ],
             "duotone": [
                 {
-                    "colors": [
-                        "#000000",
-                        "#ffffff"
-                    ],
                     "slug": "black-to-white",
-                    "name": "Black to White"
-                },
-                {
-                    "colors": [
-                        "#3986e0",
-                        "#ffffff"
-                    ],
-                    "slug": "base-to-white",
-                    "name": "base-to-white"
-                },
-                {
+                    "name": "Black to White",
                     "colors": [
                         "rgba(0,0,0,1.00)",
-                        "#3986e0"
-                    ],
-                    "slug": "black-to-base",
-                    "name": "black-to-base"
+                        "rgba(255,255,255,1.00)"
+                    ]
                 },
                 {
+                    "slug": "white-to-black",
+                    "name": "White to Black",
                     "colors": [
-                        "#3986e0",
+                        "rgba(255,255,255,1.00)",
                         "rgba(0,0,0,1.00)"
-                    ],
+                    ]
+                },
+                {
+                    "slug": "base-to-white",
+                    "name": "Base to White",
+                    "colors": [
+                        "rgba(56,135,224,1.00)",
+                        "rgba(255,255,255,1.00)"
+                    ]
+                },
+                {
                     "slug": "base-to-black",
-                    "name": "base-to-black"
+                    "name": "Base to Black",
+                    "colors": [
+                        "rgba(56,135,224,1.00)",
+                        "rgba(0,0,0,1.00)"
+                    ]
                 }
             ]
         },
@@ -178,60 +170,60 @@
             "fontSizes": [
                 {
                     "slug": "base",
-                    "size": "clamp(1.125rem, 2vw, 1.5rem)",
-                    "name": "Base font size 16px"
+                    "name": "Base font size 16px",
+                    "size": "clamp(1.125rem, 2vw, 1.5rem)"
                 },
                 {
                     "slug": "h1",
-                    "size": "calc( var(--wp--preset--font-size--base) * 2.8125)",
-                    "name": "Used in H1 titles"
+                    "name": "Used in H1 titles",
+                    "size": "var(--wp--preset--font-size--base)"
                 },
                 {
                     "slug": "h2",
-                    "size": "calc( var(--wp--preset--font-size--base) * 2.1875)",
-                    "name": "Used in H2 titles"
+                    "name": "Used in H2 titles",
+                    "size": "var(--wp--preset--font-size--base)"
                 },
                 {
                     "slug": "h3",
-                    "size": "calc( var(--wp--preset--font-size--base) * 1.625)",
-                    "name": "Used in H3 titles"
+                    "name": "Used in H3 titles",
+                    "size": "var(--wp--preset--font-size--base)"
                 },
                 {
                     "slug": "h4",
-                    "size": "calc( var(--wp--preset--font-size--base) * 1.5)",
-                    "name": "Used in H4 titles"
+                    "name": "Used in H4 titles",
+                    "size": "var(--wp--preset--font-size--base)"
                 },
                 {
                     "slug": "h5",
-                    "size": "calc( var(--wp--preset--font-size--base) * 1.125)",
-                    "name": "Used in H5 titles"
+                    "name": "Used in H5 titles",
+                    "size": "var(--wp--preset--font-size--base)"
                 },
                 {
                     "slug": "h6",
-                    "size": "var(--wp--preset--font-size--base)",
-                    "name": "Used in H6 titles"
+                    "name": "Used in H6 titles",
+                    "size": "var(--wp--preset--font-size--base)"
                 },
                 {
                     "slug": "small",
-                    "size": "calc( var(--wp--preset--font-size--base) * 0.875)",
-                    "name": "Small font size"
+                    "name": "Small font size",
+                    "size": "var(--wp--preset--font-size--base)"
                 },
                 {
                     "slug": "x-small",
-                    "size": "calc( var(--wp--preset--font-size--base) * 0.75)",
-                    "name": "Extra Small font size"
+                    "name": "Extra Small font size",
+                    "size": "var(--wp--preset--font-size--base)"
                 }
             ],
             "fontFamilies": [
                 {
-                    "fontFamily": "system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
                     "slug": "base",
-                    "name": "Default font family"
+                    "name": "Default font family",
+                    "fontFamily": "system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\""
                 },
                 {
-                    "fontFamily": "SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace",
                     "slug": "monospace",
-                    "name": "Font family for code"
+                    "name": "Font family for code",
+                    "fontFamily": "SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
                 }
             ]
         },
@@ -255,67 +247,62 @@
             "customWidth": true
         },
         "custom": {
-            "contentSize": "clamp(16rem, 60vw, 60rem)",
-            "wideSize": "clamp(16rem, 85vw, 70rem)",
-            "baseFontSize": "1rem",
+            "contentSize": "var(--wp--custom--content-size)",
+            "wideSize": "var(--wp--custom--wide-size)",
+            "baseFontSize": "var(--wp--custom--base-font-size)",
             "spacer": {
-                "base": "1rem",
-                "v": "calc( var(--wp--custom--spacer--base) * 4 )",
-                "h": "calc( var(--wp--custom--spacer--base) * 4 )",
-                "s": "calc( var(--wp--custom--spacer--base) / 1.5 )",
-                "m": "calc( var(--wp--custom--spacer--base) * 2 )",
-                "l": "calc( var(--wp--custom--spacer--base) * 3 )",
-                "xl": "calc( var(--wp--custom--spacer--base) * 4 )"
+                "base": "var(--wp--custom--spacer--base)",
+                "v": "var(--wp--custom--spacer--v)",
+                "h": "var(--wp--custom--spacer--h)",
+                "s": "var(--wp--custom--spacer--s)",
+                "m": "var(--wp--custom--spacer--m)",
+                "l": "var(--wp--custom--spacer--l)",
+                "xl": "var(--wp--custom--spacer--xl)"
             },
             "lineHeight": {
-                "base": "1.5",
-                "xs": "1.1",
-                "s": "1.3",
-                "m": "var(--wp--custom--line-height--base)",
-                "l": "1.7"
+                "base": "var(--wp--custom--line-height--base)",
+                "xs": "var(--wp--custom--line-height--xs)",
+                "s": "var(--wp--custom--line-height--s)",
+                "m": "var(--wp--custom--line-height--m)",
+                "l": "var(--wp--custom--line-height--l)"
             },
             "body": {
-                "bg": "var(--wp--preset--color--base)",
-                "text": "var(--wp--preset--color--body-bg)"
+                "bg": "var(--wp--custom--body--bg)",
+                "text": "var(--wp--custom--body--text)"
             },
             "link": {
-                "bg": "var(--wp--preset--color--base)",
-                "text": "var(--wp--preset--color--body-bg)",
-                "decoration": "underline",
+                "bg": "var(--wp--custom--link--bg)",
+                "text": "var(--wp--custom--link--text)",
+                "decoration": "var(--wp--custom--link--decoration)",
                 "hover": {
-                    "text": "var(--wp--preset--color--body-color)",
-                    "decoration": "underline"
+                    "text": "var(--wp--custom--link--hover--text)",
+                    "decoration": "var(--wp--custom--link--hover--decoration)"
                 }
             },
             "button": {
-                "bg": "var(--wp--preset--color--base)",
-                "text": "#ffffff",
-                "borderColor": "transparent",
-                "borderRadius": "calc( var(--wp--preset--font-size--base) /4)",
+                "bg": "var(--wp--custom--button--bg)",
+                "text": "var(--wp--custom--button--text)",
+                "borderColor": "var(--wp--custom--button--border-color)",
+                "borderRadius": "var(--wp--custom--button--border-radius)",
                 "hover": {
-                    "bg": "#18549b",
-                    "text": "#ffffff",
-                    "borderColor": "transparent"
+                    "bg": "var(--wp--custom--button--hover--bg)",
+                    "text": "var(--wp--custom--button--hover--text)",
+                    "borderColor": "var(--wp--custom--button--hover--border-color)"
                 },
-                "padding": " 0.25em 0.7em"
+                "padding": "var(--wp--custom--button--padding)"
             },
             "form": {
                 "border": {
-                    "color": "",
-                    "width": ""
+                    "color": "var(--wp--custom--form--border--color)",
+                    "width": "var(--wp--custom--form--border--width)"
                 },
                 "input": {
-                    "color": ""
+                    "color": "var(--wp--custom--form--input--color)"
                 }
             },
             "navbar": {
                 "min": {
-                    "height": "calc( var(--wp--custom--spacer--base) * 5.3125 )"
-                }
-            },
-            "query": {
-                "post": {
-                    "title": "var(--wp--preset--font-size--h-1)"
+                    "height": "var(--wp--custom--navbar--min--height)"
                 }
             }
         },
@@ -338,7 +325,7 @@
     },
     "styles": {
         "color": {
-            "background": "var(--wp--preset--color--body-bg)",
+            "background": "var(--wp--preset--color--base)",
             "text": "var(--wp--preset--color--body-color)"
         },
         "typography": {
@@ -359,16 +346,16 @@
         "elements": {
             "link": {
                 "color": {
-                    "text": "var(--wp--preset--color--base)",
+                    "text": "var(--wp--preset--color--link-color)",
                     "background": "transparent"
                 }
             },
             "h1": {
                 "typography": {
+                    "fontFamily": "var(--wp--preset--font-family--base)",
                     "fontSize": "var(--wp--preset--font-size--h-1)",
                     "fontWeight": "900",
-                    "lineHeight": "var(--wp--custom--line-height--xs)",
-                    "fontFamily": "var(--wp--preset--font-family--base)"
+                    "lineHeight": "var(--wp--custom--line-height--xs)"
                 },
                 "spacing": {
                     "margin": "var(--wp--custom--spacer--s) 0 0px 0"
@@ -379,10 +366,10 @@
             },
             "h2": {
                 "typography": {
+                    "fontFamily": "var(--wp--preset--font-family--base)",
                     "fontSize": "var(--wp--preset--font-size--h-2)",
                     "fontWeight": "900",
-                    "lineHeight": "var(--wp--custom--line-height--xs)",
-                    "fontFamily": "var(--wp--preset--font-family--base)"
+                    "lineHeight": "var(--wp--custom--line-height--xs)"
                 },
                 "spacing": {
                     "margin": "var(--wp--custom--spacer--s) 0 0px 0"
@@ -393,6 +380,7 @@
             },
             "h3": {
                 "typography": {
+                    "fontFamily": "var(--wp--preset--font-family--base)",
                     "fontSize": "var(--wp--preset--font-size--h-3)",
                     "fontWeight": "900",
                     "lineHeight": "var(--wp--custom--line-height--xs)"
@@ -406,6 +394,7 @@
             },
             "h4": {
                 "typography": {
+                    "fontFamily": "var(--wp--preset--font-family--base)",
                     "fontSize": "var(--wp--preset--font-size--h-4)",
                     "fontWeight": "900",
                     "lineHeight": "var(--wp--custom--line-height--xs)"
@@ -419,6 +408,7 @@
             },
             "h5": {
                 "typography": {
+                    "fontFamily": "var(--wp--preset--font-family--base)",
                     "fontSize": "var(--wp--preset--font-size--h-5)",
                     "fontWeight": "900",
                     "lineHeight": "var(--wp--custom--line-height--xs)"
@@ -432,6 +422,7 @@
             },
             "h6": {
                 "typography": {
+                    "fontFamily": "var(--wp--preset--font-family--base)",
                     "fontSize": "var(--wp--preset--font-size--h-6)",
                     "fontWeight": "900",
                     "lineHeight": "var(--wp--custom--line-height--xs)"
@@ -476,7 +467,7 @@
                     "fontWeight": "700"
                 },
                 "color": {
-                    "text": "var(--wp--preset--color--gray-400)"
+                    "text": "color.gray-400"
                 }
             },
             "core/term-description": {
@@ -484,16 +475,31 @@
                     "fontSize": "var(--wp--preset--font-size--x-small)"
                 },
                 "spacing": {
-                    "margin": "0 0 0 0 !important"
+                    "margin": {
+                        "top": "0px !important",
+                        "right": "0px !important",
+                        "bottom": "0px !important",
+                        "left": "0px !important"
+                    }
                 },
                 "color": {
-                    "text": "var(--wp--preset--color--gray-400)"
+                    "text": "color.gray-400"
                 }
             },
             "core/site-logo": {
                 "spacing": {
-                    "margin": "0 0 0 0",
-                    "padding": "0 0 0 0"
+                    "margin": {
+                        "top": "0px",
+                        "right": "0px",
+                        "bottom": "0px",
+                        "left": "0px"
+                    },
+                    "padding": {
+                        "top": "0px",
+                        "right": "0px",
+                        "bottom": "0px",
+                        "left": "0px"
+                    }
                 }
             },
             "core/image": {
@@ -532,9 +538,6 @@
                     "margin": "var(--wp--custom--spacer--m) 0 0px 0"
                 }
             },
-            "core/list": {
-                "spacing": []
-            },
             "core/button": {
                 "border": {
                     "color": "var(--wp--custom--button--border-color)",
@@ -547,7 +550,12 @@
                     "text": "var(--wp--custom--button--text)"
                 },
                 "spacing": {
-                    "padding": "var(--wp--custom--button--padding)",
+                    "padding": {
+                        "top": "var(--wp--custom--button--padding)",
+                        "right": "var(--wp--custom--button--padding)",
+                        "bottom": "var(--wp--custom--button--padding)",
+                        "left": "var(--wp--custom--button--padding)"
+                    },
                     "margin": {
                         "top": "var(--wp--custom--spacer--m)"
                     }
@@ -596,7 +604,7 @@
                     }
                 },
                 "border": {
-                    "color": "rgba(204,204,204,1.00)",
+                    "color": "var(--wp--preset--color--border-color)",
                     "radius": "0px",
                     "style": "solid",
                     "width": "1px"
@@ -613,7 +621,7 @@
                         "top": "var(--wp--custom--spacer--l)"
                     },
                     "padding": {
-                        "left": "var(--wp--custom--spacer--h)"
+                        "top": "var(--wp--custom--spacer--h)"
                     }
                 },
                 "typography": {
@@ -623,7 +631,7 @@
             },
             "core/post-date": {
                 "color": {
-                    "text": "var(--wp--preset--color--gray-200)"
+                    "text": "color.gray-200"
                 },
                 "typography": {
                     "fontSize": "var(--wp--preset--font-size--x-small)"
@@ -631,7 +639,7 @@
             },
             "core/post-terms": {
                 "color": {
-                    "text": "var(--wp--preset--color--gray-200)"
+                    "text": "color.gray-200"
                 },
                 "typography": {
                     "fontSize": "var(--wp--preset--font-size--x-small)"
@@ -639,7 +647,7 @@
                 "elements": {
                     "link": {
                         "color": {
-                            "text": "var(--wp--preset--color--gray-200)",
+                            "text": "color.gray-200",
                             "background": "transparent"
                         },
                         "typography": {
@@ -650,19 +658,24 @@
             },
             "core/post-author": {
                 "border": {
-                    "color": "var(--wp--preset--color--gray-700)",
+                    "color": "color.gray-700",
                     "style": "solid",
                     "width": "1px"
                 },
                 "color": {
                     "text": "var(--wp--preset--color--body-color)",
-                    "background": "var(--wp--preset--color--gray-900)"
+                    "background": "color.gray-900"
                 },
                 "typography": {
                     "fontSize": "var(--wp--preset--font-size--small)"
                 },
                 "spacing": {
-                    "padding": "var(--wp--custom--spacer--m)"
+                    "padding": {
+                        "top": "var(--wp--custom--spacer--m)",
+                        "right": "var(--wp--custom--spacer--m)",
+                        "bottom": "var(--wp--custom--spacer--m)",
+                        "left": "var(--wp--custom--spacer--m)"
+                    }
                 }
             },
             "core/post-comments": {
@@ -686,7 +699,7 @@
             },
             "core/separator": {
                 "border": {
-                    "color": "var(--wp--preset--color--gray-700)",
+                    "color": "color.gray-700",
                     "style": "solid",
                     "width": "0 0 1px 0"
                 }
@@ -706,7 +719,10 @@
                     "background": "var(--wp--preset--color--body-bg)"
                 },
                 "spacing": {
-                    "padding": "1.1rem 0 1.1rem 0"
+                    "padding": {
+                        "top": "1.1rem",
+                        "bottom": "1.1rem"
+                    }
                 },
                 "typography": {
                     "fontSize": "var(--wp--preset--font-size--x-small)",
@@ -715,5 +731,29 @@
                 }
             }
         }
-    }
+    },
+    "templateParts": [
+        {
+            "name": "header",
+            "area": "header"
+        },
+        {
+            "name": "singular-header",
+            "area": "header"
+        },
+        {
+            "name": "footer",
+            "area": "footer"
+        }
+    ],
+    "customTemplates": [
+        {
+            "name": "blank",
+            "title": "Blank",
+            "postTypes": [
+                "page",
+                "post"
+            ]
+        }
+    ]
 }
