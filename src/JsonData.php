@@ -11,13 +11,14 @@ use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Color\Palette;
 use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Color\Duotone;
 use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Color\Gradient;
 use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Color\Utilities\ColorModifier;
-use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Color\Utilities\ColorInfo as UtilityColor;
+use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Color\Utilities\ColorInfo;
 use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Color\Utilities\LinearGradient;
 use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Color\Utilities\ShadesGeneratorExperimental;
 use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Custom\CollectionAdapter;
 use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Custom\Item;
 use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Typography\FontFamily;
 use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Typography\FontSize;
+use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Utilities\CalcExperimental;
 use ItalyStrap\ThemeJsonGenerator\Domain\Styles\Border;
 use ItalyStrap\ThemeJsonGenerator\Domain\Styles\Color;
 use ItalyStrap\ThemeJsonGenerator\Domain\Styles\Spacing;
@@ -39,15 +40,15 @@ final class JsonData
     public const COLOR_BASE_DARK = Palette::CATEGORY . '.baseDark';
     public const COLOR_BASE_LIGHT = Palette::CATEGORY . '.baseLight';
     public const COLOR_BASE_COMPLEMENTARY = Palette::CATEGORY . '.baseComplementary';
-    public const COLOR_GRAY_100 = Palette::CATEGORY . '.gray-100';
-    public const COLOR_GRAY_200 = Palette::CATEGORY . '.gray-200';
-    public const COLOR_GRAY_300 = Palette::CATEGORY . '.gray-300';
-    public const COLOR_GRAY_400 = Palette::CATEGORY . '.gray-400';
-    public const COLOR_GRAY_500 = Palette::CATEGORY . '.gray-500';
-    public const COLOR_GRAY_600 = Palette::CATEGORY . '.gray-600';
-    public const COLOR_GRAY_700 = Palette::CATEGORY . '.gray-700';
-    public const COLOR_GRAY_800 = Palette::CATEGORY . '.gray-800';
-    public const COLOR_GRAY_900 = Palette::CATEGORY . '.gray-900';
+    public const COLOR_GRAY_100 = Palette::CATEGORY . '.bodyColor-100';
+    public const COLOR_GRAY_200 = Palette::CATEGORY . '.bodyColor-200';
+    public const COLOR_GRAY_300 = Palette::CATEGORY . '.bodyColor-300';
+    public const COLOR_GRAY_400 = Palette::CATEGORY . '.bodyColor-400';
+    public const COLOR_GRAY_500 = Palette::CATEGORY . '.bodyColor-500';
+    public const COLOR_GRAY_600 = Palette::CATEGORY . '.bodyColor-600';
+    public const COLOR_GRAY_700 = Palette::CATEGORY . '.bodyColor-700';
+    public const COLOR_GRAY_800 = Palette::CATEGORY . '.bodyColor-800';
+    public const COLOR_GRAY_900 = Palette::CATEGORY . '.bodyColor-900';
 
     public const GRADIENT_LIGHT_TO_DARK = Gradient::CATEGORY . '.light-to-dark';
 
@@ -64,47 +65,50 @@ final class JsonData
     public const FONT_SIZE_SMALL = FontSize::CATEGORY . '.small';
     public const FONT_SIZE_X_SMALL = FontSize::CATEGORY . '.x-small';
 
-    public const CONTENT_SIZE = 'custom.contentSize';
-    public const WIDE_SIZE = 'custom.wideSize';
-    public const BASE_FONT_SIZE = 'custom.baseFontSize';
-    public const SPACER_BASE = 'custom.spacer.base';
-    public const SPACER_V = 'custom.spacer.v';
-    public const SPACER_H = 'custom.spacer.h';
-    public const SPACER_S = 'custom.spacer.s';
-    public const SPACER_M = 'custom.spacer.m';
-    public const SPACER_L = 'custom.spacer.l';
-    public const SPACER_XL = 'custom.spacer.xl';
-    public const LINE_HEIGHT_BASE = 'custom.lineHeight.base';
-    public const LINE_HEIGHT_XS = 'custom.lineHeight.xs';
-    public const LINE_HEIGHT_S = 'custom.lineHeight.s';
-    public const LINE_HEIGHT_M = 'custom.lineHeight.m';
-    public const LINE_HEIGHT_L = 'custom.lineHeight.l';
-    public const BODY_BG = 'custom.body.bg';
-    public const BODY_TEXT = 'custom.body.text';
-    public const LINK_BG = 'custom.link.bg';
-    public const LINK_TEXT = 'custom.link.text';
-    public const LINK_DECORATION = 'custom.link.decoration';
-    public const LINK_HOVER_TEXT = 'custom.link.hover.text';
-    public const LINK_HOVER_DECORATION = 'custom.link.hover.decoration';
-    public const BUTTON_BG = 'custom.button.bg';
-    public const BUTTON_TEXT = 'custom.button.text';
-    public const BUTTON_BORDER_COLOR = 'custom.button.borderColor';
-    public const BUTTON_BORDER_RADIUS = 'custom.button.borderRadius';
-    public const BUTTON_HOVER_BG = 'custom.button.hover.bg';
-    public const BUTTON_HOVER_TEXT = 'custom.button.hover.text';
-    public const BUTTON_HOVER_BORDER_COLOR = 'custom.button.hover.borderColor';
-    public const BUTTON_PADDING = 'custom.button.padding';
-    public const FORM_BORDER_COLOR = 'custom.form.borderColor';
-    public const FORM_BORDER_WIDTH = 'custom.form.borderWidth';
-    public const FORM_INPUT_COLOR = 'custom.form.input.color';
-    public const NAVBAR_MIN_HEIGHT = 'custom.navbar.min.height';
-    public const QUERY_POST_TITLE = 'custom.query.post.title';
-    public const SITE_BLOCKS_MARGIN_TOP = 'custom.site-blocks.margin.top';
+    public const CONTENT_SIZE = Item::CATEGORY . '.contentSize';
+    public const WIDE_SIZE = Item::CATEGORY . '.wideSize';
+    public const BASE_FONT_SIZE = Item::CATEGORY . '.baseFontSize';
+    public const SPACER_BASE = Item::CATEGORY . '.spacer.base';
+    public const SPACER_V = Item::CATEGORY . '.spacer.v';
+    public const SPACER_H = Item::CATEGORY . '.spacer.h';
+    public const SPACER_S = Item::CATEGORY . '.spacer.s';
+    public const SPACER_M = Item::CATEGORY . '.spacer.m';
+    public const SPACER_L = Item::CATEGORY . '.spacer.l';
+    public const SPACER_XL = Item::CATEGORY . '.spacer.xl';
+    public const LINE_HEIGHT_BASE = Item::CATEGORY . '.lineHeight.base';
+    public const LINE_HEIGHT_XS = Item::CATEGORY . '.lineHeight.xs';
+    public const LINE_HEIGHT_S = Item::CATEGORY . '.lineHeight.s';
+    public const LINE_HEIGHT_M = Item::CATEGORY . '.lineHeight.m';
+    public const LINE_HEIGHT_L = Item::CATEGORY . '.lineHeight.l';
+    public const BODY_BG = Item::CATEGORY . '.body.bg';
+    public const BODY_TEXT = Item::CATEGORY . '.body.text';
+    public const LINK_BG = Item::CATEGORY . '.link.bg';
+    public const LINK_TEXT = Item::CATEGORY . '.link.text';
+    public const LINK_DECORATION = Item::CATEGORY . '.link.decoration';
+    public const LINK_HOVER_TEXT = Item::CATEGORY . '.link.hover.text';
+    public const LINK_HOVER_DECORATION = Item::CATEGORY . '.link.hover.decoration';
+    public const BUTTON_BG = Item::CATEGORY . '.button.bg';
+    public const BUTTON_TEXT = Item::CATEGORY . '.button.text';
+    public const BUTTON_BORDER_COLOR = Item::CATEGORY . '.button.borderColor';
+    public const BUTTON_BORDER_RADIUS = Item::CATEGORY . '.button.borderRadius';
+    public const BUTTON_HOVER_BG = Item::CATEGORY . '.button.hover.bg';
+    public const BUTTON_HOVER_TEXT = Item::CATEGORY . '.button.hover.text';
+    public const BUTTON_HOVER_BORDER_COLOR = Item::CATEGORY . '.button.hover.borderColor';
+    public const BUTTON_PADDING = Item::CATEGORY . '.button.padding';
+    public const FORM_BORDER_COLOR = Item::CATEGORY . '.form.borderColor';
+    public const FORM_BORDER_WIDTH = Item::CATEGORY . '.form.borderWidth';
+    public const FORM_INPUT_COLOR = Item::CATEGORY . '.form.input.color';
+    public const NAVBAR_MIN_HEIGHT = Item::CATEGORY . '.navbar.min.height';
+    public const QUERY_POST_TITLE = Item::CATEGORY . '.query.post.title';
+    public const SITE_BLOCKS_MARGIN_TOP = Item::CATEGORY . '.site-blocks.margin.top';
 
 
     public static function getJsonData(): array
     {
-        return (new self())->buildJsonData();
+        var_dump('getJsonData args');
+        var_dump(func_get_args());
+
+        return (new self())->buildJsonData(new Collection());
     }
 
     /**
@@ -114,14 +118,14 @@ final class JsonData
      */
     private function registerColors(CollectionInterface $collection): void
     {
-        $light = (new UtilityColor('#ffffff'))->toHsla();
-        $dark = (new UtilityColor('#000000'))->toHsla();
-        $body_bg = (new UtilityColor('#ffffff'))->toHsla();
-        $body_text = (new UtilityColor('#000000'))->toHsla();
+        $light = (new ColorInfo('#ffffff'))->toHsla();
+        $dark = (new ColorInfo('#000000'))->toHsla();
+        $body_bg = (new ColorInfo('#ffffff'))->toHsla();
+        $body_text = (new ColorInfo('#000000'))->toHsla();
         $heading_text = (new ColorModifier($body_text))->lighten(20);
-        $base_clr = (new UtilityColor('#3986E0'))->toHsla();
+        $base_clr = (new ColorInfo('#3986E0'))->toHsla();
 
-        $border_color = (new UtilityColor('#cccccc'))->toHsla();
+        $border_color = (new ColorInfo('#cccccc'))->toHsla();
 
         $button_bg_hover = (new ColorModifier($base_clr))->darken(20);
         $button_text_hover = (new ColorModifier($body_bg))->darken(10);
@@ -159,6 +163,9 @@ final class JsonData
             ->add($baseDarkClrPalette)
             ->add($baseLightClrPalette)
             ->add($baseComplementaryClrPalette)
+            ->addMultiple(
+                ShadesGeneratorExperimental::fromPalette($baseClrPalette)->toArray()
+            )
             ->addMultiple(
                 ShadesGeneratorExperimental::fromPalette($bodyClrPalette)->toArray()
             );
@@ -348,18 +355,14 @@ final class JsonData
 //            ));
     }
 
-    public function buildJsonData(): array
+    public function buildJsonData(CollectionInterface $collection): array
     {
-        $collection = new Collection();
-
         $this->registerColors($collection);
         $this->registerGradient($collection);
         $this->registerDuotone($collection);
         $this->registerFontSizes($collection);
         $this->registerFontFamily($collection);
         $this->registerCustom($collection);
-
-        var_dump($collection->get('color.bodyColor-900')->var());
 
         return [
             SectionNames::SCHEMA => 'https://schemas.wp.org/trunk/theme.json',
@@ -434,7 +437,7 @@ final class JsonData
                  * ============================================
                  */
                 'color' => (new Color($collection))
-                    ->background(self::COLOR_BASE)
+                    ->background(self::COLOR_BODY_BG)
                     ->text(self::COLOR_BODY_COLOR)
                     ->toArray(),
                 'typography' => (new Typography($collection))
@@ -723,10 +726,15 @@ final class JsonData
                     'core/button' => [ // .wp-block-button__link
                         'border' => (new Border($collection))
                             ->color(self::BUTTON_BORDER_COLOR)
-                            ->radius(\sprintf(
-                                'calc(%s/3)',
-                                $collection->get(self::FONT_SIZE_BASE)->var()
-                            ))
+//                            ->radius(\sprintf(
+//                                'calc(%s/3)',
+//                                $collection->get(self::FONT_SIZE_BASE)->var()
+//                            ))
+                            ->radius((string)(new CalcExperimental(
+                                $collection->get(self::FONT_SIZE_BASE)->var(),
+                                '/',
+                                '3'
+                            )))
                             ->style('solid')
                             ->width('2px')
                             ->toArray(),

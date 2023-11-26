@@ -72,49 +72,74 @@
                     "color": "hsla(604,73%,55%,1)"
                 },
                 {
+                    "slug": "base-100",
+                    "name": "Shade of Base by 10%",
+                    "color": "hsla(212,73%,45%,1)"
+                },
+                {
+                    "slug": "base-200",
+                    "name": "Shade of Base by 20%",
+                    "color": "hsla(212,73%,35%,1)"
+                },
+                {
+                    "slug": "base-300",
+                    "name": "Shade of Base by 30%",
+                    "color": "hsla(212,73%,25%,1)"
+                },
+                {
+                    "slug": "base-400",
+                    "name": "Shade of Base by 40%",
+                    "color": "hsla(212,73%,15%,1)"
+                },
+                {
+                    "slug": "base-500",
+                    "name": "Shade of Base by 50%",
+                    "color": "hsla(212,73%,5%,1)"
+                },
+                {
                     "slug": "bodyColor-100",
                     "name": "Shade of BodyColor by 10%",
-                    "color": "hsla(0,0%,100%,1)"
+                    "color": "hsla(0,0%,10%,1)"
                 },
                 {
                     "slug": "bodyColor-200",
                     "name": "Shade of BodyColor by 20%",
-                    "color": "hsla(0,0%,100%,1)"
+                    "color": "hsla(0,0%,20%,1)"
                 },
                 {
                     "slug": "bodyColor-300",
                     "name": "Shade of BodyColor by 30%",
-                    "color": "hsla(0,0%,100%,1)"
+                    "color": "hsla(0,0%,30%,1)"
                 },
                 {
                     "slug": "bodyColor-400",
                     "name": "Shade of BodyColor by 40%",
-                    "color": "hsla(0,0%,100%,1)"
+                    "color": "hsla(0,0%,40%,1)"
                 },
                 {
                     "slug": "bodyColor-500",
                     "name": "Shade of BodyColor by 50%",
-                    "color": "hsla(0,0%,100%,1)"
+                    "color": "hsla(0,0%,50%,1)"
                 },
                 {
                     "slug": "bodyColor-600",
                     "name": "Shade of BodyColor by 60%",
-                    "color": "hsla(0,0%,100%,1)"
+                    "color": "hsla(0,0%,60%,1)"
                 },
                 {
                     "slug": "bodyColor-700",
                     "name": "Shade of BodyColor by 70%",
-                    "color": "hsla(0,0%,100%,1)"
+                    "color": "hsla(0,0%,70%,1)"
                 },
                 {
                     "slug": "bodyColor-800",
                     "name": "Shade of BodyColor by 80%",
-                    "color": "hsla(0,0%,100%,1)"
+                    "color": "hsla(0,0%,80%,1)"
                 },
                 {
                     "slug": "bodyColor-900",
                     "name": "Shade of BodyColor by 90%",
-                    "color": "hsla(0,0%,100%,1)"
+                    "color": "hsla(0,0%,90%,1)"
                 }
             ],
             "gradients": [
@@ -176,27 +201,27 @@
                 {
                     "slug": "h1",
                     "name": "Used in H1 titles",
-                    "size": "var(--wp--preset--font-size--base)"
+                    "size": "calc( var(--wp--preset--font-size--base) * 2.8125)"
                 },
                 {
                     "slug": "h2",
                     "name": "Used in H2 titles",
-                    "size": "var(--wp--preset--font-size--base)"
+                    "size": "calc( var(--wp--preset--font-size--base) * 2.1875)"
                 },
                 {
                     "slug": "h3",
                     "name": "Used in H3 titles",
-                    "size": "var(--wp--preset--font-size--base)"
+                    "size": "calc( var(--wp--preset--font-size--base) * 1.625)"
                 },
                 {
                     "slug": "h4",
                     "name": "Used in H4 titles",
-                    "size": "var(--wp--preset--font-size--base)"
+                    "size": "calc( var(--wp--preset--font-size--base) * 1.5)"
                 },
                 {
                     "slug": "h5",
                     "name": "Used in H5 titles",
-                    "size": "var(--wp--preset--font-size--base)"
+                    "size": "calc( var(--wp--preset--font-size--base) * 1.125)"
                 },
                 {
                     "slug": "h6",
@@ -206,12 +231,12 @@
                 {
                     "slug": "small",
                     "name": "Small font size",
-                    "size": "var(--wp--preset--font-size--base)"
+                    "size": "calc( var(--wp--preset--font-size--base) * 0.875)"
                 },
                 {
                     "slug": "x-small",
                     "name": "Extra Small font size",
-                    "size": "var(--wp--preset--font-size--base)"
+                    "size": "calc( var(--wp--preset--font-size--base) * 0.75)"
                 }
             ],
             "fontFamilies": [
@@ -247,62 +272,62 @@
             "customWidth": true
         },
         "custom": {
-            "contentSize": "var(--wp--custom--content-size)",
-            "wideSize": "var(--wp--custom--wide-size)",
-            "baseFontSize": "var(--wp--custom--base-font-size)",
+            "contentSize": "clamp(16rem, 60vw, 60rem)",
+            "wideSize": "clamp(16rem, 85vw, 70rem)",
+            "baseFontSize": "1rem",
             "spacer": {
-                "base": "var(--wp--custom--spacer--base)",
-                "v": "var(--wp--custom--spacer--v)",
-                "h": "var(--wp--custom--spacer--h)",
-                "s": "var(--wp--custom--spacer--s)",
-                "m": "var(--wp--custom--spacer--m)",
-                "l": "var(--wp--custom--spacer--l)",
-                "xl": "var(--wp--custom--spacer--xl)"
+                "base": "1rem",
+                "v": "calc( var(--wp--custom--spacer--base) * 4 )",
+                "h": "calc( var(--wp--custom--spacer--base) * 4 )",
+                "s": "calc( var(--wp--custom--spacer--base) / 1.5 )",
+                "m": "calc( var(--wp--custom--spacer--base) * 2 )",
+                "l": "calc( var(--wp--custom--spacer--base) * 3 )",
+                "xl": "calc( var(--wp--custom--spacer--base) * 4 )"
             },
             "lineHeight": {
-                "base": "var(--wp--custom--line-height--base)",
-                "xs": "var(--wp--custom--line-height--xs)",
-                "s": "var(--wp--custom--line-height--s)",
-                "m": "var(--wp--custom--line-height--m)",
-                "l": "var(--wp--custom--line-height--l)"
+                "base": "1.5",
+                "xs": "1.1",
+                "s": "1.3",
+                "m": "var(--wp--custom--line-height--base)",
+                "l": "1.7"
             },
             "body": {
-                "bg": "var(--wp--custom--body--bg)",
-                "text": "var(--wp--custom--body--text)"
+                "bg": "var(--wp--preset--color--base)",
+                "text": "var(--wp--preset--color--body-bg)"
             },
             "link": {
-                "bg": "var(--wp--custom--link--bg)",
-                "text": "var(--wp--custom--link--text)",
-                "decoration": "var(--wp--custom--link--decoration)",
+                "bg": "var(--wp--preset--color--base)",
+                "text": "var(--wp--preset--color--body-bg)",
+                "decoration": "underline",
                 "hover": {
-                    "text": "var(--wp--custom--link--hover--text)",
-                    "decoration": "var(--wp--custom--link--hover--decoration)"
+                    "text": "var(--wp--preset--color--body-color)",
+                    "decoration": "underline"
                 }
             },
             "button": {
-                "bg": "var(--wp--custom--button--bg)",
-                "text": "var(--wp--custom--button--text)",
-                "borderColor": "var(--wp--custom--button--border-color)",
-                "borderRadius": "var(--wp--custom--button--border-radius)",
+                "bg": "var(--wp--preset--color--base)",
+                "text": "var(--wp--preset--color--button-text-hover)",
+                "borderColor": "transparent",
+                "borderRadius": "calc( var(--wp--preset--font-size--base) /4)",
                 "hover": {
-                    "bg": "var(--wp--custom--button--hover--bg)",
-                    "text": "var(--wp--custom--button--hover--text)",
-                    "borderColor": "var(--wp--custom--button--hover--border-color)"
+                    "bg": "var(--wp--preset--color--button-bg-hover)",
+                    "text": "var(--wp--preset--color--button-text-hover)",
+                    "borderColor": "transparent"
                 },
-                "padding": "var(--wp--custom--button--padding)"
+                "padding": " 0.25em 0.7em"
             },
             "form": {
                 "border": {
-                    "color": "var(--wp--custom--form--border--color)",
-                    "width": "var(--wp--custom--form--border--width)"
+                    "color": "",
+                    "width": ""
                 },
                 "input": {
-                    "color": "var(--wp--custom--form--input--color)"
+                    "color": ""
                 }
             },
             "navbar": {
                 "min": {
-                    "height": "var(--wp--custom--navbar--min--height)"
+                    "height": "calc( var(--wp--custom--spacer--base) * 5.3125 )"
                 }
             }
         },
@@ -325,7 +350,7 @@
     },
     "styles": {
         "color": {
-            "background": "var(--wp--preset--color--base)",
+            "background": "var(--wp--preset--color--body-bg)",
             "text": "var(--wp--preset--color--body-color)"
         },
         "typography": {
@@ -467,7 +492,7 @@
                     "fontWeight": "700"
                 },
                 "color": {
-                    "text": "color.gray-400"
+                    "text": "var(--wp--preset--color--body-color-400)"
                 }
             },
             "core/term-description": {
@@ -483,7 +508,7 @@
                     }
                 },
                 "color": {
-                    "text": "color.gray-400"
+                    "text": "var(--wp--preset--color--body-color-400)"
                 }
             },
             "core/site-logo": {
@@ -541,7 +566,7 @@
             "core/button": {
                 "border": {
                     "color": "var(--wp--custom--button--border-color)",
-                    "radius": "calc(var(--wp--preset--font-size--base)/3)",
+                    "radius": "calc(var(--wp--preset--font-size--base) / 3)",
                     "style": "solid",
                     "width": "2px"
                 },
@@ -631,7 +656,7 @@
             },
             "core/post-date": {
                 "color": {
-                    "text": "color.gray-200"
+                    "text": "var(--wp--preset--color--body-color-200)"
                 },
                 "typography": {
                     "fontSize": "var(--wp--preset--font-size--x-small)"
@@ -639,7 +664,7 @@
             },
             "core/post-terms": {
                 "color": {
-                    "text": "color.gray-200"
+                    "text": "var(--wp--preset--color--body-color-200)"
                 },
                 "typography": {
                     "fontSize": "var(--wp--preset--font-size--x-small)"
@@ -647,7 +672,7 @@
                 "elements": {
                     "link": {
                         "color": {
-                            "text": "color.gray-200",
+                            "text": "var(--wp--preset--color--body-color-200)",
                             "background": "transparent"
                         },
                         "typography": {
@@ -658,13 +683,13 @@
             },
             "core/post-author": {
                 "border": {
-                    "color": "color.gray-700",
+                    "color": "var(--wp--preset--color--body-color-700)",
                     "style": "solid",
                     "width": "1px"
                 },
                 "color": {
                     "text": "var(--wp--preset--color--body-color)",
-                    "background": "color.gray-900"
+                    "background": "var(--wp--preset--color--body-color-900)"
                 },
                 "typography": {
                     "fontSize": "var(--wp--preset--font-size--small)"
@@ -699,7 +724,7 @@
             },
             "core/separator": {
                 "border": {
-                    "color": "color.gray-700",
+                    "color": "var(--wp--preset--color--body-color-700)",
                     "style": "solid",
                     "width": "0 0 1px 0"
                 }
