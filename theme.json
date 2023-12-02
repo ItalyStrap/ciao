@@ -72,6 +72,26 @@
                     "color": "hsla(604,73%,55%,1)"
                 },
                 {
+                    "slug": "infoColor",
+                    "name": "Info color",
+                    "color": "hsla(212,73%,55%,1)"
+                },
+                {
+                    "slug": "successColor",
+                    "name": "Success color",
+                    "color": "hsla(130,73%,55%,1)"
+                },
+                {
+                    "slug": "warningColor",
+                    "name": "Warning color",
+                    "color": "hsla(40,73%,55%,1)"
+                },
+                {
+                    "slug": "dangerColor",
+                    "name": "Danger color",
+                    "color": "hsla(0,73%,55%,1)"
+                },
+                {
                     "slug": "base-100",
                     "name": "Shade of Base by 10%",
                     "color": "hsla(212,73%,45%,1)"
@@ -365,8 +385,18 @@
         },
         "spacing": {
             "blockGap": "var(--wp--custom--spacer--m)",
-            "margin": "0",
-            "padding": "0"
+            "margin": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+            },
+            "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+            }
         },
         "elements": {
             "link": {
@@ -383,7 +413,10 @@
                     "lineHeight": "var(--wp--custom--line-height--xs)"
                 },
                 "spacing": {
-                    "margin": "var(--wp--custom--spacer--s) 0 0px 0"
+                    "margin": {
+                        "top": "var(--wp--custom--spacer--s)",
+                        "bottom": "0px"
+                    }
                 },
                 "color": {
                     "text": "var(--wp--preset--color--heading-color)"

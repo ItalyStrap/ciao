@@ -15,7 +15,7 @@ use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Color\Utilities\ColorInfo;
 use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Color\Utilities\LinearGradient;
 use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Color\Utilities\ShadesGeneratorExperimental;
 use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Custom\CollectionAdapter;
-use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Custom\Item;
+use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Custom\Custom;
 use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Typography\FontFamily;
 use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Typography\FontSize;
 use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Utilities\CalcExperimental;
@@ -65,49 +65,48 @@ final class JsonData
     public const FONT_SIZE_SMALL = FontSize::CATEGORY . '.small';
     public const FONT_SIZE_X_SMALL = FontSize::CATEGORY . '.x-small';
 
-    public const CONTENT_SIZE = Item::CATEGORY . '.contentSize';
-    public const WIDE_SIZE = Item::CATEGORY . '.wideSize';
-    public const BASE_FONT_SIZE = Item::CATEGORY . '.baseFontSize';
-    public const SPACER_BASE = Item::CATEGORY . '.spacer.base';
-    public const SPACER_V = Item::CATEGORY . '.spacer.v';
-    public const SPACER_H = Item::CATEGORY . '.spacer.h';
-    public const SPACER_S = Item::CATEGORY . '.spacer.s';
-    public const SPACER_M = Item::CATEGORY . '.spacer.m';
-    public const SPACER_L = Item::CATEGORY . '.spacer.l';
-    public const SPACER_XL = Item::CATEGORY . '.spacer.xl';
-    public const LINE_HEIGHT_BASE = Item::CATEGORY . '.lineHeight.base';
-    public const LINE_HEIGHT_XS = Item::CATEGORY . '.lineHeight.xs';
-    public const LINE_HEIGHT_S = Item::CATEGORY . '.lineHeight.s';
-    public const LINE_HEIGHT_M = Item::CATEGORY . '.lineHeight.m';
-    public const LINE_HEIGHT_L = Item::CATEGORY . '.lineHeight.l';
-    public const BODY_BG = Item::CATEGORY . '.body.bg';
-    public const BODY_TEXT = Item::CATEGORY . '.body.text';
-    public const LINK_BG = Item::CATEGORY . '.link.bg';
-    public const LINK_TEXT = Item::CATEGORY . '.link.text';
-    public const LINK_DECORATION = Item::CATEGORY . '.link.decoration';
-    public const LINK_HOVER_TEXT = Item::CATEGORY . '.link.hover.text';
-    public const LINK_HOVER_DECORATION = Item::CATEGORY . '.link.hover.decoration';
-    public const BUTTON_BG = Item::CATEGORY . '.button.bg';
-    public const BUTTON_TEXT = Item::CATEGORY . '.button.text';
-    public const BUTTON_BORDER_COLOR = Item::CATEGORY . '.button.borderColor';
-    public const BUTTON_BORDER_RADIUS = Item::CATEGORY . '.button.borderRadius';
-    public const BUTTON_HOVER_BG = Item::CATEGORY . '.button.hover.bg';
-    public const BUTTON_HOVER_TEXT = Item::CATEGORY . '.button.hover.text';
-    public const BUTTON_HOVER_BORDER_COLOR = Item::CATEGORY . '.button.hover.borderColor';
-    public const BUTTON_PADDING = Item::CATEGORY . '.button.padding';
-    public const FORM_BORDER_COLOR = Item::CATEGORY . '.form.borderColor';
-    public const FORM_BORDER_WIDTH = Item::CATEGORY . '.form.borderWidth';
-    public const FORM_INPUT_COLOR = Item::CATEGORY . '.form.input.color';
-    public const NAVBAR_MIN_HEIGHT = Item::CATEGORY . '.navbar.min.height';
-    public const QUERY_POST_TITLE = Item::CATEGORY . '.query.post.title';
-    public const SITE_BLOCKS_MARGIN_TOP = Item::CATEGORY . '.site-blocks.margin.top';
+    public const CONTENT_SIZE = Custom::CATEGORY . '.contentSize';
+    public const WIDE_SIZE = Custom::CATEGORY . '.wideSize';
+    public const BASE_FONT_SIZE = Custom::CATEGORY . '.baseFontSize';
+    public const SPACER_BASE = Custom::CATEGORY . '.spacer.base';
+    public const SPACER_V = Custom::CATEGORY . '.spacer.v';
+    public const SPACER_H = Custom::CATEGORY . '.spacer.h';
+    public const SPACER_S = Custom::CATEGORY . '.spacer.s';
+    public const SPACER_M = Custom::CATEGORY . '.spacer.m';
+    public const SPACER_L = Custom::CATEGORY . '.spacer.l';
+    public const SPACER_XL = Custom::CATEGORY . '.spacer.xl';
+    public const LINE_HEIGHT_BASE = Custom::CATEGORY . '.lineHeight.base';
+    public const LINE_HEIGHT_XS = Custom::CATEGORY . '.lineHeight.xs';
+    public const LINE_HEIGHT_S = Custom::CATEGORY . '.lineHeight.s';
+    public const LINE_HEIGHT_M = Custom::CATEGORY . '.lineHeight.m';
+    public const LINE_HEIGHT_L = Custom::CATEGORY . '.lineHeight.l';
+    public const BODY_BG = Custom::CATEGORY . '.body.bg';
+    public const BODY_TEXT = Custom::CATEGORY . '.body.text';
+    public const LINK_BG = Custom::CATEGORY . '.link.bg';
+    public const LINK_TEXT = Custom::CATEGORY . '.link.text';
+    public const LINK_DECORATION = Custom::CATEGORY . '.link.decoration';
+    public const LINK_HOVER_TEXT = Custom::CATEGORY . '.link.hover.text';
+    public const LINK_HOVER_DECORATION = Custom::CATEGORY . '.link.hover.decoration';
+    public const BUTTON_BG = Custom::CATEGORY . '.button.bg';
+    public const BUTTON_TEXT = Custom::CATEGORY . '.button.text';
+    public const BUTTON_BORDER_COLOR = Custom::CATEGORY . '.button.borderColor';
+    public const BUTTON_BORDER_RADIUS = Custom::CATEGORY . '.button.borderRadius';
+    public const BUTTON_HOVER_BG = Custom::CATEGORY . '.button.hover.bg';
+    public const BUTTON_HOVER_TEXT = Custom::CATEGORY . '.button.hover.text';
+    public const BUTTON_HOVER_BORDER_COLOR = Custom::CATEGORY . '.button.hover.borderColor';
+    public const BUTTON_PADDING = Custom::CATEGORY . '.button.padding';
+    public const FORM_BORDER_COLOR = Custom::CATEGORY . '.form.borderColor';
+    public const FORM_BORDER_WIDTH = Custom::CATEGORY . '.form.borderWidth';
+    public const FORM_INPUT_COLOR = Custom::CATEGORY . '.form.input.color';
+    public const NAVBAR_MIN_HEIGHT = Custom::CATEGORY . '.navbar.min.height';
+    public const QUERY_POST_TITLE = Custom::CATEGORY . '.query.post.title';
+    public const SITE_BLOCKS_MARGIN_TOP = Custom::CATEGORY . '.site-blocks.margin.top';
 
 
     public static function getJsonData(): array
     {
-        var_dump('getJsonData args');
-        var_dump(func_get_args());
-
+//        var_dump('getJsonData args');
+//        var_dump(func_get_args());
         return (new self())->buildJsonData(new Collection());
     }
 
@@ -118,29 +117,35 @@ final class JsonData
      */
     private function registerColors(CollectionInterface $collection): void
     {
+        $baseClr = (new ColorInfo('#3986E0'))->toHsla();
+
         $light = (new ColorInfo('#ffffff'))->toHsla();
         $dark = (new ColorInfo('#000000'))->toHsla();
-        $body_bg = (new ColorInfo('#ffffff'))->toHsla();
-        $body_text = (new ColorInfo('#000000'))->toHsla();
-        $heading_text = (new ColorModifier($body_text))->lighten(20);
-        $base_clr = (new ColorInfo('#3986E0'))->toHsla();
+        $bodyBg = (new ColorInfo('#ffffff'))->toHsla();
+        $bodyText = (new ColorInfo('#000000'))->toHsla();
+        $headingText = (new ColorModifier($bodyText))->lighten(20);
 
         $border_color = (new ColorInfo('#cccccc'))->toHsla();
 
-        $button_bg_hover = (new ColorModifier($base_clr))->darken(20);
-        $button_text_hover = (new ColorModifier($body_bg))->darken(10);
+        $button_bg_hover = (new ColorModifier($baseClr))->darken(20);
+        $button_text_hover = (new ColorModifier($bodyBg))->darken(10);
 
-        if ($base_clr->isDark()) {
-            $button_text_hover = (new ColorModifier($body_bg))->lighten(10);
+        if ($baseClr->isDark()) {
+            $button_text_hover = (new ColorModifier($bodyBg))->lighten(10);
         }
+
+        $infoClr = $baseClr;
+        $successClr = (new ColorModifier($infoClr))->hueRotate(-82);
+        $warningClr = (new ColorModifier($infoClr))->hueRotate(-172);
+        $dangerClr = (new ColorModifier($infoClr))->hueRotate(-$infoClr->hue());
 
         $lightClrPalette = new Palette('light', 'Lighter color', $light);
         $darkClrPalette = new Palette('dark', 'Darker color', $dark);
-        $baseClrPalette = new Palette('base', 'Brand base color', $base_clr);
-        $bodyBgClrPalette = new Palette('bodyBg', 'Color for body background', $body_bg);
-        $bodyClrPalette = new Palette('bodyColor', 'Color for text', $body_text);
-        $headingClrPalette = new Palette('headingColor', 'Color for headings', $heading_text);
-        $linkClrPalette = new Palette('linkColor', 'Color for links', $base_clr);
+        $baseClrPalette = new Palette('base', 'Brand base color', $baseClr);
+        $bodyBgClrPalette = new Palette('bodyBg', 'Color for body background', $bodyBg);
+        $bodyClrPalette = new Palette('bodyColor', 'Color for text', $bodyText);
+        $headingClrPalette = new Palette('headingColor', 'Color for headings', $headingText);
+        $linkClrPalette = new Palette('linkColor', 'Color for links', $baseClr);
         $borderClrPalette = new Palette('borderColor', 'Color for borders', $border_color);
         $buttonBgHoverClrPalette = new Palette('buttonBgHover', 'Color for button background on hover', $button_bg_hover);
         $buttonTextHoverClrPalette = new Palette('buttonTextHover', 'Color for button text on hover', $button_text_hover);
@@ -148,6 +153,11 @@ final class JsonData
         $baseDarkClrPalette = new Palette('baseDark', 'Darker Brand base color', (new ColorModifier($baseClrPalette->color()))->darken(20));
         $baseLightClrPalette = new Palette('baseLight', 'Lighter Brand base color', (new ColorModifier($baseClrPalette->color()))->lighten(20));
         $baseComplementaryClrPalette = new Palette('baseComplementary', 'Brand base complementary color', (new ColorModifier($baseClrPalette->color()))->complementary());
+
+        $infoClrPalette = new Palette('infoColor', 'Info color', $infoClr);
+        $successClrPalette = new Palette('successColor', 'Success color', $successClr);
+        $warningClrPalette = new Palette('warningColor', 'Warning color', $warningClr);
+        $dangerClrPalette = new Palette('dangerColor', 'Danger color', $dangerClr);
 
         // Start by adding colors
         $collection->add($baseClrPalette)
@@ -163,6 +173,10 @@ final class JsonData
             ->add($baseDarkClrPalette)
             ->add($baseLightClrPalette)
             ->add($baseComplementaryClrPalette)
+            ->add($infoClrPalette)
+            ->add($successClrPalette)
+            ->add($warningClrPalette)
+            ->add($dangerClrPalette)
             ->addMultiple(
                 ShadesGeneratorExperimental::fromPalette($baseClrPalette)->toArray()
             )
@@ -174,28 +188,24 @@ final class JsonData
     private function registerGradient(CollectionInterface $collection): void
     {
         $collection
-            ->add(
-                new Gradient(
-                    'light-to-dark',
-                    'Black to white',
-                    new LinearGradient(
-                        '160deg',
-                        $collection->get(self::COLOR_LIGHT),
-                        $collection->get(self::COLOR_DARK)
-                    )
+            ->add(new Gradient(
+                'light-to-dark',
+                'Black to white',
+                new LinearGradient(
+                    '160deg',
+                    $collection->get(self::COLOR_LIGHT),
+                    $collection->get(self::COLOR_DARK)
                 )
-            )
-            ->add(
-                new Gradient(
-                    'base-to-white',
-                    'Base to white',
-                    new LinearGradient(
-                        '135deg',
-                        $collection->get(self::COLOR_BASE),
-                        $collection->get(self::COLOR_BASE_DARK)
-                    )
+            ))
+            ->add(new Gradient(
+                'base-to-white',
+                'Base to white',
+                new LinearGradient(
+                    '135deg',
+                    $collection->get(self::COLOR_BASE),
+                    $collection->get(self::COLOR_BASE_DARK)
                 )
-            );
+            ));
     }
 
     private function registerDuotone(CollectionInterface $collection): void
@@ -393,7 +403,7 @@ final class JsonData
                     'customStyle'   => true,
                     'customWidth'   => true,
                 ],
-                'custom' => $collection->toArrayByCategory(Item::CATEGORY),
+                'custom' => $collection->toArrayByCategory(Custom::CATEGORY),
                 "blocks" => [
                     "core/button" => [
                         "color" => [
@@ -455,8 +465,8 @@ final class JsonData
                     /**
                      * For margin and padding we can write simply the shorthand
                      */
-                    'margin'    => "0",
-                    'padding'   => "0",
+                    'margin'    => (new Spacing())->shorthand(['0px'])->toArray(),
+                    'padding'   => (new Spacing())->shorthand(['0px'])->toArray(),
                 ],
 
                 /**
@@ -479,9 +489,10 @@ final class JsonData
                             ->lineHeight(self::LINE_HEIGHT_XS)
                             ->toArray(),
                         'spacing'   => [
-                            'margin'    => (string) (new Spacing($collection))
+                            'margin'    => (new Spacing($collection))
                                 ->top(self::SPACER_S)
-                                ->bottom('0px'),
+                                ->bottom('0px')
+                                ->toArray(),
                         ],
                         'color' => (new Color($collection))
                             ->text(self::COLOR_HEADING_TEXT)
