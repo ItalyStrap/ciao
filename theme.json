@@ -407,86 +407,42 @@
             },
             "h1": {
                 "typography": {
-                    "fontFamily": "var(--wp--preset--font-family--base)",
-                    "fontSize": "var(--wp--preset--font-size--h-1)",
-                    "fontWeight": "900",
-                    "lineHeight": "var(--wp--custom--line-height--xs)"
-                },
-                "spacing": {
-                    "margin": {
-                        "top": "var(--wp--custom--spacer--s)",
-                        "bottom": "0px"
-                    }
-                },
-                "color": {
-                    "text": "var(--wp--preset--color--heading-color)"
+                    "fontSize": "var(--wp--preset--font-size--h-1)"
                 }
             },
             "h2": {
                 "typography": {
-                    "fontFamily": "var(--wp--preset--font-family--base)",
-                    "fontSize": "var(--wp--preset--font-size--h-2)",
-                    "fontWeight": "900",
-                    "lineHeight": "var(--wp--custom--line-height--xs)"
-                },
-                "spacing": {
-                    "margin": "var(--wp--custom--spacer--s) 0 0px 0"
-                },
-                "color": {
-                    "text": "var(--wp--preset--color--heading-color)"
+                    "fontSize": "var(--wp--preset--font-size--h-2)"
                 }
             },
             "h3": {
                 "typography": {
-                    "fontFamily": "var(--wp--preset--font-family--base)",
-                    "fontSize": "var(--wp--preset--font-size--h-3)",
-                    "fontWeight": "900",
-                    "lineHeight": "var(--wp--custom--line-height--xs)"
-                },
-                "spacing": {
-                    "margin": "var(--wp--custom--spacer--s) 0 0px 0"
-                },
-                "color": {
-                    "text": "var(--wp--preset--color--heading-color)"
+                    "fontSize": "var(--wp--preset--font-size--h-3)"
                 }
             },
             "h4": {
                 "typography": {
-                    "fontFamily": "var(--wp--preset--font-family--base)",
-                    "fontSize": "var(--wp--preset--font-size--h-4)",
-                    "fontWeight": "900",
-                    "lineHeight": "var(--wp--custom--line-height--xs)"
-                },
-                "spacing": {
-                    "margin": "var(--wp--custom--spacer--s) 0 0px 0"
-                },
-                "color": {
-                    "text": "var(--wp--preset--color--heading-color)"
+                    "fontSize": "var(--wp--preset--font-size--h-4)"
                 }
             },
             "h5": {
                 "typography": {
-                    "fontFamily": "var(--wp--preset--font-family--base)",
-                    "fontSize": "var(--wp--preset--font-size--h-5)",
-                    "fontWeight": "900",
-                    "lineHeight": "var(--wp--custom--line-height--xs)"
-                },
-                "spacing": {
-                    "margin": "var(--wp--custom--spacer--s) 0 0px 0"
-                },
-                "color": {
-                    "text": "var(--wp--preset--color--heading-color)"
+                    "fontSize": "var(--wp--preset--font-size--h-5)"
                 }
             },
             "h6": {
                 "typography": {
+                    "fontSize": "var(--wp--preset--font-size--h-6)"
+                }
+            },
+            "heading": {
+                "typography": {
                     "fontFamily": "var(--wp--preset--font-family--base)",
-                    "fontSize": "var(--wp--preset--font-size--h-6)",
-                    "fontWeight": "900",
+                    "fontWeight": "700",
                     "lineHeight": "var(--wp--custom--line-height--xs)"
                 },
                 "spacing": {
-                    "margin": "var(--wp--custom--spacer--s) 0 0px 0"
+                    "margin": "var(--wp--custom--spacer--s) 0 0 0"
                 },
                 "color": {
                     "text": "var(--wp--preset--color--heading-color)"

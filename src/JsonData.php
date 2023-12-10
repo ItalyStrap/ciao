@@ -483,96 +483,44 @@ final class JsonData
                     ],
                     'h1' => [
                         'typography' => (new Typography($collection))
-                            ->fontFamily(self::FONT_FAMILY_BASE)
                             ->fontSize(self::FONT_SIZE_H1)
-                            ->fontWeight('900')
-                            ->lineHeight(self::LINE_HEIGHT_XS)
-                            ->toArray(),
-                        'spacing'   => [
-                            'margin'    => (new Spacing($collection))
-                                ->top(self::SPACER_S)
-                                ->bottom('0px')
-                                ->toArray(),
-                        ],
-                        'color' => (new Color($collection))
-                            ->text(self::COLOR_HEADING_TEXT)
                             ->toArray(),
                     ],
                     'h2' => [
                         'typography' =>  (new Typography($collection))
-                            ->fontFamily(self::FONT_FAMILY_BASE)
                             ->fontSize(self::FONT_SIZE_H2)
-                            ->fontWeight('900')
-                            ->lineHeight(self::LINE_HEIGHT_XS)
-                            ->toArray(),
-                        'spacing'   => [
-                            'margin'    => (string) (new Spacing($collection))
-                                ->top(self::SPACER_S)
-                                ->bottom('0px'),
-                        ],
-                        'color' => (new Color($collection))
-                            ->text(self::COLOR_HEADING_TEXT)
                             ->toArray(),
                     ],
                     'h3' => [
                         'typography' => (new Typography($collection))
-                            ->fontFamily(self::FONT_FAMILY_BASE)
                             ->fontSize(self::FONT_SIZE_H3)
-                            ->fontWeight('900')
-                            ->lineHeight(self::LINE_HEIGHT_XS)
-                            ->toArray(),
-                        'spacing'   => [
-                            'margin'    => (string) (new Spacing($collection))
-                                ->top(self::SPACER_S)
-                                ->bottom('0px'),
-                        ],
-                        'color' => (new Color($collection))
-                            ->text(self::COLOR_HEADING_TEXT)
                             ->toArray(),
                     ],
                     'h4' => [
                         'typography' => (new Typography($collection))
-                            ->fontFamily(self::FONT_FAMILY_BASE)
                             ->fontSize(self::FONT_SIZE_H4)
-                            ->fontWeight('900')
-                            ->lineHeight(self::LINE_HEIGHT_XS)
-                            ->toArray(),
-                        'spacing'   => [
-                            'margin'    => (string) (new Spacing($collection))
-                                ->top(self::SPACER_S)
-                                ->bottom('0px'),
-                        ],
-                        'color' => (new Color($collection))
-                            ->text(self::COLOR_HEADING_TEXT)
                             ->toArray(),
                     ],
                     'h5' => [
                         'typography' => (new Typography($collection))
-                            ->fontFamily(self::FONT_FAMILY_BASE)
                             ->fontSize(self::FONT_SIZE_H5)
-                            ->fontWeight('900')
-                            ->lineHeight(self::LINE_HEIGHT_XS)
-                            ->toArray(),
-                        'spacing'   => [
-                            'margin'    => (string) (new Spacing($collection))
-                                ->top(self::SPACER_S)
-                                ->bottom('0px'),
-                        ],
-                        'color' => (new Color($collection))
-                            ->text(self::COLOR_HEADING_TEXT)
                             ->toArray(),
                     ],
                     'h6' => [
                         'typography' => (new Typography($collection))
-                            ->fontFamily(self::FONT_FAMILY_BASE)
                             ->fontSize(self::FONT_SIZE_H6)
-                            ->fontWeight('900')
+                            ->toArray(),
+                    ],
+                    'heading' => [
+                        'typography' => (new Typography($collection))
+                            ->fontFamily(self::FONT_FAMILY_BASE)
+                            ->fontWeight('700')
                             ->lineHeight(self::LINE_HEIGHT_XS)
                             ->toArray(),
                         'spacing'   => [
                             'margin'    => (string) (new Spacing($collection))
                                 ->top(self::SPACER_S)
-                                ->bottom('0px'),
+                                ->bottom('0'),
                         ],
                         'color' => (new Color($collection))
                             ->text(self::COLOR_HEADING_TEXT)
