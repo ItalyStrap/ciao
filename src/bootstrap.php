@@ -64,6 +64,8 @@ require get_stylesheet_directory() . '/vendor/autoload.php';
             $view = new View( $finder );
 
             /**
+             * https://developer.wordpress.org/block-editor/reference-guides/block-api/block-patterns/
+             * @link https://developer.wordpress.org/themes/block-themes/converting-customizer-settings-to-block-patterns/
              *
              * @param string $pattern_name       Pattern name including namespace.
              * @param array  $pattern_properties Array containing the properties of the pattern: title,

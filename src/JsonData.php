@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ItalyStrap\ExperimentalTheme;
 
+use ItalyStrap\Config\Config;
+use ItalyStrap\Config\ConfigInterface;
 use ItalyStrap\ThemeJsonGenerator\Domain\SectionNames;
 use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Collection;
 use ItalyStrap\ThemeJsonGenerator\Domain\Settings\CollectionInterface;
@@ -94,7 +96,8 @@ final class JsonData
     public const BUTTON_HOVER_BG = Custom::CATEGORY . '.button.hover.bg';
     public const BUTTON_HOVER_TEXT = Custom::CATEGORY . '.button.hover.text';
     public const BUTTON_HOVER_BORDER_COLOR = Custom::CATEGORY . '.button.hover.borderColor';
-    public const BUTTON_PADDING = Custom::CATEGORY . '.button.padding';
+    public const BUTTON_PADDING_V = Custom::CATEGORY . '.button.padding.v';
+    public const BUTTON_PADDING_H = Custom::CATEGORY . '.button.padding.h';
     public const FORM_BORDER_COLOR = Custom::CATEGORY . '.form.borderColor';
     public const FORM_BORDER_WIDTH = Custom::CATEGORY . '.form.borderWidth';
     public const FORM_INPUT_COLOR = Custom::CATEGORY . '.form.input.color';
@@ -240,7 +243,7 @@ final class JsonData
     private function registerFontSizes(CollectionInterface $collection): void
     {
         $collection
-            ->add(new FontSize('base', 'Base font size 16px', 'clamp(1.125rem, 2vw, 1.5rem)'))
+            ->add(new FontSize('base', 'Base font size 16px', 'clamp(1rem, 2vw, 1.5rem)'))
             ->add(new FontSize('h1', 'Used in H1 titles', 'calc( {{fontSize.base}} * 2.8125)'))
             ->add(new FontSize('h2', 'Used in H2 titles', 'calc( {{fontSize.base}} * 2.1875)'))
             ->add(new FontSize('h3', 'Used in H3 titles', 'calc( {{fontSize.base}} * 1.625)'))
@@ -316,13 +319,21 @@ final class JsonData
                 'bg'    => $collection->get(self::COLOR_BASE),
                 'text'    => $collection->get(self::COLOR_BUTTON_TEXT_HOVER),
                 'borderColor'   => 'transparent',
-                'borderRadius'  => 'calc( {{fontSize.base}} /4)',
+//                'borderRadius'  => 'calc( {{fontSize.base}} /4)',
+                'borderRadius'  => (string)(new CalcExperimental(
+                    $collection->get(self::FONT_SIZE_BASE)->var(),
+                    '/',
+                    '3'
+                )),
                 'hover' => [
                     'bg'    => $collection->get(self::COLOR_BUTTON_BG_HOVER),
                     'text'  => $collection->get(self::COLOR_BUTTON_TEXT_HOVER),
                     'borderColor'   => 'transparent',
                 ],
-                'padding'   => ' 0.25em 0.7em',
+                'padding'   => [
+                    'h' => '0.75em',
+                    'v' => '0.375em',
+                ],
             ],
             'form'  => [
                 'border'    => [
@@ -340,14 +351,8 @@ final class JsonData
             ],
             'query'     => [
                 'post'  => [
-//                    'title'   => 'var:preset|fontSize|h1',
                 ],
             ],
-            //              'site-blocks'   => [
-            //                      'margin'    => [
-            //                          'top'   => '',
-            //                  ],
-            //              ],
         ]);
 
         $collection->addMultiple(
@@ -374,22 +379,17 @@ final class JsonData
         $this->registerFontFamily($collection);
         $this->registerCustom($collection);
 
-        return [
+        $jsonData = new Config([
             SectionNames::SCHEMA => 'https://schemas.wp.org/trunk/theme.json',
             SectionNames::VERSION => 1,
             SectionNames::SETTINGS => [
                 'color' => [
                     'custom'    => true,
                     'link'      => true,
-                    'palette'   => $collection->toArrayByCategory(Palette::CATEGORY),
-                    'gradients' => $collection->toArrayByCategory(Gradient::CATEGORY),
-                    'duotone'   => $collection->toArrayByCategory(Duotone::CATEGORY),
                 ],
                 'typography' => [
                     'customFontSize'    => true,
                     'customLineHeight'  => true,
-                    'fontSizes'     => $collection->toArrayByCategory(FontSize::CATEGORY),
-                    'fontFamilies'  => $collection->toArrayByCategory(FontFamily::CATEGORY),
                 ],
                 'spacing' => [
                     'blockGap'  => true,
@@ -403,18 +403,10 @@ final class JsonData
                     'customStyle'   => true,
                     'customWidth'   => true,
                 ],
-                'custom' => $collection->toArrayByCategory(Custom::CATEGORY),
                 "blocks" => [
                     "core/button" => [
                         "color" => [
                             'custom' => false,
-//                          'palette' => [
-//                              [
-//                                  "slug" => "primary",
-//                                  "color" => "#044c75",
-//                                  "name" => "Primary"
-//                              ]
-//                          ],
                         ],
                     ],
                     "core/navigation" => [
@@ -454,7 +446,7 @@ final class JsonData
                     ->fontFamily(self::FONT_FAMILY_BASE)
                     ->fontSize(self::FONT_SIZE_BASE)
                     ->fontStyle('normal')
-                    ->fontWeight('300')
+                    ->fontWeight('400')
                     ->letterSpacing('normal')
                     ->lineHeight(self::LINE_HEIGHT_M)
                     ->textDecoration('none')
@@ -475,6 +467,72 @@ final class JsonData
                  * ============================================
                  */
                 'elements' => [
+                    /**
+                     * .wp-element-button
+                     *
+                     * BC = .wp-block-button__link
+                     */
+                    'button' => [
+                        'border' => (new Border($collection))
+                            ->color(self::BUTTON_BORDER_COLOR)
+                            ->radius(self::BUTTON_BORDER_RADIUS)
+                            ->style('solid')
+                            ->width('1px')
+                            ->toArray(),
+                        'color' => (new Color($collection))
+                            ->background(self::BUTTON_BG)
+                            ->text(self::BUTTON_TEXT)
+                            ->toArray(),
+                        'spacing'   => [
+                            'padding' => (new Spacing($collection))
+                                ->vertical(self::BUTTON_PADDING_V)
+                                ->horizontal(self::BUTTON_PADDING_H)
+                                ->toArray(),
+                        ],
+                        'typography' => (new Typography($collection))
+                            ->fontFamily(self::FONT_FAMILY_BASE)
+                            ->fontSize(self::FONT_SIZE_BASE)
+                            ->textDecoration('none')
+                            ->lineHeight(self::LINE_HEIGHT_S)
+                            ->toArray(),
+                        ':hover' => [
+                            'color' => (new Color($collection))
+                                ->background(self::BUTTON_HOVER_BG)
+                                ->text(self::BUTTON_HOVER_TEXT)
+                                ->toArray(),
+                            'border' => [
+                                'color' => (new Color($collection))
+                                    ->text(self::BUTTON_HOVER_BORDER_COLOR)
+                                    ->toArray()
+                            ],
+                        ],
+                        ':focus' => [
+                            'color' => (new Color($collection))
+                                ->background(self::BUTTON_HOVER_BG)
+                                ->toArray(),
+                            'border' => [
+                                'color' => (new Color($collection))
+                                    ->text(self::BUTTON_HOVER_BORDER_COLOR)
+                                    ->toArray(),
+                            ],
+                            'outline' => [
+                                'color' => $collection->get(self::COLOR_GRAY_300)->var(),
+                                'offset' => '1px',
+                                'style' => 'dotted',
+                                'width' => '1px',
+                            ],
+                        ],
+                        ':active' => [
+                            'color' => (new Color($collection))
+                                ->background(self::BUTTON_HOVER_BG)
+                                ->toArray(),
+                            'border' => [
+                                'color' => (new Color($collection))
+                                    ->text(self::BUTTON_HOVER_BORDER_COLOR)
+                                    ->toArray(),
+                            ],
+                        ],
+                    ],
                     'link' => [
                         'color' => (new Color($collection))
                             ->text(self::COLOR_LINK_TEXT)
@@ -534,6 +592,32 @@ final class JsonData
                  * ============================================
                  */
                 'blocks' => [
+                    /**
+                     * .wp-element-button
+                     * .wp-block-button__link
+                     */
+                    'core/button' => [
+                        'variations' => [
+                            'outline' => [
+                                'border' => (new Border($collection))
+                                    ->color(self::COLOR_BASE)
+                                    ->radius(self::BUTTON_BORDER_RADIUS)
+                                    ->style('solid')
+                                    ->width('1px')
+                                    ->toArray(),
+                                'color' => (new Color($collection))
+                                    ->background(self::COLOR_BODY_BG)
+                                    ->text(self::COLOR_BASE)
+                                    ->toArray(),
+                                'spacing'   => [
+                                    'padding' => (new Spacing($collection))
+                                        ->vertical(self::BUTTON_PADDING_V)
+                                        ->horizontal(self::BUTTON_PADDING_H)
+                                        ->toArray(),
+                                ],
+                            ],
+                        ],
+                    ],
 
                     /**
                      * ============================================
@@ -682,41 +766,6 @@ final class JsonData
 //                              ->bottom( '0px' ),
 //                      ],
 //                  ],
-                    'core/button' => [ // .wp-block-button__link
-                        'border' => (new Border($collection))
-                            ->color(self::BUTTON_BORDER_COLOR)
-//                            ->radius(\sprintf(
-//                                'calc(%s/3)',
-//                                $collection->get(self::FONT_SIZE_BASE)->var()
-//                            ))
-                            ->radius((string)(new CalcExperimental(
-                                $collection->get(self::FONT_SIZE_BASE)->var(),
-                                '/',
-                                '3'
-                            )))
-                            ->style('solid')
-                            ->width('2px')
-                            ->toArray(),
-                        'color' => (new Color($collection))
-                            ->background(self::BUTTON_BG)
-                            ->text(self::BUTTON_TEXT)
-                            ->toArray(),
-                        'spacing'   => [
-                            'padding' => (new Spacing($collection))
-                                ->shorthand([self::BUTTON_PADDING])
-                                ->toArray(),
-                            'margin'    => (new Spacing($collection))
-                                ->top(self::SPACER_M)
-                                ->toArray(),
-                        ],
-                        'typography' => (new Typography($collection))
-                            ->fontFamily(self::FONT_FAMILY_BASE)
-                            ->fontSize(self::FONT_SIZE_BASE)
-                            ->textDecoration('none')
-                            ->textTransform('uppercase')
-                            ->lineHeight(self::LINE_HEIGHT_S)
-                            ->toArray(),
-                    ],
                     'core/file' => [ // .wp-block-file
                         'spacing'   => [
                             'margin'    => (new Spacing($collection))
@@ -956,6 +1005,25 @@ final class JsonData
                     ],
                 ],
             ],
-        ];
+        ]);
+
+        $this->registerCollection($jsonData, $collection);
+
+        return $jsonData->toArray();
+    }
+
+    /**
+     * @param ConfigInterface $jsonData
+     * @param CollectionInterface $collection
+     * @return void
+     */
+    private function registerCollection(ConfigInterface $jsonData, CollectionInterface $collection): void
+    {
+        $jsonData->set('settings.color.palette', $collection->toArrayByCategory(Palette::CATEGORY));
+        $jsonData->set('settings.color.gradients', $collection->toArrayByCategory(Gradient::CATEGORY));
+        $jsonData->set('settings.color.duotone', $collection->toArrayByCategory(Duotone::CATEGORY));
+        $jsonData->set('settings.typography.fontSizes', $collection->toArrayByCategory(FontSize::CATEGORY));
+        $jsonData->set('settings.typography.fontFamilies', $collection->toArrayByCategory(FontFamily::CATEGORY));
+        $jsonData->set('settings.custom', $collection->toArrayByCategory(Custom::CATEGORY));
     }
 }
