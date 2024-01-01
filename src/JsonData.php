@@ -6,8 +6,8 @@ namespace ItalyStrap\ExperimentalTheme;
 
 use ItalyStrap\Config\Config;
 use ItalyStrap\Config\ConfigInterface;
+use ItalyStrap\ThemeJsonGenerator\Application\Config\Blueprint;
 use ItalyStrap\ThemeJsonGenerator\Domain\SectionNames;
-use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Collection;
 use ItalyStrap\ThemeJsonGenerator\Domain\Settings\CollectionInterface;
 use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Color\Palette;
 use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Color\Duotone;
@@ -25,10 +25,11 @@ use ItalyStrap\ThemeJsonGenerator\Domain\Styles\Border;
 use ItalyStrap\ThemeJsonGenerator\Domain\Styles\Color;
 use ItalyStrap\ThemeJsonGenerator\Domain\Styles\Spacing;
 use ItalyStrap\ThemeJsonGenerator\Domain\Styles\Typography;
+use Psr\Container\ContainerInterface;
 
 final class JsonData
 {
-    public const VERSION = 1;
+    public const VERSION = 2;
     public const COLOR_BASE = Palette::CATEGORY . '.base';
     public const COLOR_LIGHT = Palette::CATEGORY . '.light';
     public const COLOR_DARK = Palette::CATEGORY . '.dark';
@@ -106,11 +107,9 @@ final class JsonData
     public const SITE_BLOCKS_MARGIN_TOP = Custom::CATEGORY . '.site-blocks.margin.top';
 
 
-    public static function getJsonData(): array
+    public static function getJsonData(ContainerInterface $container, CollectionInterface $collection): void
     {
-//        var_dump('getJsonData args');
-//        var_dump(func_get_args());
-        return (new self())->buildJsonData(new Collection());
+        (new self())($container, $collection);
     }
 
     /**
@@ -319,7 +318,6 @@ final class JsonData
                 'bg'    => $collection->get(self::COLOR_BASE),
                 'text'    => $collection->get(self::COLOR_BUTTON_TEXT_HOVER),
                 'borderColor'   => 'transparent',
-//                'borderRadius'  => 'calc( {{fontSize.base}} /4)',
                 'borderRadius'  => (string)(new CalcExperimental(
                     $collection->get(self::FONT_SIZE_BASE)->var(),
                     '/',
@@ -370,7 +368,7 @@ final class JsonData
 //            ));
     }
 
-    public function buildJsonData(CollectionInterface $collection): array
+    public function __invoke(ContainerInterface $container, CollectionInterface $collection): void
     {
         $this->registerColors($collection);
         $this->registerGradient($collection);
@@ -379,9 +377,13 @@ final class JsonData
         $this->registerFontFamily($collection);
         $this->registerCustom($collection);
 
-        $jsonData = new Config([
+        $blueprint = $container->get(Blueprint::class);
+
+        $jsonData = $blueprint->merge([
             SectionNames::SCHEMA => 'https://schemas.wp.org/trunk/theme.json',
-            SectionNames::VERSION => 1,
+            SectionNames::VERSION => self::VERSION,
+            SectionNames::TITLE => 'Experimental Theme',
+            SectionNames::DESCRIPTION => 'Experimental Theme',
             SectionNames::SETTINGS => [
                 'color' => [
                     'custom'    => true,
@@ -389,20 +391,20 @@ final class JsonData
                 ],
                 'typography' => [
                     'customFontSize'    => true,
-                    'customLineHeight'  => true,
+//                    'customLineHeight'  => true,
                 ],
                 'spacing' => [
                     'blockGap'  => true,
-                    'customMargin' => true,
-                    'customPadding' => true,
+//                    'customMargin' => true,
+//                    'customPadding' => true,
                     'units' => [ '%', 'px', 'em', 'rem', 'vh', 'vw' ]
                 ],
-                'border' => [
-                    'customColor'   => true,
-                    'customRadius'  => true,
-                    'customStyle'   => true,
-                    'customWidth'   => true,
-                ],
+//                'border' => [
+//                    'customColor'   => true,
+//                    'customRadius'  => true,
+//                    'customStyle'   => true,
+//                    'customWidth'   => true,
+//                ],
                 "blocks" => [
                     "core/button" => [
                         "color" => [
@@ -438,11 +440,10 @@ final class JsonData
                  * spacing
                  * ============================================
                  */
-                'color' => (new Color($collection))
+                'color' => $container->get(Color::class)
                     ->background(self::COLOR_BODY_BG)
-                    ->text(self::COLOR_BODY_COLOR)
-                    ->toArray(),
-                'typography' => (new Typography($collection))
+                    ->text(self::COLOR_BODY_COLOR),
+                'typography' => $container->get(Typography::class)
                     ->fontFamily(self::FONT_FAMILY_BASE)
                     ->fontSize(self::FONT_SIZE_BASE)
                     ->fontStyle('normal')
@@ -450,15 +451,11 @@ final class JsonData
                     ->letterSpacing('normal')
                     ->lineHeight(self::LINE_HEIGHT_M)
                     ->textDecoration('none')
-                    ->textTransform('none')
-                    ->toArray(),
+                    ->textTransform('none'),
                 'spacing'   => [
-                    'blockGap'  => $collection->get(self::SPACER_M)->var(),
-                    /**
-                     * For margin and padding we can write simply the shorthand
-                     */
-                    'margin'    => (new Spacing())->shorthand(['0px'])->toArray(),
-                    'padding'   => (new Spacing())->shorthand(['0px'])->toArray(),
+                    'blockGap'  => $container->get(CollectionInterface::class)->get(self::SPACER_M)->var(),
+                    'margin'    => $container->get(Spacing::class)->shorthand(['0px']),
+                    'padding'   => $container->get(Spacing::class)->shorthand(['0px']),
                 ],
 
                 /**
@@ -473,47 +470,39 @@ final class JsonData
                      * BC = .wp-block-button__link
                      */
                     'button' => [
-                        'border' => (new Border($collection))
+                        'border' => $container->get(Border::class)
                             ->color(self::BUTTON_BORDER_COLOR)
                             ->radius(self::BUTTON_BORDER_RADIUS)
                             ->style('solid')
-                            ->width('1px')
-                            ->toArray(),
-                        'color' => (new Color($collection))
+                            ->width('1px'),
+                        'color' => $container->get(Color::class)
                             ->background(self::BUTTON_BG)
-                            ->text(self::BUTTON_TEXT)
-                            ->toArray(),
+                            ->text(self::BUTTON_TEXT),
                         'spacing'   => [
-                            'padding' => (new Spacing($collection))
+                            'padding' => $container->get(Spacing::class)
                                 ->vertical(self::BUTTON_PADDING_V)
-                                ->horizontal(self::BUTTON_PADDING_H)
-                                ->toArray(),
+                                ->horizontal(self::BUTTON_PADDING_H),
                         ],
-                        'typography' => (new Typography($collection))
+                        'typography' => $container->get(Typography::class)
                             ->fontFamily(self::FONT_FAMILY_BASE)
                             ->fontSize(self::FONT_SIZE_BASE)
                             ->textDecoration('none')
-                            ->lineHeight(self::LINE_HEIGHT_S)
-                            ->toArray(),
+                            ->lineHeight(self::LINE_HEIGHT_S),
                         ':hover' => [
-                            'color' => (new Color($collection))
+                            'color' => $container->get(Color::class)
                                 ->background(self::BUTTON_HOVER_BG)
-                                ->text(self::BUTTON_HOVER_TEXT)
-                                ->toArray(),
+                                ->text(self::BUTTON_HOVER_TEXT),
                             'border' => [
-                                'color' => (new Color($collection))
-                                    ->text(self::BUTTON_HOVER_BORDER_COLOR)
-                                    ->toArray()
+                                'color' => $container->get(Color::class)
+                                    ->text(self::BUTTON_HOVER_BORDER_COLOR),
                             ],
                         ],
                         ':focus' => [
-                            'color' => (new Color($collection))
-                                ->background(self::BUTTON_HOVER_BG)
-                                ->toArray(),
+                            'color' => $container->get(Color::class)
+                                ->background(self::BUTTON_HOVER_BG),
                             'border' => [
-                                'color' => (new Color($collection))
-                                    ->text(self::BUTTON_HOVER_BORDER_COLOR)
-                                    ->toArray(),
+                                'color' => $container->get(Color::class)
+                                    ->text(self::BUTTON_HOVER_BORDER_COLOR),
                             ],
                             'outline' => [
                                 'color' => $collection->get(self::COLOR_GRAY_300)->var(),
@@ -523,66 +512,55 @@ final class JsonData
                             ],
                         ],
                         ':active' => [
-                            'color' => (new Color($collection))
-                                ->background(self::BUTTON_HOVER_BG)
-                                ->toArray(),
+                            'color' => $container->get(Color::class)
+                                ->background(self::BUTTON_HOVER_BG),
                             'border' => [
-                                'color' => (new Color($collection))
-                                    ->text(self::BUTTON_HOVER_BORDER_COLOR)
-                                    ->toArray(),
+                                'color' => $container->get(Color::class)
+                                    ->text(self::BUTTON_HOVER_BORDER_COLOR),
                             ],
                         ],
                     ],
                     'link' => [
-                        'color' => (new Color($collection))
+                        'color' => $container->get(Color::class)
                             ->text(self::COLOR_LINK_TEXT)
-                            ->background('transparent')
-                            ->toArray(),
+                            ->background('transparent'),
                     ],
                     'h1' => [
-                        'typography' => (new Typography($collection))
-                            ->fontSize(self::FONT_SIZE_H1)
-                            ->toArray(),
+                        'typography' => $container->get(Typography::class)
+                            ->fontSize(self::FONT_SIZE_H1),
                     ],
                     'h2' => [
-                        'typography' =>  (new Typography($collection))
-                            ->fontSize(self::FONT_SIZE_H2)
-                            ->toArray(),
+                        'typography' =>  $container->get(Typography::class)
+                            ->fontSize(self::FONT_SIZE_H2),
                     ],
                     'h3' => [
-                        'typography' => (new Typography($collection))
-                            ->fontSize(self::FONT_SIZE_H3)
-                            ->toArray(),
+                        'typography' => $container->get(Typography::class)
+                            ->fontSize(self::FONT_SIZE_H3),
                     ],
                     'h4' => [
-                        'typography' => (new Typography($collection))
-                            ->fontSize(self::FONT_SIZE_H4)
-                            ->toArray(),
+                        'typography' => $container->get(Typography::class)
+                            ->fontSize(self::FONT_SIZE_H4),
                     ],
                     'h5' => [
-                        'typography' => (new Typography($collection))
-                            ->fontSize(self::FONT_SIZE_H5)
-                            ->toArray(),
+                        'typography' => $container->get(Typography::class)
+                            ->fontSize(self::FONT_SIZE_H5),
                     ],
                     'h6' => [
-                        'typography' => (new Typography($collection))
-                            ->fontSize(self::FONT_SIZE_H6)
-                            ->toArray(),
+                        'typography' => $container->get(Typography::class)
+                            ->fontSize(self::FONT_SIZE_H6),
                     ],
                     'heading' => [
-                        'typography' => (new Typography($collection))
+                        'typography' => $container->get(Typography::class)
                             ->fontFamily(self::FONT_FAMILY_BASE)
                             ->fontWeight('700')
-                            ->lineHeight(self::LINE_HEIGHT_XS)
-                            ->toArray(),
+                            ->lineHeight(self::LINE_HEIGHT_XS),
                         'spacing'   => [
-                            'margin'    => (string) (new Spacing($collection))
+                            'margin'    => $container->get(Spacing::class)
                                 ->top(self::SPACER_S)
                                 ->bottom('0'),
                         ],
-                        'color' => (new Color($collection))
-                            ->text(self::COLOR_HEADING_TEXT)
-                            ->toArray(),
+                        'color' => $container->get(Color::class)
+                            ->text(self::COLOR_HEADING_TEXT),
                     ],
                 ],
 
@@ -599,21 +577,18 @@ final class JsonData
                     'core/button' => [
                         'variations' => [
                             'outline' => [
-                                'border' => (new Border($collection))
+                                'border' => $container->get(Border::class)
                                     ->color(self::COLOR_BASE)
                                     ->radius(self::BUTTON_BORDER_RADIUS)
                                     ->style('solid')
-                                    ->width('1px')
-                                    ->toArray(),
-                                'color' => (new Color($collection))
+                                    ->width('1px'),
+                                'color' => $container->get(Color::class)
                                     ->background(self::COLOR_BODY_BG)
-                                    ->text(self::COLOR_BASE)
-                                    ->toArray(),
+                                    ->text(self::COLOR_BASE),
                                 'spacing'   => [
-                                    'padding' => (new Spacing($collection))
+                                    'padding' => $container->get(Spacing::class)
                                         ->vertical(self::BUTTON_PADDING_V)
-                                        ->horizontal(self::BUTTON_PADDING_H)
-                                        ->toArray(),
+                                        ->horizontal(self::BUTTON_PADDING_H),
                                 ],
                             ],
                         ],
@@ -625,27 +600,22 @@ final class JsonData
                      * ============================================
                      */
                     'core/site-title' => [
-                        'color' => (new Color($collection))
-                            ->text(self::COLOR_HEADING_TEXT)
-                            ->toArray(),
-                        'typography' => (new Typography($collection))
+                        'color' => $container->get(Color::class)
+                            ->text(self::COLOR_HEADING_TEXT),
+                        'typography' => $container->get(Typography::class)
                             ->fontSize(self::FONT_SIZE_H1)
-                            ->fontWeight('600')
-                            ->toArray(),
+                            ->fontWeight('600'),
                     ],
                     'core/post-title' => [ // .wp-block-post-title
-                        'color' => (new Color($collection))
-                            ->text(self::COLOR_HEADING_TEXT)
-                            ->toArray(),
-                        'typography' => (new Typography($collection))
-                            ->fontSize(self::FONT_SIZE_H1)
-                            ->toArray(),
+                        'color' => $container->get(Color::class)
+                            ->text(self::COLOR_HEADING_TEXT),
+                        'typography' => $container->get(Typography::class)
+                            ->fontSize(self::FONT_SIZE_H1),
                         'elements' => [
                             'link' => [ // .wp-block-post-title a
-                                'color' => (new Color($collection))
+                                'color' => $container->get(Color::class)
                                     ->text('inherit')
-                                    ->background('transparent')
-                                    ->toArray(),
+                                    ->background('transparent'),
                             ],
                         ],
                     ],
@@ -655,24 +625,20 @@ final class JsonData
                      * .wp-block-query-title
                      */
                     'core/query-title' => [
-                        'typography' => (new Typography($collection))
+                        'typography' => $container->get(Typography::class)
                             ->fontSize(self::FONT_SIZE_H5)
-                            ->fontWeight('700')
-                            ->toArray(),
-                        'color' => (new Color($collection))
-                            ->text(self::COLOR_GRAY_400)
-                            ->toArray(),
+                            ->fontWeight('700'),
+                        'color' => $container->get(Color::class)
+                            ->text(self::COLOR_GRAY_400),
                     ],
                     'core/term-description' => [ // .wp-block-term-description
-                        'typography' => (new Typography($collection))
-                            ->fontSize(self::FONT_SIZE_X_SMALL)
-                            ->toArray(),
+                        'typography' => $container->get(Typography::class)
+                            ->fontSize(self::FONT_SIZE_X_SMALL),
                         'spacing'   => [
-                            'margin'    => (new Spacing())->shorthand(['0px !important'])->toArray(),
+                            'margin'    => $container->get(Spacing::class)->shorthand(['0px !important']),
                         ],
-                        'color' => (new Color($collection))
-                            ->text(self::COLOR_GRAY_400)
-                            ->toArray(),
+                        'color' => $container->get(Color::class)
+                            ->text(self::COLOR_GRAY_400),
                     ],
 
                     /**
@@ -682,27 +648,27 @@ final class JsonData
                      */
                     'core/site-logo' => [ // wp-block-site-logo {figure element}
                         'spacing'   => [
-                            'margin'    => (new Spacing())->shorthand(['0px'])->toArray(),
-                            'padding'   => (new Spacing())->shorthand(['0px'])->toArray(),
+                            'margin'    => $container->get(Spacing::class)->shorthand(['0px']),
+                            'padding'   => $container->get(Spacing::class)->shorthand(['0px']),
                         ],
                     ],
                     'core/image' => [ // wp-block-image {figure element}
                         'spacing'   => [
-                            'margin'    => (string) (new Spacing($collection))
+                            'margin'    => $container->get(Spacing::class)
                                 ->top(self::SPACER_M)
                                 ->bottom('0px'),
                         ],
                     ],
                     'core/post-featured-image' => [ // wp-block-post-featured-image {figure element}
                         'spacing'   => [
-                            'margin'    => (string) (new Spacing($collection))
+                            'margin'    => $container->get(Spacing::class)
                                 ->top(self::SPACER_M)
                                 ->bottom('0'),
                         ],
                     ],
                     'core/gallery' => [ // wp-block-gallery {figure element}
                         'spacing'   => [
-                            'margin'    => (string) (new Spacing($collection))
+                            'margin'    => $container->get(Spacing::class)
                                 ->top(self::SPACER_M)
                                 ->bottom('0'),
                         ],
@@ -714,14 +680,12 @@ final class JsonData
                      * ============================================
                      */
                     'core/post-content' => [ // .wp-block-post-content
-                        'color' => (new Color($collection))
-                            ->text('inherit')
-                            ->toArray(),
+                        'color' => $container->get(Color::class)
+                            ->text('inherit'),
                     ],
                     'core/post-excerpt' => [ // .wp-block-post-content
-                        'color' => (new Color($collection))
-                            ->text('inherit')
-                            ->toArray(),
+                        'color' => $container->get(Color::class)
+                            ->text('inherit'),
                     ],
 
                     /**
@@ -741,8 +705,10 @@ final class JsonData
 //                  ],
                     'core/template-part' => [
                         'spacing'   => [
-                            'margin'    => '0 !important',
-                            'padding'   => '0 !important',
+                            'margin' => $container->get(Spacing::class)
+                                ->shorthand(['0 !important']),
+                            'padding'   => $container->get(Spacing::class)
+                                ->shorthand(['0 !important']),
                         ],
                     ],
 
@@ -753,7 +719,7 @@ final class JsonData
                      */
                     'core/paragraph' => [ // p
                         'spacing'   => [
-                            'margin'    => (string) (new Spacing($collection))
+                            'margin'    => $container->get(Spacing::class)
                                 ->top(self::SPACER_M)
                                 ->bottom('0px'),
                         ],
@@ -761,68 +727,57 @@ final class JsonData
                     // p
 //                  'core/list' => [
 //                      'spacing'   => [
-//                          'margin'    => (string) (new Spacing($collection))
+//                          'margin'    => $container->get(Spacing::class)
 //                                ->top(self::SPACER_M)
 //                              ->bottom( '0px' ),
 //                      ],
 //                  ],
                     'core/file' => [ // .wp-block-file
                         'spacing'   => [
-                            'margin'    => (new Spacing($collection))
-                                ->top(self::SPACER_M)
-                                ->toArray(),
+                            'margin'    => $container->get(Spacing::class)
+                                ->top(self::SPACER_M),
                         ],
-                        'typography' => (new Typography($collection))
+                        'typography' => $container->get(Typography::class)
                             ->fontFamily(self::FONT_FAMILY_BASE)
                             ->fontSize(self::FONT_SIZE_BASE)
-                            ->lineHeight(self::LINE_HEIGHT_S)
-                            ->toArray(),
+                            ->lineHeight(self::LINE_HEIGHT_S),
                         'elements' => [
                             'link' => [ // .wp-block-file a
-                                'color' => (new Color($collection))
+                                'color' => $container->get(Color::class)
                                     ->text(self::COLOR_BASE)
-                                    ->background('transparent')
-                                    ->toArray(),
+                                    ->background('transparent'),
                             ],
                         ],
                     ],
                     'core/code' => [
-                        'typography' => (new Typography($collection))
-                            ->fontFamily(self::FONT_FAMILY_MONOSPACE)
-                            ->toArray(),
+                        'typography' => $container->get(Typography::class)
+                            ->fontFamily(self::FONT_FAMILY_MONOSPACE),
                         'spacing' => [
-                            'margin'    => (new Spacing($collection))
-                                ->top(self::SPACER_L)
-                                ->toArray(),
-                            'padding' => (new Spacing($collection))
-                                ->shorthand([self::SPACER_V, self::SPACER_H])
-                                ->toArray(),
+                            'margin'    => $container->get(Spacing::class)
+                                ->top(self::SPACER_L),
+                            'padding' => $container->get(Spacing::class)
+                                ->shorthand([self::SPACER_V, self::SPACER_H]),
                         ],
-                        'border' => (new Border($collection))
+                        'border' => $container->get(Border::class)
                             ->color(self::COLOR_BORDER)
                             ->radius('0px')
                             ->style('solid')
-                            ->width('1px')
-                            ->toArray(),
+                            ->width('1px'),
                     ],
                     'core/quote' => [
-                        'border' => (new Border($collection))
+                        'border' => $container->get(Border::class)
                             ->color(self::COLOR_BODY_COLOR)
                             ->style('solid')
-                            ->width('0 0 0 1px')
-                            ->toArray(),
+                            ->width('0 0 0 1px'),
                         'spacing' => [
-                            'margin'    => (new Spacing($collection))
-                                ->top(self::SPACER_L)
-                                ->toArray(),
-                            'padding'   => (new Spacing($collection))
-                                ->top(self::SPACER_H)
-                                ->toArray(),
+                            'margin'    => $container->get(Spacing::class)
+                                ->top(self::SPACER_L),
+                            'padding'   => $container->get(Spacing::class)
+                                ->top(self::SPACER_H),
                         ],
-                        'typography' => (new Typography($collection))
+                        'typography' => $container->get(Typography::class)
                             ->fontSize(self::FONT_SIZE_BASE)
-                            ->fontStyle('normal')
-                            ->toArray(),
+                            ->fontStyle('normal'),
                     ],
 
                     /**
@@ -831,53 +786,43 @@ final class JsonData
                      * ============================================
                      */
                     'core/post-date' => [
-                        'color' => (new Color($collection))
-                            ->text(self::COLOR_GRAY_200)
-                            ->toArray(),
-                        'typography' => (new Typography($collection))
-                            ->fontSize(self::FONT_SIZE_X_SMALL)
-                            ->toArray(),
+                        'color' => $container->get(Color::class)
+                            ->text(self::COLOR_GRAY_200),
+                        'typography' => $container->get(Typography::class)
+                            ->fontSize(self::FONT_SIZE_X_SMALL),
                     ],
 
                     'core/post-terms' => [
-                        'color' => (new Color($collection))
-                            ->text(self::COLOR_GRAY_200)
-                            ->toArray(),
-                        'typography' => (new Typography($collection))
-                            ->fontSize(self::FONT_SIZE_X_SMALL)
-                            ->toArray(),
+                        'color' => $container->get(Color::class)
+                            ->text(self::COLOR_GRAY_200),
+                        'typography' => $container->get(Typography::class)
+                            ->fontSize(self::FONT_SIZE_X_SMALL),
                         'elements' => [
                             'link' => [ // .wp-block-file a
-                                'color' => (new Color($collection))
+                                'color' => $container->get(Color::class)
                                     ->text(self::COLOR_GRAY_200)
-                                    ->background('transparent')
-                                    ->toArray(),
-                                'typography' => (new Typography($collection))
-                                    ->textDecoration('none')
-                                    ->toArray(),
+                                    ->background('transparent'),
+                                'typography' => $container->get(Typography::class)
+                                    ->textDecoration('none'),
                             ],
                         ],
                     ],
 
                     'core/post-author' => [
-                        'border' => (new Border($collection))
+                        'border' => $container->get(Border::class)
                             ->color(self::COLOR_GRAY_700)
                             ->style('solid')
-                            ->width('1px')
-                            ->toArray(),
-                        'color' => (new Color($collection))
+                            ->width('1px'),
+                        'color' => $container->get(Color::class)
                             ->text(self::COLOR_BODY_COLOR)
-                            ->background(self::COLOR_GRAY_900)
-                            ->toArray(),
-                        'typography' => (new Typography($collection))
-                            ->fontSize(self::FONT_SIZE_SMALL)
-                            ->toArray(),
+                            ->background(self::COLOR_GRAY_900),
+                        'typography' => $container->get(Typography::class)
+                            ->fontSize(self::FONT_SIZE_SMALL),
                         'spacing'   => [
-//                          'margin'    => (string) (new Spacing($collection))
+//                          'margin'    => $container->get(Spacing::class)
 //                                ->top(self::SPACER_M)
-                            'padding'   => (new Spacing($collection))
-                                ->shorthand([self::SPACER_M])
-                                ->toArray(),
+                            'padding'   => $container->get(Spacing::class)
+                                ->shorthand([self::SPACER_M]),
                         ],
                     ],
 
@@ -887,22 +832,18 @@ final class JsonData
                      * ============================================
                      */
                     'core/post-comments' => [
-                        'color' => (new Color($collection))
-                            ->text(self::COLOR_BODY_COLOR)
-                            ->toArray(),
-                        'typography' => (new Typography($collection))
+                        'color' => $container->get(Color::class)
+                            ->text(self::COLOR_BODY_COLOR),
+                        'typography' => $container->get(Typography::class)
                             ->fontSize(self::FONT_SIZE_BASE)
-                            ->fontWeight('300')
-                            ->toArray(),
+                            ->fontWeight('300'),
                     ],
 //                  'core/post-comments-form' => [
-//                      'color' => (new Color($collection))
-//                          ->text(self::COLOR_BODY_COLOR)
-//                          ->toArray(),
-//                      'typography' => (new Typography($collection))
+//                      'color' => $container->get(Color::class)
+//                          ->text(self::COLOR_BODY_COLOR),
+//                      'typography' => $container->get(Typography::class)
 //                          ->fontSize(self::FONT_SIZE_BASE)
-//                          ->fontWeight( '300' )
-//                          ->toArray(),
+//                          ->fontWeight( '300' ),
 //                  ],
 
                     /**
@@ -911,14 +852,12 @@ final class JsonData
                      * <!-- /wp:spacer -->
                      */
                     'core/spacer' => [ // .wp-block-spacer
-                        'color' => (new Color($collection))
-                            ->text(self::COLOR_BODY_COLOR)
-                            ->toArray(),
-                        'border' => (new Border($collection))
+                        'color' => $container->get(Color::class)
+                            ->text(self::COLOR_BODY_COLOR),
+                        'border' => $container->get(Border::class)
                             ->color('currentColor')
                             ->style('solid')
-                            ->width('0 0 0 0')
-                            ->toArray(),
+                            ->width('0 0 0 0'),
                     ],
 
                     /**
@@ -927,14 +866,12 @@ final class JsonData
                      * <!-- /wp:separator -->
                      */
                     'core/separator' => [ // .wp-block-separator
-//                      'color' => (new Color($collection))
-//                          ->text( $palette->varOf('gray-700') )
-//                          ->toArray(),
-                        'border' => (new Border($collection))
+//                      'color' => $container->get(Color::class)
+//                          ->text( $palette->varOf('gray-700') ),
+                        'border' => $container->get(Border::class)
                             ->color(self::COLOR_GRAY_700)
                             ->style('solid')
-                            ->width('0 0 1px 0')
-                            ->toArray(),
+                            ->width('0 0 1px 0'),
                     ],
 
 //                  'core/query' => [
@@ -948,45 +885,38 @@ final class JsonData
                      * ============================================
                      */
                     'core/site-tagline' => [
-                        'color' => (new Color($collection))
-                            ->text(self::COLOR_BODY_COLOR)
-                            ->toArray(),
-                        'typography' => (new Typography($collection))
+                        'color' => $container->get(Color::class)
+                            ->text(self::COLOR_BODY_COLOR),
+                        'typography' => $container->get(Typography::class)
                             ->fontSize(self::FONT_SIZE_H3)
-                            ->fontWeight('600')
-                            ->toArray(),
+                            ->fontWeight('600'),
                     ],
                     'core/navigation' => [ // .wp-block-navigation
-                        'color' => (new Color($collection))
+                        'color' => $container->get(Color::class)
                             ->text(self::COLOR_BODY_COLOR)
-                            ->background(self::COLOR_BODY_BG)
-                            ->toArray(),
+                            ->background(self::COLOR_BODY_BG),
                         'spacing'   => [
-                            'padding'   => (new Spacing())->vertical('1.1rem')->toArray(),
+                            'padding'   => $container->get(Spacing::class)->vertical('1.1rem'),
                         ],
-                        'typography' => (new Typography($collection))
+                        'typography' => $container->get(Typography::class)
                             ->fontSize(self::FONT_SIZE_X_SMALL)
                             ->fontWeight('400')
-                            ->textTransform('uppercase')
-                            ->toArray(),
+                            ->textTransform('uppercase'),
 //                      'elements' => [
 //                          'link' => [ // .wp-block-navigation a
-//                              'color' => (new Color($collection))
+//                              'color' => $container->get(Color::class)
 //                                  ->text( $palette->varOf( 'base' ) )
-//                                  ->background( 'transparent' )
-//                                  ->toArray(),
+//                                  ->background( 'transparent' ),
 //                          ],
 //                      ],
                     ],
 //                  'core/navigation-link' => [ // .wp-block-navigation-link
-//                      'color' => (new Color($collection))
-////                            ->text(self::COLOR_BODY_COLOR)
-//                          ->toArray(),
+//                      'color' => $container->get(Color::class)
+////                            ->text(self::COLOR_BODY_COLOR),
 //                  ],
 //                  'core/navigation-submenu' => [ // .wp-block-navigation
-//                      'color' => (new Color($collection))
-////                            ->text(self::COLOR_BODY_COLOR)
-//                          ->toArray(),
+//                      'color' => $container->get(Color::class)
+////                            ->text(self::COLOR_BODY_COLOR),
 //                  ],
                 ],
             ],
@@ -1008,16 +938,14 @@ final class JsonData
         ]);
 
         $this->registerCollection($jsonData, $collection);
-
-        return $jsonData->toArray();
     }
 
     /**
-     * @param ConfigInterface $jsonData
+     * @param Blueprint $jsonData
      * @param CollectionInterface $collection
      * @return void
      */
-    private function registerCollection(ConfigInterface $jsonData, CollectionInterface $collection): void
+    private function registerCollection(Blueprint $jsonData, CollectionInterface $collection): void
     {
         $jsonData->set('settings.color.palette', $collection->toArrayByCategory(Palette::CATEGORY));
         $jsonData->set('settings.color.gradients', $collection->toArrayByCategory(Gradient::CATEGORY));
