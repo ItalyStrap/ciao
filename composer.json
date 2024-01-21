@@ -12,7 +12,7 @@
             "role": "Developer"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {
         "php" : ">=7.4"
     },
@@ -32,15 +32,16 @@
         "phpcompatibility/php-compatibility": "*",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
 
+        "italystrap/config": "^2.4",
+        "italystrap/html": "^1.2",
+        "italystrap/theme-json-generator": "dev-refactor",
+        "italystrap/debug": "^2.0",
+
         "vimeo/psalm": "^4.8",
         "phpbench/phpbench": "@dev",
         "phpmetrics/phpmetrics": "^2.5",
         "infection/infection": "^0.25",
-        "italystrap/debug": "^2.0",
         "phpspec/prophecy-phpunit": "^1.1",
-        "italystrap/config": "^2.4",
-        "italystrap/theme-json-generator": "dev-refactor",
-        "italystrap/html": "^1.2",
         "infection/codeception-adapter": "^0.4.0"
     },
     "autoload": {
@@ -115,7 +116,8 @@
             "@php ./vendor/bin/rector process"
         ],
         "theme/json": [
-            "@php ./vendor/bin/theme-json"
+            "@php ./vendor/bin/theme-json dump",
+            "@php ./vendor/bin/theme-json validate"
         ]
     },
     "support"    : {

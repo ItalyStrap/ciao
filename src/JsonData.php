@@ -4,27 +4,39 @@ declare(strict_types=1);
 
 namespace ItalyStrap\ExperimentalTheme;
 
-use ItalyStrap\Config\Config;
-use ItalyStrap\Config\ConfigInterface;
+use ItalyStrap\ExperimentalTheme\Asset\Application\Root\Buttons;
+use ItalyStrap\ExperimentalTheme\Asset\Application\Root\Containers;
+use ItalyStrap\ExperimentalTheme\Asset\Application\Root\Elements;
+use ItalyStrap\ExperimentalTheme\Asset\Application\Root\GlobalStyle;
+use ItalyStrap\ExperimentalTheme\Asset\Application\Root\Heading;
+use ItalyStrap\ExperimentalTheme\Asset\Application\Root\Media;
+use ItalyStrap\ExperimentalTheme\Asset\Application\Root\Navigation;
+use ItalyStrap\ExperimentalTheme\Asset\Application\Root\PostBody;
+use ItalyStrap\ExperimentalTheme\Asset\Application\Root\PostComments;
+use ItalyStrap\ExperimentalTheme\Asset\Application\Root\PostMeta;
+use ItalyStrap\ExperimentalTheme\Asset\Application\Root\SiteTagline;
+use ItalyStrap\ExperimentalTheme\Asset\Application\Root\SpacerSeparator;
+use ItalyStrap\ExperimentalTheme\Asset\Application\Root\TermDescription;
+use ItalyStrap\ExperimentalTheme\Asset\Application\Root\Title;
 use ItalyStrap\ThemeJsonGenerator\Application\Config\Blueprint;
-use ItalyStrap\ThemeJsonGenerator\Domain\SectionNames;
-use ItalyStrap\ThemeJsonGenerator\Domain\Settings\CollectionInterface;
-use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Color\Palette;
-use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Color\Duotone;
-use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Color\Gradient;
-use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Color\Utilities\ColorModifier;
-use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Color\Utilities\ColorInfo;
-use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Color\Utilities\LinearGradient;
-use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Color\Utilities\ShadesGeneratorExperimental;
-use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Custom\CollectionAdapter;
-use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Custom\Custom;
-use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Typography\FontFamily;
-use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Typography\FontSize;
-use ItalyStrap\ThemeJsonGenerator\Domain\Settings\Utilities\CalcExperimental;
-use ItalyStrap\ThemeJsonGenerator\Domain\Styles\Border;
-use ItalyStrap\ThemeJsonGenerator\Domain\Styles\Color;
-use ItalyStrap\ThemeJsonGenerator\Domain\Styles\Spacing;
-use ItalyStrap\ThemeJsonGenerator\Domain\Styles\Typography;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\SectionNames;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\CollectionInterface;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Color\Duotone;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Color\Gradient;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Color\Palette;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Color\Utilities\ColorInfo;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Color\Utilities\ColorModifier;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Color\Utilities\LinearGradient;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Color\Utilities\ShadesGeneratorExperimental;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Custom\CollectionAdapter;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Custom\Custom;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Typography\FontFamily;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Typography\FontSize;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Utilities\CalcExperimental;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Border;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Color;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Spacing;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Typography;
 use Psr\Container\ContainerInterface;
 
 final class JsonData
@@ -379,7 +391,7 @@ final class JsonData
 
         $blueprint = $container->get(Blueprint::class);
 
-        $jsonData = $blueprint->merge([
+        $blueprint->merge([
             SectionNames::SCHEMA => 'https://schemas.wp.org/trunk/theme.json',
             SectionNames::VERSION => self::VERSION,
             SectionNames::TITLE => 'Experimental Theme',
@@ -405,18 +417,7 @@ final class JsonData
 //                    'customStyle'   => true,
 //                    'customWidth'   => true,
 //                ],
-                "blocks" => [
-                    "core/button" => [
-                        "color" => [
-                            'custom' => false,
-                        ],
-                    ],
-                    "core/navigation" => [
-                        "color" => [
-                            'custom' => false,
-                        ],
-                    ],
-                ],
+
                 'layout' => [
                     'contentSize' => $collection->get(self::CONTENT_SIZE)->var(),
                     'wideSize' => $collection->get(self::WIDE_SIZE)->var(),
@@ -429,496 +430,6 @@ final class JsonData
              * ============================================
              */
             SectionNames::STYLES    => [
-
-                /**
-                 * ============================================
-                 * Global styles
-                 *
-                 * border
-                 * color
-                 * typography
-                 * spacing
-                 * ============================================
-                 */
-                'color' => $container->get(Color::class)
-                    ->background(self::COLOR_BODY_BG)
-                    ->text(self::COLOR_BODY_COLOR),
-                'typography' => $container->get(Typography::class)
-                    ->fontFamily(self::FONT_FAMILY_BASE)
-                    ->fontSize(self::FONT_SIZE_BASE)
-                    ->fontStyle('normal')
-                    ->fontWeight('400')
-                    ->letterSpacing('normal')
-                    ->lineHeight(self::LINE_HEIGHT_M)
-                    ->textDecoration('none')
-                    ->textTransform('none'),
-                'spacing'   => [
-                    'blockGap'  => $container->get(CollectionInterface::class)->get(self::SPACER_M)->var(),
-                    'margin'    => $container->get(Spacing::class)->shorthand(['0px']),
-                    'padding'   => $container->get(Spacing::class)->shorthand(['0px']),
-                ],
-
-                /**
-                 * ============================================
-                 * Top level elements styles
-                 * ============================================
-                 */
-                'elements' => [
-                    /**
-                     * .wp-element-button
-                     *
-                     * BC = .wp-block-button__link
-                     */
-                    'button' => [
-                        'border' => $container->get(Border::class)
-                            ->color(self::BUTTON_BORDER_COLOR)
-                            ->radius(self::BUTTON_BORDER_RADIUS)
-                            ->style('solid')
-                            ->width('1px'),
-                        'color' => $container->get(Color::class)
-                            ->background(self::BUTTON_BG)
-                            ->text(self::BUTTON_TEXT),
-                        'spacing'   => [
-                            'padding' => $container->get(Spacing::class)
-                                ->vertical(self::BUTTON_PADDING_V)
-                                ->horizontal(self::BUTTON_PADDING_H),
-                        ],
-                        'typography' => $container->get(Typography::class)
-                            ->fontFamily(self::FONT_FAMILY_BASE)
-                            ->fontSize(self::FONT_SIZE_BASE)
-                            ->textDecoration('none')
-                            ->lineHeight(self::LINE_HEIGHT_S),
-                        ':hover' => [
-                            'color' => $container->get(Color::class)
-                                ->background(self::BUTTON_HOVER_BG)
-                                ->text(self::BUTTON_HOVER_TEXT),
-                            'border' => [
-                                'color' => $container->get(Color::class)
-                                    ->text(self::BUTTON_HOVER_BORDER_COLOR),
-                            ],
-                        ],
-                        ':focus' => [
-                            'color' => $container->get(Color::class)
-                                ->background(self::BUTTON_HOVER_BG),
-                            'border' => [
-                                'color' => $container->get(Color::class)
-                                    ->text(self::BUTTON_HOVER_BORDER_COLOR),
-                            ],
-                            'outline' => [
-                                'color' => $collection->get(self::COLOR_GRAY_300)->var(),
-                                'offset' => '1px',
-                                'style' => 'dotted',
-                                'width' => '1px',
-                            ],
-                        ],
-                        ':active' => [
-                            'color' => $container->get(Color::class)
-                                ->background(self::BUTTON_HOVER_BG),
-                            'border' => [
-                                'color' => $container->get(Color::class)
-                                    ->text(self::BUTTON_HOVER_BORDER_COLOR),
-                            ],
-                        ],
-                    ],
-                    'link' => [
-                        'color' => $container->get(Color::class)
-                            ->text(self::COLOR_LINK_TEXT)
-                            ->background('transparent'),
-                    ],
-                    'h1' => [
-                        'typography' => $container->get(Typography::class)
-                            ->fontSize(self::FONT_SIZE_H1),
-                    ],
-                    'h2' => [
-                        'typography' =>  $container->get(Typography::class)
-                            ->fontSize(self::FONT_SIZE_H2),
-                    ],
-                    'h3' => [
-                        'typography' => $container->get(Typography::class)
-                            ->fontSize(self::FONT_SIZE_H3),
-                    ],
-                    'h4' => [
-                        'typography' => $container->get(Typography::class)
-                            ->fontSize(self::FONT_SIZE_H4),
-                    ],
-                    'h5' => [
-                        'typography' => $container->get(Typography::class)
-                            ->fontSize(self::FONT_SIZE_H5),
-                    ],
-                    'h6' => [
-                        'typography' => $container->get(Typography::class)
-                            ->fontSize(self::FONT_SIZE_H6),
-                    ],
-                    'heading' => [
-                        'typography' => $container->get(Typography::class)
-                            ->fontFamily(self::FONT_FAMILY_BASE)
-                            ->fontWeight('700')
-                            ->lineHeight(self::LINE_HEIGHT_XS),
-                        'spacing'   => [
-                            'margin'    => $container->get(Spacing::class)
-                                ->top(self::SPACER_S)
-                                ->bottom('0'),
-                        ],
-                        'color' => $container->get(Color::class)
-                            ->text(self::COLOR_HEADING_TEXT),
-                    ],
-                ],
-
-                /**
-                 * ============================================
-                 * Blocks styles
-                 * ============================================
-                 */
-                'blocks' => [
-                    /**
-                     * .wp-element-button
-                     * .wp-block-button__link
-                     */
-                    'core/button' => [
-                        'variations' => [
-                            'outline' => [
-                                'border' => $container->get(Border::class)
-                                    ->color(self::COLOR_BASE)
-                                    ->radius(self::BUTTON_BORDER_RADIUS)
-                                    ->style('solid')
-                                    ->width('1px'),
-                                'color' => $container->get(Color::class)
-                                    ->background(self::COLOR_BODY_BG)
-                                    ->text(self::COLOR_BASE),
-                                'spacing'   => [
-                                    'padding' => $container->get(Spacing::class)
-                                        ->vertical(self::BUTTON_PADDING_V)
-                                        ->horizontal(self::BUTTON_PADDING_H),
-                                ],
-                            ],
-                        ],
-                    ],
-
-                    /**
-                     * ============================================
-                     * Blocks for titles
-                     * ============================================
-                     */
-                    'core/site-title' => [
-                        'color' => $container->get(Color::class)
-                            ->text(self::COLOR_HEADING_TEXT),
-                        'typography' => $container->get(Typography::class)
-                            ->fontSize(self::FONT_SIZE_H1)
-                            ->fontWeight('600'),
-                    ],
-                    'core/post-title' => [ // .wp-block-post-title
-                        'color' => $container->get(Color::class)
-                            ->text(self::COLOR_HEADING_TEXT),
-                        'typography' => $container->get(Typography::class)
-                            ->fontSize(self::FONT_SIZE_H1),
-                        'elements' => [
-                            'link' => [ // .wp-block-post-title a
-                                'color' => $container->get(Color::class)
-                                    ->text('inherit')
-                                    ->background('transparent'),
-                            ],
-                        ],
-                    ],
-                    /**
-                     * Title for queried object {Archive page}
-                     * <!-- wp:query-title {"type":"archive"} /-->
-                     * .wp-block-query-title
-                     */
-                    'core/query-title' => [
-                        'typography' => $container->get(Typography::class)
-                            ->fontSize(self::FONT_SIZE_H5)
-                            ->fontWeight('700'),
-                        'color' => $container->get(Color::class)
-                            ->text(self::COLOR_GRAY_400),
-                    ],
-                    'core/term-description' => [ // .wp-block-term-description
-                        'typography' => $container->get(Typography::class)
-                            ->fontSize(self::FONT_SIZE_X_SMALL),
-                        'spacing'   => [
-                            'margin'    => $container->get(Spacing::class)->shorthand(['0px !important']),
-                        ],
-                        'color' => $container->get(Color::class)
-                            ->text(self::COLOR_GRAY_400),
-                    ],
-
-                    /**
-                     * ============================================
-                     * Blocks elements for images
-                     * ============================================
-                     */
-                    'core/site-logo' => [ // wp-block-site-logo {figure element}
-                        'spacing'   => [
-                            'margin'    => $container->get(Spacing::class)->shorthand(['0px']),
-                            'padding'   => $container->get(Spacing::class)->shorthand(['0px']),
-                        ],
-                    ],
-                    'core/image' => [ // wp-block-image {figure element}
-                        'spacing'   => [
-                            'margin'    => $container->get(Spacing::class)
-                                ->top(self::SPACER_M)
-                                ->bottom('0px'),
-                        ],
-                    ],
-                    'core/post-featured-image' => [ // wp-block-post-featured-image {figure element}
-                        'spacing'   => [
-                            'margin'    => $container->get(Spacing::class)
-                                ->top(self::SPACER_M)
-                                ->bottom('0'),
-                        ],
-                    ],
-                    'core/gallery' => [ // wp-block-gallery {figure element}
-                        'spacing'   => [
-                            'margin'    => $container->get(Spacing::class)
-                                ->top(self::SPACER_M)
-                                ->bottom('0'),
-                        ],
-                    ],
-
-                    /**
-                     * ============================================
-                     * Blocks for content
-                     * ============================================
-                     */
-                    'core/post-content' => [ // .wp-block-post-content
-                        'color' => $container->get(Color::class)
-                            ->text('inherit'),
-                    ],
-                    'core/post-excerpt' => [ // .wp-block-post-content
-                        'color' => $container->get(Color::class)
-                            ->text('inherit'),
-                    ],
-
-                    /**
-                     * ============================================
-                     * Blocks container
-                     * ============================================
-                     */
-//                  'overblocks/container' => [
-//                      'spacing'   => [
-//                          'margin'    => '0',
-//                      ],
-//                  ],
-//                  'core/columns' => [
-//                      'spacing'   => [
-//                          'margin'    => '0',
-//                      ],
-//                  ],
-                    'core/template-part' => [
-                        'spacing'   => [
-                            'margin' => $container->get(Spacing::class)
-                                ->shorthand(['0 !important']),
-                            'padding'   => $container->get(Spacing::class)
-                                ->shorthand(['0 !important']),
-                        ],
-                    ],
-
-                    /**
-                     * ============================================
-                     * Blocks elements in content
-                     * ============================================
-                     */
-                    'core/paragraph' => [ // p
-                        'spacing'   => [
-                            'margin'    => $container->get(Spacing::class)
-                                ->top(self::SPACER_M)
-                                ->bottom('0px'),
-                        ],
-                    ],
-                    // p
-//                  'core/list' => [
-//                      'spacing'   => [
-//                          'margin'    => $container->get(Spacing::class)
-//                                ->top(self::SPACER_M)
-//                              ->bottom( '0px' ),
-//                      ],
-//                  ],
-                    'core/file' => [ // .wp-block-file
-                        'spacing'   => [
-                            'margin'    => $container->get(Spacing::class)
-                                ->top(self::SPACER_M),
-                        ],
-                        'typography' => $container->get(Typography::class)
-                            ->fontFamily(self::FONT_FAMILY_BASE)
-                            ->fontSize(self::FONT_SIZE_BASE)
-                            ->lineHeight(self::LINE_HEIGHT_S),
-                        'elements' => [
-                            'link' => [ // .wp-block-file a
-                                'color' => $container->get(Color::class)
-                                    ->text(self::COLOR_BASE)
-                                    ->background('transparent'),
-                            ],
-                        ],
-                    ],
-                    'core/code' => [
-                        'typography' => $container->get(Typography::class)
-                            ->fontFamily(self::FONT_FAMILY_MONOSPACE),
-                        'spacing' => [
-                            'margin'    => $container->get(Spacing::class)
-                                ->top(self::SPACER_L),
-                            'padding' => $container->get(Spacing::class)
-                                ->shorthand([self::SPACER_V, self::SPACER_H]),
-                        ],
-                        'border' => $container->get(Border::class)
-                            ->color(self::COLOR_BORDER)
-                            ->radius('0px')
-                            ->style('solid')
-                            ->width('1px'),
-                    ],
-                    'core/quote' => [
-                        'border' => $container->get(Border::class)
-                            ->color(self::COLOR_BODY_COLOR)
-                            ->style('solid')
-                            ->width('0 0 0 1px'),
-                        'spacing' => [
-                            'margin'    => $container->get(Spacing::class)
-                                ->top(self::SPACER_L),
-                            'padding'   => $container->get(Spacing::class)
-                                ->top(self::SPACER_H),
-                        ],
-                        'typography' => $container->get(Typography::class)
-                            ->fontSize(self::FONT_SIZE_BASE)
-                            ->fontStyle('normal'),
-                    ],
-
-                    /**
-                     * ============================================
-                     * Blocks for post meta elements
-                     * ============================================
-                     */
-                    'core/post-date' => [
-                        'color' => $container->get(Color::class)
-                            ->text(self::COLOR_GRAY_200),
-                        'typography' => $container->get(Typography::class)
-                            ->fontSize(self::FONT_SIZE_X_SMALL),
-                    ],
-
-                    'core/post-terms' => [
-                        'color' => $container->get(Color::class)
-                            ->text(self::COLOR_GRAY_200),
-                        'typography' => $container->get(Typography::class)
-                            ->fontSize(self::FONT_SIZE_X_SMALL),
-                        'elements' => [
-                            'link' => [ // .wp-block-file a
-                                'color' => $container->get(Color::class)
-                                    ->text(self::COLOR_GRAY_200)
-                                    ->background('transparent'),
-                                'typography' => $container->get(Typography::class)
-                                    ->textDecoration('none'),
-                            ],
-                        ],
-                    ],
-
-                    'core/post-author' => [
-                        'border' => $container->get(Border::class)
-                            ->color(self::COLOR_GRAY_700)
-                            ->style('solid')
-                            ->width('1px'),
-                        'color' => $container->get(Color::class)
-                            ->text(self::COLOR_BODY_COLOR)
-                            ->background(self::COLOR_GRAY_900),
-                        'typography' => $container->get(Typography::class)
-                            ->fontSize(self::FONT_SIZE_SMALL),
-                        'spacing'   => [
-//                          'margin'    => $container->get(Spacing::class)
-//                                ->top(self::SPACER_M)
-                            'padding'   => $container->get(Spacing::class)
-                                ->shorthand([self::SPACER_M]),
-                        ],
-                    ],
-
-                    /**
-                     * ============================================
-                     * Blocks for post comments
-                     * ============================================
-                     */
-                    'core/post-comments' => [
-                        'color' => $container->get(Color::class)
-                            ->text(self::COLOR_BODY_COLOR),
-                        'typography' => $container->get(Typography::class)
-                            ->fontSize(self::FONT_SIZE_BASE)
-                            ->fontWeight('300'),
-                    ],
-//                  'core/post-comments-form' => [
-//                      'color' => $container->get(Color::class)
-//                          ->text(self::COLOR_BODY_COLOR),
-//                      'typography' => $container->get(Typography::class)
-//                          ->fontSize(self::FONT_SIZE_BASE)
-//                          ->fontWeight( '300' ),
-//                  ],
-
-                    /**
-                     * <!-- wp:spacer -->
-                     * <div style="height:100px" aria-hidden="true" class="wp-block-spacer"></div>
-                     * <!-- /wp:spacer -->
-                     */
-                    'core/spacer' => [ // .wp-block-spacer
-                        'color' => $container->get(Color::class)
-                            ->text(self::COLOR_BODY_COLOR),
-                        'border' => $container->get(Border::class)
-                            ->color('currentColor')
-                            ->style('solid')
-                            ->width('0 0 0 0'),
-                    ],
-
-                    /**
-                     * <!-- wp:separator -->
-                     * <hr class="wp-block-separator"/>
-                     * <!-- /wp:separator -->
-                     */
-                    'core/separator' => [ // .wp-block-separator
-//                      'color' => $container->get(Color::class)
-//                          ->text( $palette->varOf('gray-700') ),
-                        'border' => $container->get(Border::class)
-                            ->color(self::COLOR_GRAY_700)
-                            ->style('solid')
-                            ->width('0 0 1px 0'),
-                    ],
-
-//                  'core/query' => [
-//                      'elements' => [
-//                      ],
-//                  ],
-
-                    /**
-                     * ============================================
-                     * Blocks at site level
-                     * ============================================
-                     */
-                    'core/site-tagline' => [
-                        'color' => $container->get(Color::class)
-                            ->text(self::COLOR_BODY_COLOR),
-                        'typography' => $container->get(Typography::class)
-                            ->fontSize(self::FONT_SIZE_H3)
-                            ->fontWeight('600'),
-                    ],
-                    'core/navigation' => [ // .wp-block-navigation
-                        'color' => $container->get(Color::class)
-                            ->text(self::COLOR_BODY_COLOR)
-                            ->background(self::COLOR_BODY_BG),
-                        'spacing'   => [
-                            'padding'   => $container->get(Spacing::class)->vertical('1.1rem'),
-                        ],
-                        'typography' => $container->get(Typography::class)
-                            ->fontSize(self::FONT_SIZE_X_SMALL)
-                            ->fontWeight('400')
-                            ->textTransform('uppercase'),
-//                      'elements' => [
-//                          'link' => [ // .wp-block-navigation a
-//                              'color' => $container->get(Color::class)
-//                                  ->text( $palette->varOf( 'base' ) )
-//                                  ->background( 'transparent' ),
-//                          ],
-//                      ],
-                    ],
-//                  'core/navigation-link' => [ // .wp-block-navigation-link
-//                      'color' => $container->get(Color::class)
-////                            ->text(self::COLOR_BODY_COLOR),
-//                  ],
-//                  'core/navigation-submenu' => [ // .wp-block-navigation
-//                      'color' => $container->get(Color::class)
-////                            ->text(self::COLOR_BODY_COLOR),
-//                  ],
-                ],
             ],
             SectionNames::TEMPLATE_PARTS => [
                 Helper::templateParts('header', 'header'),
@@ -937,21 +448,36 @@ final class JsonData
             ],
         ]);
 
-        $this->registerCollection($jsonData, $collection);
+        $this->registerCollection($blueprint, $collection);
+
+        $container->get(GlobalStyle::class)($blueprint);
+        $container->get(Elements::class)($blueprint);
+        $container->get(Containers::class)($blueprint);
+        $container->get(Heading::class)($blueprint);
+        $container->get(Buttons::class)($blueprint);
+        $container->get(Title::class)($blueprint);
+        $container->get(PostBody::class)($blueprint);
+        $container->get(PostComments::class)($blueprint);
+        $container->get(PostMeta::class)($blueprint);
+        $container->get(Navigation::class)($blueprint);
+        $container->get(Media::class)($blueprint);
+        $container->get(SpacerSeparator::class)($blueprint);
+        $container->get(TermDescription::class)($blueprint);
+        $container->get(SiteTagline::class)($blueprint);
     }
 
     /**
-     * @param Blueprint $jsonData
+     * @param Blueprint $blueprint
      * @param CollectionInterface $collection
      * @return void
      */
-    private function registerCollection(Blueprint $jsonData, CollectionInterface $collection): void
+    private function registerCollection(Blueprint $blueprint, CollectionInterface $collection): void
     {
-        $jsonData->set('settings.color.palette', $collection->toArrayByCategory(Palette::CATEGORY));
-        $jsonData->set('settings.color.gradients', $collection->toArrayByCategory(Gradient::CATEGORY));
-        $jsonData->set('settings.color.duotone', $collection->toArrayByCategory(Duotone::CATEGORY));
-        $jsonData->set('settings.typography.fontSizes', $collection->toArrayByCategory(FontSize::CATEGORY));
-        $jsonData->set('settings.typography.fontFamilies', $collection->toArrayByCategory(FontFamily::CATEGORY));
-        $jsonData->set('settings.custom', $collection->toArrayByCategory(Custom::CATEGORY));
+        $blueprint->set(Palette::KEY, $collection->toArrayByCategory(Palette::CATEGORY));
+        $blueprint->set('settings.color.gradients', $collection->toArrayByCategory(Gradient::CATEGORY));
+        $blueprint->set('settings.color.duotone', $collection->toArrayByCategory(Duotone::CATEGORY));
+        $blueprint->set('settings.typography.fontSizes', $collection->toArrayByCategory(FontSize::CATEGORY));
+        $blueprint->set('settings.typography.fontFamilies', $collection->toArrayByCategory(FontFamily::CATEGORY));
+        $blueprint->set('settings.custom', $collection->toArrayByCategory(Custom::CATEGORY));
     }
 }
