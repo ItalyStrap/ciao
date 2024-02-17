@@ -6,7 +6,7 @@ namespace ItalyStrap\ExperimentalTheme\Asset\Application\Root;
 
 use ItalyStrap\ExperimentalTheme\JsonData;
 use ItalyStrap\ThemeJsonGenerator\Application\Config\Blueprint;
-use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\CollectionInterface;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\PresetsInterface;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Border;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Color;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Spacing;
@@ -19,7 +19,7 @@ class TermDescription
     private Typography $typography;
     private Border $border;
     private Spacing $spacing;
-    private CollectionInterface $collection;
+    private PresetsInterface $collection;
 
     public function __construct(
         Blueprint $blueprint,
@@ -27,7 +27,7 @@ class TermDescription
         Typography $typography,
         Border $border,
         Spacing $spacing,
-        CollectionInterface $collection
+        PresetsInterface $collection
     ) {
         $this->blueprint = $blueprint;
         $this->color = $color;

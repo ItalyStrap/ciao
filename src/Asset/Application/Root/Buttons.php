@@ -6,35 +6,54 @@ namespace ItalyStrap\ExperimentalTheme\Asset\Application\Root;
 
 use ItalyStrap\ExperimentalTheme\JsonData;
 use ItalyStrap\ThemeJsonGenerator\Application\Config\Blueprint;
-use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\CollectionInterface;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\PresetsInterface;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Border;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Color;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\CssExperimental;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Outline;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Spacing;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Typography;
 
 class Buttons
 {
-    private Blueprint $blueprint;
     private Color $color;
     private Typography $typography;
     private Border $border;
     private Spacing $spacing;
-    private CollectionInterface $collection;
+    private Outline $outline;
+    private CssExperimental $css;
 
     public function __construct(
-        Blueprint $blueprint,
         Color $color,
         Typography $typography,
         Border $border,
         Spacing $spacing,
-        CollectionInterface $collection
+        Outline $outline,
+        CssExperimental $css
     ) {
-        $this->blueprint = $blueprint;
         $this->color = $color;
         $this->typography = $typography;
         $this->border = $border;
         $this->spacing = $spacing;
-        $this->collection = $collection;
+        $this->outline = $outline;
+        $this->css = $css;
+    }
+
+    private function buttonElementCss(): string
+    {
+        return <<<CSS
+.wp-element-button {
+    display: inline-block;
+    text-align: center;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    word-break: break-word;
+}
+CSS;
     }
 
     public function __invoke(Blueprint $blueprint)
@@ -49,8 +68,11 @@ class Buttons
          * .wp-element-button
          *
          * BC = .wp-block-button__link
+         *
+         * Div container => .wp-block-button
+         * a => .wp-block-button__link .wp-element-button
          */
-        $this->blueprint->setElementStyle('button', [
+        $blueprint->setElementStyle('button', [
             'border' => $this->border
                 ->color(JsonData::BUTTON_BORDER_COLOR)
                 ->radius(JsonData::BUTTON_BORDER_RADIUS)
@@ -69,44 +91,23 @@ class Buttons
                 ->fontSize(JsonData::FONT_SIZE_BASE)
                 ->textDecoration('none')
                 ->lineHeight(JsonData::LINE_HEIGHT_S),
-            ':hover' => [
-                'color' => $this->color
-                    ->background(JsonData::BUTTON_HOVER_BG)
-                    ->text(JsonData::BUTTON_HOVER_TEXT),
-                'border' => [
-                    'color' => $this->color
-                        ->text(JsonData::BUTTON_HOVER_BORDER_COLOR),
-                ],
-            ],
-            ':focus' => [
-                'color' => $this->color
-                    ->background(JsonData::BUTTON_HOVER_BG),
-                'border' => [
-                    'color' => $this->color
-                        ->text(JsonData::BUTTON_HOVER_BORDER_COLOR),
-                ],
-                'outline' => [
-                    'color' => $this->collection->get(JsonData::COLOR_GRAY_300)->var(),
-                    'offset' => '1px',
-                    'style' => 'dotted',
-                    'width' => '1px',
-                ],
-            ],
-            ':active' => [
-                'color' => $this->color
-                    ->background(JsonData::BUTTON_HOVER_BG),
-                'border' => [
-                    'color' => $this->color
-                        ->text(JsonData::BUTTON_HOVER_BORDER_COLOR),
-                ],
-            ],
+            ':hover' => $this->commonForPseudoClasses(),
+            ':active' => $this->commonForPseudoClasses(),
+            ':focus' => $this->commonForPseudoClasses([
+                'outline' => $this->outline
+                    ->color(JsonData::COLOR_GRAY_300)
+                    ->offset('1px')
+                    ->style('dotted')
+                    ->width('1px'),
+            ]),
         ]);
 
         /**
          * .wp-element-button
          * .wp-block-button__link
          */
-        $this->blueprint->setBlockStyle('core/button', [
+        $blueprint->setBlockStyle('core/button', [
+            'css' => $this->css->parseString($this->buttonElementCss(), '.wp-element-button'),
             'variations' => [
                 'outline' => [
                     'border' => $this->border
@@ -125,5 +126,21 @@ class Buttons
                 ],
             ],
         ]);
+    }
+
+    private function commonForPseudoClasses(array $more = []): array
+    {
+        return \array_merge(
+            [
+                'color' => $this->color
+                    ->background(JsonData::BUTTON_HOVER_BG)
+                    ->text(JsonData::BUTTON_HOVER_TEXT),
+                'border' => [
+                    'color' => $this->color
+                        ->text(JsonData::BUTTON_HOVER_BORDER_COLOR),
+                ],
+            ],
+            $more
+        );
     }
 }

@@ -20,16 +20,6 @@ use function get_template_directory;
 require get_stylesheet_directory() . '/vendor/autoload.php';
 
 (static function(Injector $injector) {
-
-//    \add_filter(
-//        'after_setup_theme',
-//        function () use ($injector) {
-//            \var_dump($injector->inspect());
-//            die();
-//        },
-//        999
-//    );
-
     try {
 
         /** @var GlobalOrderedListenerProvider $listenerRegister */

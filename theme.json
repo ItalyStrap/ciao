@@ -288,6 +288,18 @@
             "contentSize": "var(--wp--custom--content-size)",
             "wideSize": "var(--wp--custom--wide-size)"
         },
+        "blocks": {
+            "core/button": {
+                "color": {
+                    "custom": false
+                }
+            },
+            "core/navigation": {
+                "color": {
+                    "custom": false
+                }
+            }
+        },
         "custom": {
             "contentSize": "clamp(16rem, 60vw, 60rem)",
             "wideSize": "clamp(16rem, 85vw, 70rem)",
@@ -350,21 +362,10 @@
                     "height": "calc( var(--wp--custom--spacer--base) * 5.3125 )"
                 }
             }
-        },
-        "blocks": {
-            "core/button": {
-                "color": {
-                    "custom": false
-                }
-            },
-            "core/navigation": {
-                "color": {
-                    "custom": false
-                }
-            }
         }
     },
     "styles": {
+        "css": "background:#000000;",
         "color": {
             "background": "var(--wp--preset--color--body-bg)",
             "text": "var(--wp--preset--color--body-color)"
@@ -485,10 +486,22 @@
                         }
                     }
                 },
+                ":active": {
+                    "color": {
+                        "background": "var(--wp--custom--button--hover--bg)",
+                        "text": "var(--wp--custom--button--hover--text)"
+                    },
+                    "border": {
+                        "color": {
+                            "background": "var(--wp--custom--button--hover--bg)",
+                            "text": "var(--wp--custom--button--hover--border-color)"
+                        }
+                    }
+                },
                 ":focus": {
                     "color": {
                         "background": "var(--wp--custom--button--hover--bg)",
-                        "text": "var(--wp--custom--button--hover--border-color)"
+                        "text": "var(--wp--custom--button--hover--text)"
                     },
                     "border": {
                         "color": {
@@ -501,18 +514,6 @@
                         "offset": "1px",
                         "style": "dotted",
                         "width": "1px"
-                    }
-                },
-                ":active": {
-                    "color": {
-                        "background": "var(--wp--custom--button--hover--bg)",
-                        "text": "var(--wp--custom--button--hover--border-color)"
-                    },
-                    "border": {
-                        "color": {
-                            "background": "var(--wp--custom--button--hover--bg)",
-                            "text": "var(--wp--custom--button--hover--border-color)"
-                        }
                     }
                 }
             }
@@ -615,6 +616,7 @@
                 }
             },
             "core/button": {
+                "css": "display: inline-block;\ntext-align: center;\ntransition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;\nvertical-align: middle;\ncursor: pointer;\n-webkit-user-select: none;\n-ms-user-select: none;\nuser-select: none;\nword-break: break-word;\n",
                 "variations": {
                     "outline": {
                         "border": {

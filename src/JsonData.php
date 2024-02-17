@@ -20,23 +20,13 @@ use ItalyStrap\ExperimentalTheme\Asset\Application\Root\TermDescription;
 use ItalyStrap\ExperimentalTheme\Asset\Application\Root\Title;
 use ItalyStrap\ThemeJsonGenerator\Application\Config\Blueprint;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\SectionNames;
-use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\CollectionInterface;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\PresetsInterface;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Color\Duotone;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Color\Gradient;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Color\Palette;
-use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Color\Utilities\ColorInfo;
-use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Color\Utilities\ColorModifier;
-use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Color\Utilities\LinearGradient;
-use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Color\Utilities\ShadesGeneratorExperimental;
-use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Custom\CollectionAdapter;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Custom\Custom;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Typography\FontFamily;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Typography\FontSize;
-use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Utilities\CalcExperimental;
-use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Border;
-use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Color;
-use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Spacing;
-use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Typography;
 use Psr\Container\ContainerInterface;
 
 final class JsonData
@@ -119,277 +109,20 @@ final class JsonData
     public const SITE_BLOCKS_MARGIN_TOP = Custom::CATEGORY . '.site-blocks.margin.top';
 
 
-    public static function getJsonData(ContainerInterface $container, CollectionInterface $collection): void
+    public static function getJsonData(ContainerInterface $container, PresetsInterface $collection): void
     {
         (new self())($container, $collection);
     }
 
-    /**
-     * light: '#ede7d9'
-     * dark: '#0c0910'
-     * heading_text: '#0099aa'
-     */
-    private function registerColors(CollectionInterface $collection): void
+    public function __invoke(ContainerInterface $container, PresetsInterface $collection): void
     {
-        $baseClr = (new ColorInfo('#3986E0'))->toHsla();
-
-        $light = (new ColorInfo('#ffffff'))->toHsla();
-        $dark = (new ColorInfo('#000000'))->toHsla();
-        $bodyBg = (new ColorInfo('#ffffff'))->toHsla();
-        $bodyText = (new ColorInfo('#000000'))->toHsla();
-        $headingText = (new ColorModifier($bodyText))->lighten(20);
-
-        $border_color = (new ColorInfo('#cccccc'))->toHsla();
-
-        $button_bg_hover = (new ColorModifier($baseClr))->darken(20);
-        $button_text_hover = (new ColorModifier($bodyBg))->darken(10);
-
-        if ($baseClr->isDark()) {
-            $button_text_hover = (new ColorModifier($bodyBg))->lighten(10);
-        }
-
-        $infoClr = $baseClr;
-        $successClr = (new ColorModifier($infoClr))->hueRotate(-82);
-        $warningClr = (new ColorModifier($infoClr))->hueRotate(-172);
-        $dangerClr = (new ColorModifier($infoClr))->hueRotate(-$infoClr->hue());
-
-        $lightClrPalette = new Palette('light', 'Lighter color', $light);
-        $darkClrPalette = new Palette('dark', 'Darker color', $dark);
-        $baseClrPalette = new Palette('base', 'Brand base color', $baseClr);
-        $bodyBgClrPalette = new Palette('bodyBg', 'Color for body background', $bodyBg);
-        $bodyClrPalette = new Palette('bodyColor', 'Color for text', $bodyText);
-        $headingClrPalette = new Palette('headingColor', 'Color for headings', $headingText);
-        $linkClrPalette = new Palette('linkColor', 'Color for links', $baseClr);
-        $borderClrPalette = new Palette('borderColor', 'Color for borders', $border_color);
-        $buttonBgHoverClrPalette = new Palette('buttonBgHover', 'Color for button background on hover', $button_bg_hover);
-        $buttonTextHoverClrPalette = new Palette('buttonTextHover', 'Color for button text on hover', $button_text_hover);
-
-        $baseDarkClrPalette = new Palette('baseDark', 'Darker Brand base color', (new ColorModifier($baseClrPalette->color()))->darken(20));
-        $baseLightClrPalette = new Palette('baseLight', 'Lighter Brand base color', (new ColorModifier($baseClrPalette->color()))->lighten(20));
-        $baseComplementaryClrPalette = new Palette('baseComplementary', 'Brand base complementary color', (new ColorModifier($baseClrPalette->color()))->complementary());
-
-        $infoClrPalette = new Palette('infoColor', 'Info color', $infoClr);
-        $successClrPalette = new Palette('successColor', 'Success color', $successClr);
-        $warningClrPalette = new Palette('warningColor', 'Warning color', $warningClr);
-        $dangerClrPalette = new Palette('dangerColor', 'Danger color', $dangerClr);
-
-        // Start by adding colors
-        $collection->add($baseClrPalette)
-            ->add($lightClrPalette)
-            ->add($darkClrPalette)
-            ->add($bodyBgClrPalette)
-            ->add($bodyClrPalette)
-            ->add($headingClrPalette)
-            ->add($linkClrPalette)
-            ->add($buttonBgHoverClrPalette)
-            ->add($buttonTextHoverClrPalette)
-            ->add($borderClrPalette)
-            ->add($baseDarkClrPalette)
-            ->add($baseLightClrPalette)
-            ->add($baseComplementaryClrPalette)
-            ->add($infoClrPalette)
-            ->add($successClrPalette)
-            ->add($warningClrPalette)
-            ->add($dangerClrPalette)
-            ->addMultiple(
-                ShadesGeneratorExperimental::fromPalette($baseClrPalette)->toArray()
-            )
-            ->addMultiple(
-                ShadesGeneratorExperimental::fromPalette($bodyClrPalette)->toArray()
-            );
-    }
-
-    private function registerGradient(CollectionInterface $collection): void
-    {
-        $collection
-            ->add(new Gradient(
-                'light-to-dark',
-                'Black to white',
-                new LinearGradient(
-                    '160deg',
-                    $collection->get(self::COLOR_LIGHT),
-                    $collection->get(self::COLOR_DARK)
-                )
-            ))
-            ->add(new Gradient(
-                'base-to-white',
-                'Base to white',
-                new LinearGradient(
-                    '135deg',
-                    $collection->get(self::COLOR_BASE),
-                    $collection->get(self::COLOR_BASE_DARK)
-                )
-            ));
-    }
-
-    private function registerDuotone(CollectionInterface $collection): void
-    {
-        $collection
-            ->add(new Duotone(
-                "black-to-white",
-                "Black to White",
-                $collection->get(self::COLOR_BODY_COLOR),
-                $collection->get(self::COLOR_BODY_BG)
-            ))
-            ->add(new Duotone(
-                "white-to-black",
-                "White to Black",
-                $collection->get(self::COLOR_BODY_BG),
-                $collection->get(self::COLOR_BODY_COLOR)
-            ))
-            ->add(new Duotone(
-                "base-to-white",
-                "Base to White",
-                $collection->get(self::COLOR_BASE),
-                $collection->get(self::COLOR_BODY_BG)
-            ))
-            ->add(new Duotone(
-                "base-to-black",
-                "Base to Black",
-                $collection->get(self::COLOR_BASE),
-                $collection->get(self::COLOR_BODY_COLOR)
-            ));
-    }
-
-    private function registerFontSizes(CollectionInterface $collection): void
-    {
-        $collection
-            ->add(new FontSize('base', 'Base font size 16px', 'clamp(1rem, 2vw, 1.5rem)'))
-            ->add(new FontSize('h1', 'Used in H1 titles', 'calc( {{fontSize.base}} * 2.8125)'))
-            ->add(new FontSize('h2', 'Used in H2 titles', 'calc( {{fontSize.base}} * 2.1875)'))
-            ->add(new FontSize('h3', 'Used in H3 titles', 'calc( {{fontSize.base}} * 1.625)'))
-            ->add(new FontSize('h4', 'Used in H4 titles', 'calc( {{fontSize.base}} * 1.5)'))
-            ->add(new FontSize('h5', 'Used in H5 titles', 'calc( {{fontSize.base}} * 1.125)'))
-            ->add(new FontSize('h6', 'Used in H6 titles', '{{fontSize.base}}'))
-            ->add(new FontSize('small', 'Small font size', 'calc( {{fontSize.base}} * 0.875)'))
-            ->add(new FontSize('x-small', 'Extra Small font size', 'calc( {{fontSize.base}} * 0.75)'));
-    }
-
-    private function registerFontFamily(CollectionInterface $collection): void
-    {
-        $collection
-            ->add(new FontFamily(
-                'base',
-                'Default font family',
-                'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
-            ))
-            ->add(new FontFamily(
-                'monospace',
-                'Font family for code',
-                'SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
-            ));
-    }
-
-    private function registerCustom(CollectionInterface $collection): void
-    {
-        $spacerBase = '1rem';
-
-//        $testDimension = new Dimension('1%');
-//        var_dump($testDimension->value());
-//        var_dump($testDimension->unit());
-//        var_dump((string)$testDimension);
-//        $testCalc = new Calc((string)$testDimension, '+', (string)$testDimension);
-//        var_dump($testCalc->value());
-//        var_dump((string)$testCalc);
-//        $testCalc = new Calc((string)$testDimension, '+', (string)$testDimension, '+', (string)$testDimension);
-
-        $collectionAdapter = new CollectionAdapter([
-            'contentSize'   => 'clamp(16rem, 60vw, 60rem)',
-            'wideSize'      => 'clamp(16rem, 85vw, 70rem)',
-            'baseFontSize'  => "1rem",
-            'spacer'        => [
-                'base'  => '1rem',
-                'v'     => 'calc( {{spacer.base}} * 4 )',
-                'h'     => 'calc( {{spacer.base}} * 4 )',
-                's'     => 'calc( {{spacer.base}} / 1.5 )',
-                'm'     => 'calc( {{spacer.base}} * 2 )',
-                'l'     => 'calc( {{spacer.base}} * 3 )',
-                'xl'    => 'calc( {{spacer.base}} * 4 )',
-            ],
-            'lineHeight'    => [
-                'base' => '1.5',
-                'xs' => '1.1',
-                's' => '1.3',
-                'm' => '{{lineHeight.base}}',
-                'l' => '1.7'
-            ],
-            'body'      => [
-                'bg'    => $collection->get(self::COLOR_BASE),
-                'text'  => $collection->get(self::COLOR_BODY_BG),
-            ],
-            'link'      => [
-                'bg'    => $collection->get(self::COLOR_BASE),
-                'text'  => $collection->get(self::COLOR_BODY_BG),
-                'decoration'    => 'underline',
-                'hover' => [
-                    'text'          => $collection->get(self::COLOR_BODY_COLOR),
-                    'decoration'    => 'underline',
-                ],
-            ],
-            'button'        => [
-                'bg'    => $collection->get(self::COLOR_BASE),
-                'text'    => $collection->get(self::COLOR_BUTTON_TEXT_HOVER),
-                'borderColor'   => 'transparent',
-                'borderRadius'  => (string)(new CalcExperimental(
-                    $collection->get(self::FONT_SIZE_BASE)->var(),
-                    '/',
-                    '3'
-                )),
-                'hover' => [
-                    'bg'    => $collection->get(self::COLOR_BUTTON_BG_HOVER),
-                    'text'  => $collection->get(self::COLOR_BUTTON_TEXT_HOVER),
-                    'borderColor'   => 'transparent',
-                ],
-                'padding'   => [
-                    'h' => '0.75em',
-                    'v' => '0.375em',
-                ],
-            ],
-            'form'  => [
-                'border'    => [
-                    'color' => '',
-                    'width' => '',
-                ],
-                'input' => [
-                    'color' => '',
-                ],
-            ],
-            'navbar'    => [
-                'min'       => [
-                    'height'    => 'calc( {{spacer.base}} * 5.3125 )',
-                ],
-            ],
-            'query'     => [
-                'post'  => [
-                ],
-            ],
-        ]);
-
-        $collection->addMultiple(
-            $collectionAdapter->toArray()
-        );
-
-//        $collection
-//            ->add(new Item(
-//                self::CONTENT_SIZE,
-//                'clamp(16rem, 60vw, 60rem)'
-//            ))
-//            ->add(new Item(
-//                self::LINE_HEIGHT_L,
-//                '1.7'
-//            ));
-    }
-
-    public function __invoke(ContainerInterface $container, CollectionInterface $collection): void
-    {
-        $this->registerColors($collection);
-        $this->registerGradient($collection);
-        $this->registerDuotone($collection);
-        $this->registerFontSizes($collection);
-        $this->registerFontFamily($collection);
-        $this->registerCustom($collection);
-
         $blueprint = $container->get(Blueprint::class);
+        $container->get(\ItalyStrap\ExperimentalTheme\Asset\Application\Root\Collection\Colors::class)($blueprint);
+        $container->get(\ItalyStrap\ExperimentalTheme\Asset\Application\Root\Collection\Gradient::class)($blueprint);
+        $container->get(\ItalyStrap\ExperimentalTheme\Asset\Application\Root\Collection\Duotone::class)($blueprint);
+        $container->get(\ItalyStrap\ExperimentalTheme\Asset\Application\Root\Collection\FontSizes::class)($blueprint);
+        $container->get(\ItalyStrap\ExperimentalTheme\Asset\Application\Root\Collection\FontFamily::class)($blueprint);
+        $container->get(\ItalyStrap\ExperimentalTheme\Asset\Application\Root\Collection\Custom::class)($blueprint);
 
         $blueprint->merge([
             SectionNames::SCHEMA => 'https://schemas.wp.org/trunk/theme.json',
@@ -448,8 +181,6 @@ final class JsonData
             ],
         ]);
 
-        $this->registerCollection($blueprint, $collection);
-
         $container->get(GlobalStyle::class)($blueprint);
         $container->get(Elements::class)($blueprint);
         $container->get(Containers::class)($blueprint);
@@ -464,20 +195,5 @@ final class JsonData
         $container->get(SpacerSeparator::class)($blueprint);
         $container->get(TermDescription::class)($blueprint);
         $container->get(SiteTagline::class)($blueprint);
-    }
-
-    /**
-     * @param Blueprint $blueprint
-     * @param CollectionInterface $collection
-     * @return void
-     */
-    private function registerCollection(Blueprint $blueprint, CollectionInterface $collection): void
-    {
-        $blueprint->set(Palette::KEY, $collection->toArrayByCategory(Palette::CATEGORY));
-        $blueprint->set('settings.color.gradients', $collection->toArrayByCategory(Gradient::CATEGORY));
-        $blueprint->set('settings.color.duotone', $collection->toArrayByCategory(Duotone::CATEGORY));
-        $blueprint->set('settings.typography.fontSizes', $collection->toArrayByCategory(FontSize::CATEGORY));
-        $blueprint->set('settings.typography.fontFamilies', $collection->toArrayByCategory(FontFamily::CATEGORY));
-        $blueprint->set('settings.custom', $collection->toArrayByCategory(Custom::CATEGORY));
     }
 }

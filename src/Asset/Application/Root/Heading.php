@@ -28,36 +28,21 @@ class Heading
 
     public function __invoke(Blueprint $blueprint): void
     {
+        $map = [
+            'h1' => JsonData::FONT_SIZE_H1,
+            'h2' => JsonData::FONT_SIZE_H2,
+            'h3' => JsonData::FONT_SIZE_H3,
+            'h4' => JsonData::FONT_SIZE_H4,
+            'h5' => JsonData::FONT_SIZE_H5,
+            'h6' => JsonData::FONT_SIZE_H6,
+        ];
 
-        $blueprint->setElementStyle('h1', [
-            'typography' => $this->typography
-                ->fontSize(JsonData::FONT_SIZE_H1),
-        ]);
-
-        $blueprint->setElementStyle('h2', [
-            'typography' =>  $this->typography
-                ->fontSize(JsonData::FONT_SIZE_H2),
-        ]);
-
-        $blueprint->setElementStyle('h3', [
-            'typography' => $this->typography
-                ->fontSize(JsonData::FONT_SIZE_H3),
-        ]);
-
-        $blueprint->setElementStyle('h4', [
-            'typography' => $this->typography
-                ->fontSize(JsonData::FONT_SIZE_H4),
-        ]);
-
-        $blueprint->setElementStyle('h5', [
-            'typography' => $this->typography
-                ->fontSize(JsonData::FONT_SIZE_H5),
-        ]);
-
-        $blueprint->setElementStyle('h6', [
-            'typography' => $this->typography
-                ->fontSize(JsonData::FONT_SIZE_H6),
-        ]);
+        foreach ($map as $element => $fontSize) {
+            $blueprint->setElementStyle($element, [
+                'typography' => $this->typography
+                    ->fontSize($fontSize),
+            ]);
+        }
 
         $blueprint->setElementStyle('heading', [
             'typography' => $this->typography
