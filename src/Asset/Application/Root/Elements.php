@@ -8,7 +8,7 @@ use ItalyStrap\ExperimentalTheme\JsonData;
 use ItalyStrap\ThemeJsonGenerator\Application\Config\Blueprint;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Border;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Color;
-use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\CssExperimental;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Css;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Spacing;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Typography;
 

@@ -9,7 +9,7 @@ use ItalyStrap\ThemeJsonGenerator\Application\Config\Blueprint;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\PresetsInterface;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Border;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Color;
-use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\CssExperimental;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Css;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Outline;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Spacing;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Typography;
@@ -21,7 +21,7 @@ class Buttons
     private Border $border;
     private Spacing $spacing;
     private Outline $outline;
-    private CssExperimental $css;
+    private Css $css;
 
     public function __construct(
         Color $color,
@@ -29,7 +29,7 @@ class Buttons
         Border $border,
         Spacing $spacing,
         Outline $outline,
-        CssExperimental $css
+        Css $css
     ) {
         $this->color = $color;
         $this->typography = $typography;

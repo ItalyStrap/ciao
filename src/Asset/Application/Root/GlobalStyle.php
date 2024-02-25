@@ -10,7 +10,7 @@ use ItalyStrap\ThemeJsonGenerator\Domain\Input\SectionNames;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\PresetsInterface;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Border;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Color;
-use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\CssExperimental;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Css;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Spacing;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Typography;
 
@@ -19,14 +19,14 @@ class GlobalStyle
     private Color $color;
     private Typography $typography;
     private Spacing $spacing;
-    private CssExperimental $css;
+    private Css $css;
     private PresetsInterface $presets;
 
     public function __construct(
-        Color $color,
-        Typography $typography,
-        Spacing $spacing,
-        CssExperimental $css,
+        Color            $color,
+        Typography       $typography,
+        Spacing          $spacing,
+        Css              $css,
         PresetsInterface $presets
     ) {
         $this->color = $color;
