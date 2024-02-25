@@ -7,17 +7,17 @@ namespace ItalyStrap\ExperimentalTheme\Asset\Application\Root\Collection;
 use ItalyStrap\ExperimentalTheme\JsonData;
 use ItalyStrap\ThemeJsonGenerator\Application\Config\Blueprint;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\PresetsInterface;
-use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Custom\CollectionAdapter;
+use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Custom\CustomToPresets;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Utilities\CalcExperimental;
 
 class Custom
 {
-    private PresetsInterface $collection;
+    private PresetsInterface $presets;
 
     public function __construct(
-        PresetsInterface $collection
+        PresetsInterface $presets
     ) {
-        $this->collection = $collection;
+        $this->presets = $presets;
     }
 
     public function __invoke(Blueprint $blueprint): void
@@ -33,7 +33,7 @@ class Custom
 //        var_dump((string)$testCalc);
 //        $testCalc = new Calc((string)$testDimension, '+', (string)$testDimension, '+', (string)$testDimension);
 
-        $collectionAdapter = new CollectionAdapter([
+        $customToPresets = new CustomToPresets([
             'contentSize'   => 'clamp(16rem, 60vw, 60rem)',
             'wideSize'      => 'clamp(16rem, 85vw, 70rem)',
             'baseFontSize'  => "1rem",
@@ -54,30 +54,30 @@ class Custom
                 'l' => '1.7'
             ],
             'body'      => [
-                'bg'    => $this->collection->get(JsonData::COLOR_BASE),
-                'text'  => $this->collection->get(JsonData::COLOR_BODY_BG),
+                'bg'    => $this->presets->get(JsonData::COLOR_BASE),
+                'text'  => $this->presets->get(JsonData::COLOR_BODY_BG),
             ],
             'link'      => [
-                'bg'    => $this->collection->get(JsonData::COLOR_BASE),
-                'text'  => $this->collection->get(JsonData::COLOR_BODY_BG),
+                'bg'    => $this->presets->get(JsonData::COLOR_BASE),
+                'text'  => $this->presets->get(JsonData::COLOR_BODY_BG),
                 'decoration'    => 'underline',
                 'hover' => [
-                    'text'          => $this->collection->get(JsonData::COLOR_BODY_COLOR),
+                    'text'          => $this->presets->get(JsonData::COLOR_BODY_COLOR),
                     'decoration'    => 'underline',
                 ],
             ],
             'button'        => [
-                'bg'    => $this->collection->get(JsonData::COLOR_BASE),
-                'text'    => $this->collection->get(JsonData::COLOR_BUTTON_TEXT_HOVER),
+                'bg'    => $this->presets->get(JsonData::COLOR_BASE),
+                'text'    => $this->presets->get(JsonData::COLOR_BUTTON_TEXT_HOVER),
                 'borderColor'   => 'transparent',
                 'borderRadius'  => (string)(new CalcExperimental(
-                    $this->collection->get(JsonData::FONT_SIZE_BASE)->var(),
+                    $this->presets->get(JsonData::FONT_SIZE_BASE)->var(),
                     '/',
                     '3'
                 )),
                 'hover' => [
-                    'bg'    => $this->collection->get(JsonData::COLOR_BUTTON_BG_HOVER),
-                    'text'  => $this->collection->get(JsonData::COLOR_BUTTON_TEXT_HOVER),
+                    'bg'    => $this->presets->get(JsonData::COLOR_BUTTON_BG_HOVER),
+                    'text'  => $this->presets->get(JsonData::COLOR_BUTTON_TEXT_HOVER),
                     'borderColor'   => 'transparent',
                 ],
                 'padding'   => [
@@ -105,8 +105,8 @@ class Custom
             ],
         ]);
 
-        $this->collection->addMultiple(
-            $collectionAdapter->toArray()
+        $this->presets->addMultiple(
+            $customToPresets->toArray()
         );
 
 //        $this->collection

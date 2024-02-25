@@ -13,12 +13,12 @@ use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Color\Utilities\ShadesGe
 
 class Colors
 {
-    private PresetsInterface $collection;
+    private PresetsInterface $presets;
 
     public function __construct(
-        PresetsInterface $collection
+        PresetsInterface $presets
     ) {
-        $this->collection = $collection;
+        $this->presets = $presets;
     }
 
     /**
@@ -71,7 +71,7 @@ class Colors
         $dangerClrPalette = new Palette('dangerColor', 'Danger color', $dangerClr);
 
         // Start by adding colors
-        $this->collection->add($baseClrPalette)
+        $this->presets->add($baseClrPalette)
             ->add($lightClrPalette)
             ->add($darkClrPalette)
             ->add($bodyBgClrPalette)

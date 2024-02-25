@@ -114,7 +114,7 @@ final class JsonData
         (new self())($container, $collection);
     }
 
-    public function __invoke(ContainerInterface $container, PresetsInterface $collection): void
+    public function __invoke(ContainerInterface $container, PresetsInterface $presets): void
     {
         $blueprint = $container->get(Blueprint::class);
         $container->get(\ItalyStrap\ExperimentalTheme\Asset\Application\Root\Collection\Colors::class)($blueprint);
@@ -152,8 +152,8 @@ final class JsonData
 //                ],
 
                 'layout' => [
-                    'contentSize' => $collection->get(self::CONTENT_SIZE)->var(),
-                    'wideSize' => $collection->get(self::WIDE_SIZE)->var(),
+                    'contentSize' => $presets->get(self::CONTENT_SIZE)->var(),
+                    'wideSize' => $presets->get(self::WIDE_SIZE)->var(),
                 ],
             ],
 

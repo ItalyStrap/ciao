@@ -11,24 +11,24 @@ use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Color\Utilities\LinearGr
 
 class Gradient
 {
-    private PresetsInterface $collection;
+    private PresetsInterface $presets;
 
     public function __construct(
-        PresetsInterface $collection
+        PresetsInterface $presets
     ) {
-        $this->collection = $collection;
+        $this->presets = $presets;
     }
 
     public function __invoke(Blueprint $blueprint): void
     {
-        $this->collection
+        $this->presets
             ->add(new \ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Color\Gradient(
                 'light-to-dark',
                 'Black to white',
                 new LinearGradient(
                     '160deg',
-                    $this->collection->get(JsonData::COLOR_LIGHT),
-                    $this->collection->get(JsonData::COLOR_DARK)
+                    $this->presets->get(JsonData::COLOR_LIGHT),
+                    $this->presets->get(JsonData::COLOR_DARK)
                 )
             ))
             ->add(new \ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Color\Gradient(
@@ -36,8 +36,8 @@ class Gradient
                 'Base to white',
                 new LinearGradient(
                     '135deg',
-                    $this->collection->get(JsonData::COLOR_BASE),
-                    $this->collection->get(JsonData::COLOR_BASE_DARK)
+                    $this->presets->get(JsonData::COLOR_BASE),
+                    $this->presets->get(JsonData::COLOR_BASE_DARK)
                 )
             ));
     }

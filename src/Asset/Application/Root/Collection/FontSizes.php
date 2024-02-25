@@ -10,17 +10,17 @@ use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Typography\FontSize;
 
 class FontSizes
 {
-    private PresetsInterface $collection;
+    private PresetsInterface $presets;
 
     public function __construct(
-        PresetsInterface $collection
+        PresetsInterface $presets
     ) {
-        $this->collection = $collection;
+        $this->presets = $presets;
     }
 
     public function __invoke(Blueprint $blueprint): void
     {
-        $this->collection
+        $this->presets
             ->add(new FontSize('base', 'Base font size 16px', 'clamp(1rem, 2vw, 1.5rem)'))
             ->add(new FontSize('h1', 'Used in H1 titles', 'calc( {{fontSize.base}} * 2.8125)'))
             ->add(new FontSize('h2', 'Used in H2 titles', 'calc( {{fontSize.base}} * 2.1875)'))

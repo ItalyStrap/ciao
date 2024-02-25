@@ -20,20 +20,20 @@ class GlobalStyle
     private Typography $typography;
     private Spacing $spacing;
     private CssExperimental $css;
-    private PresetsInterface $collection;
+    private PresetsInterface $presets;
 
     public function __construct(
         Color $color,
         Typography $typography,
         Spacing $spacing,
         CssExperimental $css,
-        PresetsInterface $collection
+        PresetsInterface $presets
     ) {
         $this->color = $color;
         $this->typography = $typography;
         $this->spacing = $spacing;
         $this->css = $css;
-        $this->collection = $collection;
+        $this->presets = $presets;
     }
 
     /**
@@ -64,7 +64,7 @@ class GlobalStyle
             ->textTransform('none'));
 
         $blueprint->set(SectionNames::STYLES . '.spacing', [
-            'blockGap'  => $this->collection->get(JsonData::SPACER_M)->var(),
+            'blockGap'  => $this->presets->get(JsonData::SPACER_M)->var(),
             'margin'    => $this->spacing->shorthand(['0px']),
             'padding'   => $this->spacing->shorthand(['0px']),
         ]);

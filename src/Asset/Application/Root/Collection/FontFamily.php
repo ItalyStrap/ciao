@@ -9,17 +9,17 @@ use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\PresetsInterface;
 
 class FontFamily
 {
-    private PresetsInterface $collection;
+    private PresetsInterface $presets;
 
     public function __construct(
-        PresetsInterface $collection
+        PresetsInterface $presets
     ) {
-        $this->collection = $collection;
+        $this->presets = $presets;
     }
 
     public function __invoke(Blueprint $blueprint): void
     {
-        $this->collection
+        $this->presets
             ->add(new \ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\Typography\FontFamily(
                 'base',
                 'Default font family',

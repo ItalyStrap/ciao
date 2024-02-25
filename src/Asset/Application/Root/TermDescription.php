@@ -14,27 +14,18 @@ use ItalyStrap\ThemeJsonGenerator\Domain\Input\Styles\Typography;
 
 class TermDescription
 {
-    private Blueprint $blueprint;
     private Color $color;
     private Typography $typography;
-    private Border $border;
     private Spacing $spacing;
-    private PresetsInterface $collection;
 
     public function __construct(
-        Blueprint $blueprint,
         Color $color,
         Typography $typography,
-        Border $border,
-        Spacing $spacing,
-        PresetsInterface $collection
+        Spacing $spacing
     ) {
-        $this->blueprint = $blueprint;
         $this->color = $color;
         $this->typography = $typography;
-        $this->border = $border;
         $this->spacing = $spacing;
-        $this->collection = $collection;
     }
 
     public function __invoke(Blueprint $blueprint)
