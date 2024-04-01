@@ -1,15 +1,15 @@
- .site-footer{
-     padding: var( --wp--custom--spacer--h ) 0;
- }
+.site-footer {
+    padding: var(--wp--custom--spacer--h) 0;
+}
 
- //@include media-breakpoint-up(sm, $grid-breakpoints) {
- //    .site-footer{
- //        padding: ($site-footer-padding-y / 2) $spacer;
- //    }
- //}
+//@include media-breakpoint-up(sm, $grid-breakpoints) {
+//    .site-footer{
+//        padding: ($site-footer-padding-y / 2) $spacer;
+//    }
+//}
 
- //@include media-breakpoint-up(md, $grid-breakpoints) {
- //    .site-footer{
- //        padding: $site-footer-padding-y $site-footer-padding-x;
- //    }
- //}
+//@include media-breakpoint-up(md, $grid-breakpoints) {
+//    .site-footer{
+//        padding: $site-footer-padding-y $site-footer-padding-x;
+//    }
+//}

@@ -1,6 +1,13 @@
 ## Theme Json Generator
 theme.schema.json
 
+## Package Lock
+package-lock.json
+
+## Yarn
+yarn.lock
+yarn-error.log
+
 # Directory
 /vendor/
 /_others/

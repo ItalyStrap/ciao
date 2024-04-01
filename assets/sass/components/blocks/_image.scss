@@ -1,4 +1,4 @@
-@use "sass:math";
+@use 'sass:math';
 @function em($pixel, $context: 16) {
     @return #{math.div($pixel, $context)}em;
 }
@@ -8,8 +8,8 @@
     position: relative;
     figcaption {
         position: absolute;
-        top: em( 20 );
-        left: em( -30 );
+        top: em(20);
+        left: em(-30);
         right: 0;
         background-color: var(--wp--preset--color--base);
         color: #ffffff;

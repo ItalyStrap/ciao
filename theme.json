@@ -44,6 +44,11 @@
                     "color": "hsla(212,73%,55%,1)"
                 },
                 {
+                    "slug": "borderColor",
+                    "name": "Color for borders",
+                    "color": "hsla(0,0%,80%,1)"
+                },
+                {
                     "slug": "buttonBgHover",
                     "name": "Color for button background on hover",
                     "color": "hsla(212,73%,35%,1)"
@@ -51,12 +56,7 @@
                 {
                     "slug": "buttonTextHover",
                     "name": "Color for button text on hover",
-                    "color": "hsla(0,0%,90%,1)"
-                },
-                {
-                    "slug": "borderColor",
-                    "name": "Color for borders",
-                    "color": "hsla(0,0%,80%,1)"
+                    "color": "hsla(0,0%,100%,1)"
                 },
                 {
                     "slug": "baseDark",
@@ -71,7 +71,7 @@
                 {
                     "slug": "baseComplementary",
                     "name": "Brand base complementary color",
-                    "color": "hsla(604,73%,55%,1)"
+                    "color": "hsla(244,73%,55%,1)"
                 },
                 {
                     "slug": "infoColor",
@@ -95,73 +95,148 @@
                 },
                 {
                     "slug": "base-100",
-                    "name": "Shade of Base by 10%",
-                    "color": "hsla(212,73%,45%,1)"
+                    "name": "Monochromatic of Brand base color by 10%",
+                    "color": "hsla(212,74%,91%,1)"
                 },
                 {
                     "slug": "base-200",
-                    "name": "Shade of Base by 20%",
-                    "color": "hsla(212,73%,35%,1)"
+                    "name": "Monochromatic of Brand base color by 20%",
+                    "color": "hsla(212,74%,82%,1)"
                 },
                 {
                     "slug": "base-300",
-                    "name": "Shade of Base by 30%",
-                    "color": "hsla(212,73%,25%,1)"
+                    "name": "Monochromatic of Brand base color by 30%",
+                    "color": "hsla(212,72%,73%,1)"
                 },
                 {
                     "slug": "base-400",
-                    "name": "Shade of Base by 40%",
-                    "color": "hsla(212,73%,15%,1)"
+                    "name": "Monochromatic of Brand base color by 40%",
+                    "color": "hsla(212,73%,64%,1)"
                 },
                 {
                     "slug": "base-500",
-                    "name": "Shade of Base by 50%",
-                    "color": "hsla(212,73%,5%,1)"
+                    "name": "Monochromatic of Brand base color by 50%",
+                    "color": "hsla(212,73%,55%,1)"
+                },
+                {
+                    "slug": "base-600",
+                    "name": "Monochromatic of Brand base color by 60%",
+                    "color": "hsla(212,60%,44%,1)"
+                },
+                {
+                    "slug": "base-700",
+                    "name": "Monochromatic of Brand base color by 70%",
+                    "color": "hsla(212,60%,33%,1)"
+                },
+                {
+                    "slug": "base-800",
+                    "name": "Monochromatic of Brand base color by 80%",
+                    "color": "hsla(212,61%,22%,1)"
+                },
+                {
+                    "slug": "base-900",
+                    "name": "Monochromatic of Brand base color by 90%",
+                    "color": "hsla(212,61%,11%,1)"
                 },
                 {
                     "slug": "bodyColor-100",
-                    "name": "Shade of BodyColor by 10%",
+                    "name": "Lighten of Color for text by 10%",
                     "color": "hsla(0,0%,10%,1)"
                 },
                 {
                     "slug": "bodyColor-200",
-                    "name": "Shade of BodyColor by 20%",
+                    "name": "Lighten of Color for text by 20%",
                     "color": "hsla(0,0%,20%,1)"
                 },
                 {
                     "slug": "bodyColor-300",
-                    "name": "Shade of BodyColor by 30%",
+                    "name": "Lighten of Color for text by 30%",
                     "color": "hsla(0,0%,30%,1)"
                 },
                 {
                     "slug": "bodyColor-400",
-                    "name": "Shade of BodyColor by 40%",
+                    "name": "Lighten of Color for text by 40%",
                     "color": "hsla(0,0%,40%,1)"
                 },
                 {
                     "slug": "bodyColor-500",
-                    "name": "Shade of BodyColor by 50%",
+                    "name": "Lighten of Color for text by 50%",
                     "color": "hsla(0,0%,50%,1)"
                 },
                 {
                     "slug": "bodyColor-600",
-                    "name": "Shade of BodyColor by 60%",
+                    "name": "Lighten of Color for text by 60%",
                     "color": "hsla(0,0%,60%,1)"
                 },
                 {
                     "slug": "bodyColor-700",
-                    "name": "Shade of BodyColor by 70%",
+                    "name": "Lighten of Color for text by 70%",
                     "color": "hsla(0,0%,70%,1)"
                 },
                 {
                     "slug": "bodyColor-800",
-                    "name": "Shade of BodyColor by 80%",
+                    "name": "Lighten of Color for text by 80%",
                     "color": "hsla(0,0%,80%,1)"
                 },
                 {
                     "slug": "bodyColor-900",
-                    "name": "Shade of BodyColor by 90%",
+                    "name": "Lighten of Color for text by 90%",
                     "color": "hsla(0,0%,90%,1)"
+                },
+                {
+                    "slug": "bodyColor-1000",
+                    "name": "Lighten of Color for text by 100%",
+                    "color": "hsla(0,0%,100%,1)"
+                },
+                {
+                    "slug": "bodyBg-100",
+                    "name": "Darken of Color for body background by 10%",
+                    "color": "hsla(0,0%,90%,1)"
+                },
+                {
+                    "slug": "bodyBg-200",
+                    "name": "Darken of Color for body background by 20%",
+                    "color": "hsla(0,0%,80%,1)"
+                },
+                {
+                    "slug": "bodyBg-300",
+                    "name": "Darken of Color for body background by 30%",
+                    "color": "hsla(0,0%,70%,1)"
+                },
+                {
+                    "slug": "bodyBg-400",
+                    "name": "Darken of Color for body background by 40%",
+                    "color": "hsla(0,0%,60%,1)"
+                },
+                {
+                    "slug": "bodyBg-500",
+                    "name": "Darken of Color for body background by 50%",
+                    "color": "hsla(0,0%,50%,1)"
+                },
+                {
+                    "slug": "bodyBg-600",
+                    "name": "Darken of Color for body background by 60%",
+                    "color": "hsla(0,0%,40%,1)"
+                },
+                {
+                    "slug": "bodyBg-700",
+                    "name": "Darken of Color for body background by 70%",
+                    "color": "hsla(0,0%,30%,1)"
+                },
+                {
+                    "slug": "bodyBg-800",
+                    "name": "Darken of Color for body background by 80%",
+                    "color": "hsla(0,0%,20%,1)"
+                },
+                {
+                    "slug": "bodyBg-900",
+                    "name": "Darken of Color for body background by 90%",
+                    "color": "hsla(0,0%,10%,1)"
+                },
+                {
+                    "slug": "bodyBg-1000",
+                    "name": "Darken of Color for body background by 100%",
+                    "color": "hsla(0,0%,0%,1)"
                 }
             ],
             "gradients": [
@@ -180,34 +255,22 @@
                 {
                     "slug": "black-to-white",
                     "name": "Black to White",
-                    "colors": [
-                        "rgba(0,0,0,1.00)",
-                        "rgba(255,255,255,1.00)"
-                    ]
+                    "colors": ["rgba(0,0,0,1)", "rgba(255,255,255,1)"]
                 },
                 {
                     "slug": "white-to-black",
                     "name": "White to Black",
-                    "colors": [
-                        "rgba(255,255,255,1.00)",
-                        "rgba(0,0,0,1.00)"
-                    ]
+                    "colors": ["rgba(255,255,255,1)", "rgba(0,0,0,1)"]
                 },
                 {
                     "slug": "base-to-white",
                     "name": "Base to White",
-                    "colors": [
-                        "rgba(56,135,224,1.00)",
-                        "rgba(255,255,255,1.00)"
-                    ]
+                    "colors": ["rgba(56,135,224,1)", "rgba(255,255,255,1)"]
                 },
                 {
                     "slug": "base-to-black",
                     "name": "Base to Black",
-                    "colors": [
-                        "rgba(56,135,224,1.00)",
-                        "rgba(0,0,0,1.00)"
-                    ]
+                    "colors": ["rgba(56,135,224,1)", "rgba(0,0,0,1)"]
                 }
             ]
         },
@@ -268,21 +331,14 @@
                 },
                 {
                     "slug": "monospace",
-                    "name": "Font family for code",
+                    "name": "Font family for code and pre",
                     "fontFamily": "SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
                 }
             ]
         },
         "spacing": {
             "blockGap": true,
-            "units": [
-                "%",
-                "px",
-                "em",
-                "rem",
-                "vh",
-                "vw"
-            ]
+            "units": ["%", "px", "em", "rem", "vh", "vw"]
         },
         "layout": {
             "contentSize": "var(--wp--custom--content-size)",
@@ -346,15 +402,6 @@
                 "padding": {
                     "h": "0.75em",
                     "v": "0.375em"
-                }
-            },
-            "form": {
-                "border": {
-                    "color": "",
-                    "width": ""
-                },
-                "input": {
-                    "color": ""
                 }
             },
             "navbar": {
@@ -863,10 +910,7 @@
         {
             "name": "blank",
             "title": "Blank",
-            "postTypes": [
-                "page",
-                "post"
-            ]
+            "postTypes": ["page", "post"]
         }
     ]
 }

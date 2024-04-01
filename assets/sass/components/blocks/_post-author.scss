@@ -1,20 +1,18 @@
-@use "../../theme" as t;
+@use '../../theme' as t;
 
 .wp-block-post-author {
-
 }
 
 .wp-block-post-author__avatar {
     .avatar {
         border-radius: 50%;
-        border-color: var( t.$wp--preset--color--gray-600 );
+        border-color: var(t.$wp--preset--color--gray-600);
         border-style: solid;
         border-width: 4px;
     }
 }
 
 .wp-block-post-author__content {
-
 }
 
 // p tag by default

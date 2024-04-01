@@ -1,63 +1,61 @@
 name: Zip
 
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    push:
+        branches: [master]
+    pull_request:
+        branches: [master]
 
-  workflow_dispatch:
+    workflow_dispatch:
 
 jobs:
-  zip:
+    zip:
+        runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
 
-    steps:
-    - uses: actions/checkout@v2
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: 7.4
+                  tools: composer:v2
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: 7.4
-        tools: composer:v2
+            - uses: ramsey/composer-install@v1
+              with:
+                  composer-options: '--no-dev -o'
 
-    - uses: ramsey/composer-install@v1
-      with:
-        composer-options: "--no-dev -o"
+            - name: 👀 See the content
+              run: ls
 
-    - name: 👀 See the content
-      run: ls
+            - name: Use Node.js 12
+              uses: actions/setup-node@v2-beta
+              with:
+                  node-version: '12'
 
-    - name: Use Node.js 12
-      uses: actions/setup-node@v2-beta
-      with:
-        node-version: '12'
+            - name: 🔨 Build Project
+              run: |
+                  npm install
+                  npm run build
 
-    - name: 🔨 Build Project
-      run: |
-        npm install
-        npm run build
+            - name: List output files
+              run: find dist/ -print
 
-    - name: List output files
-      run: find dist/ -print
+            #    - name: Archive Release
+            #      uses: thedoctor0/zip-release@master
+            #      with:
+            #        type: 'zip'
+            #        filename: 'ciao.zip'
+            #        exclusions: '*.git* /*node_modules/* .editorconfig /test*/* .env .gitignore codeception.*'
 
-#    - name: Archive Release
-#      uses: thedoctor0/zip-release@master
-#      with:
-#        type: 'zip'
-#        filename: 'ciao.zip'
-#        exclusions: '*.git* /*node_modules/* .editorconfig /test*/* .env .gitignore codeception.*'
+            #    - uses: papeloto/action-zip@v1
+            #      with:
+            #        files: .
+            #        recursive: true
+            #        dest: ciao.zip
 
-
-#    - uses: papeloto/action-zip@v1
-#      with:
-#        files: .
-#        recursive: true
-#        dest: ciao.zip
-
-    - uses: actions/upload-artifact@v2
-      with:
-        name: ciao
-        path: dist/**
-        retention-days: 5
+            - uses: actions/upload-artifact@v2
+              with:
+                  name: ciao
+                  path: dist/**
+                  retention-days: 5

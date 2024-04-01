@@ -1,4 +1,4 @@
-@use "../mixins/responsive-image" as ri;
+@use '../mixins/responsive-image' as ri;
 
 img {
     @include ri.responsive-img;

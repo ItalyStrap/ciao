@@ -1,5 +1,5 @@
-@use "sass:map";
-@use "../../theme";
+@use 'sass:map';
+@use '../../theme';
 /**
  * This is like the .btn in bootstrap
  * Example:
@@ -8,10 +8,11 @@
 .wp-block-button__link {
     display: inline-block;
     text-align: center;
-    transition: color .15s ease-in-out,
-        background-color .15s ease-in-out,
-        border-color .15s ease-in-out,
-        box-shadow .15s ease-in-out;
+    transition:
+        color 0.15s ease-in-out,
+        background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out,
+        box-shadow 0.15s ease-in-out;
     vertical-align: middle;
     cursor: pointer;
     user-select: none;
@@ -37,21 +38,20 @@
     }
 }
 
-@mixin generate-hover-color-text-for-has-bg-color-in-fill-button( $shades ) {
+@mixin generate-hover-color-text-for-has-bg-color-in-fill-button($shades) {
     @each $slug, $values in $shades {
-
         &.has-#{$slug}-background-color {
-            --wp--custom--button--text: #{map.get($values, "text")};
+            --wp--custom--button--text: #{map.get($values, 'text')};
 
             &:hover,
             &:active,
             &:focus {
-                --wp--custom--button--hover--text: #{map.get($values, "text")};
+                --wp--custom--button--hover--text: #{map.get($values, 'text')};
 
-                @if( map.has-key( $values, "opacity" ) ) {
-                    opacity: map.get($values, "opacity");
+                @if (map.has-key($values, 'opacity')) {
+                    opacity: map.get($values, 'opacity');
                 } @else {
-                    --wp--preset--color--#{$slug}: #{map.get($values, "bg")};
+                    --wp--preset--color--#{$slug}: #{map.get($values, 'bg')};
                 }
             }
         }
@@ -62,58 +62,55 @@ $color-palette: () !default;
 
 $color-palette: (
     gray-100: (
-        "text": #ffffff,
-        "bg": var(--wp--preset--color--gray-300),
+        'text': #ffffff,
+        'bg': var(--wp--preset--color--gray-300),
     ),
     gray-200: (
-        "text": #ffffff,
-        "bg": var(--wp--preset--color--gray-400),
+        'text': #ffffff,
+        'bg': var(--wp--preset--color--gray-400),
     ),
     gray-300: (
-        "text": #ffffff,
-        "bg": var(--wp--preset--color--gray-500),
+        'text': #ffffff,
+        'bg': var(--wp--preset--color--gray-500),
     ),
     gray-400: (
-        "text": #ffffff,
-        "bg": var(--wp--preset--color--gray-600),
+        'text': #ffffff,
+        'bg': var(--wp--preset--color--gray-600),
     ),
     gray-500: (
-        "text": #ffffff,
-        "bg": var(--wp--preset--color--gray-700),
+        'text': #ffffff,
+        'bg': var(--wp--preset--color--gray-700),
     ),
     gray-600: (
-        "text": #000000,
-        "bg": var(--wp--preset--color--gray-800),
+        'text': #000000,
+        'bg': var(--wp--preset--color--gray-800),
     ),
     gray-700: (
-        "text": #000000,
-        "bg": var(--wp--preset--color--gray-900),
+        'text': #000000,
+        'bg': var(--wp--preset--color--gray-900),
     ),
     gray-800: (
-        "text": #000000,
-        "bg": var(--wp--preset--color--gray-600),
+        'text': #000000,
+        'bg': var(--wp--preset--color--gray-600),
     ),
     gray-900: (
-        "text": #000000,
-        "bg": var(--wp--preset--color--gray-700)
+        'text': #000000,
+        'bg': var(--wp--preset--color--gray-700),
     ),
 ) !default;
 
 .wp-block-button,
 .wp-block-button.is-style-fill {
-     .wp-block-button__link {
-
-        @include generate-hover-color-text-for-has-bg-color-in-fill-button( $color-palette );
-
+    .wp-block-button__link {
+        @include generate-hover-color-text-for-has-bg-color-in-fill-button($color-palette);
     }
 }
 
-
 .is-style-outline {
     > .wp-block-button__link {
-        --wp--custom--button--bg:           transparent;
+        --wp--custom--button--bg: transparent;
         --wp--custom--button--border-color: currentColor;
-        --wp--custom--button--text:         var( --wp--preset--color--base );
+        --wp--custom--button--text: var(--wp--preset--color--base);
 
         padding: var(--wp--custom--button--padding);
 
@@ -126,9 +123,9 @@ $color-palette: (
         &:hover,
         &:active,
         &:focus {
-            --wp--custom--button--bg:           var(--wp--custom--button--hover--bg);
+            --wp--custom--button--bg: var(--wp--custom--button--hover--bg);
             --wp--custom--button--border-color: var(--wp--custom--button--hover--border-color);
-            --wp--custom--button--text:         var(--wp--custom--button--hover--text);
+            --wp--custom--button--text: var(--wp--custom--button--hover--text);
         }
     }
 }
@@ -139,8 +136,8 @@ $color-palette: (
         background-color: var(--wp--custom--button--bg);
         border-color: var(--wp--custom--button--border-color);
         color: var(--wp--custom--button--text);
-        font-size: .7em;
-        border-radius: calc(1em/3);
+        font-size: 0.7em;
+        border-radius: calc(1em / 3);
     }
 }
 

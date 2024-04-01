@@ -7,7 +7,7 @@ use ItalyStrap\ThemeJsonGenerator\Domain\Input\SectionNames;
 use ItalyStrap\ThemeJsonGenerator\Domain\Input\Settings\PresetsInterface;
 use Psr\Container\ContainerInterface;
 
-return static function (ContainerInterface $container, PresetsInterface $collection, Blueprint $blueprint) {
+return static function (ContainerInterface $container, PresetsInterface $presets, Blueprint $blueprint) {
 
     $blueprint->merge([
         SectionNames::SCHEMA => 'https://schemas.wp.org/trunk/theme.json',

@@ -70,7 +70,6 @@
     //}
 
     @include media-breakpoint-down(md, $grid-breakpoints) {
-
         // Available space should be divided equally amongst columns without an
         // assigned width. This is achieved by assigning a flex basis that is
         // consistent (equal), would not cause the sum total of column widths to
@@ -83,7 +82,7 @@
 
         // Columns with an explicitly-assigned width should maintain their
         // `flex-basis` width and not grow.
-        &[style*="flex-basis"] {
+        &[style*='flex-basis'] {
             flex-grow: 0;
         }
 
